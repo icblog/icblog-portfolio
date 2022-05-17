@@ -1,0 +1,21 @@
+#my-hero {
+	background-color: $lightGreyColor;
+	margin-top: -0.8rem;
+}
+#my-hero img {
+	width: 1400px;
+	height: 460px;
+}
+
+@media (max-width: 991.98px) {
+	#my-hero img {
+		width: 960px;
+		height: 300px;
+	}
+}
+
+@media (max-width: 767.98px) {
+}
+
+@media (max-width: 575.98px) {
+}

@@ -1,0 +1,36 @@
+#authModal .auth-btn,
+#authModal .auth-back-btn {
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 1.5rem;
+  color: $primaryColor;
+  font-size: 1.3rem;
+  background-color: $whiteColor;
+  &:hover {
+    color: $primaryColor;
+    text-decoration: none;
+    background-color: $whiteColor;
+  }
+  &:focus {
+    color: $primaryColor;
+    background-color: $whiteColor;
+  }
+}
+
+#auth-option-login-wrapper,
+#auth-option-forgotten-pass-wrapper,
+#auth-option-register-wrapper,
+#review-form-wrapper,
+#after-login-action-wrapper {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+}
+
+@media (max-width: 767.98px) {
+}
+
+@media (max-width: 575.98px) {
+}

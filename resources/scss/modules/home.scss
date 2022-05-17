@@ -1,0 +1,52 @@
+.welcome-services {
+	background-color: $whiteColor;
+	padding-bottom: 3rem;
+}
+
+.individual-service-wrapper {
+	margin-bottom: 3.6rem;
+	height: 4rem;
+}
+.service-icon {
+	margin-right: 0.4rem;
+	font-size: 3rem;
+}
+
+.individual-service-wrapper div {
+	font-weight: 500;
+}
+.service-wrapper {
+	border-left: 1px solid $midGreyColor;
+}
+
+.latest-work {
+	margin-top: 2rem;
+	padding-top: 1rem;
+}
+
+.load-more-wrapper {
+	border-top: 0.1rem solid $midGreyColor;
+	margin: 1rem 1.5rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+@media (max-width: 991.98px) {
+}
+
+@media (max-width: 767.98px) {
+	.welcome-wrapper {
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+	.service-wrapper {
+		border-left: none;
+		text-align: center;
+	}
+	.service-h2-heading {
+		text-align: center;
+	}
+}
+
+@media (max-width: 575.98px) {
+}

@@ -1,0 +1,126 @@
+*,
+::after,
+::before {
+	box-sizing: border-box;
+}
+.cf:before,
+.cf:after {
+	content: " "; /* 1 */
+	display: table; /* 2 */
+}
+
+.cf:after {
+	clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+	*zoom: 1;
+}
+
+.box-shadow {
+	box-shadow: 0.1rem 0.1rem 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
+}
+.icon-color {
+	color: $primaryColor;
+}
+
+.no-border {
+	border: 0;
+	background: transparent;
+}
+
+.no-border-radius {
+	border-radius: 0 !important;
+}
+.hide-on-desktop {
+	display: none;
+}
+.show-on-desktop {
+	display: block;
+}
+
+.primary-btn {
+	padding: 0.5rem 0.8rem;
+	background-color: $primaryColor;
+	color: $whiteColor;
+	font-size: 1rem;
+	font-weight: 500;
+	cursor: pointer;
+	&:hover {
+		background-color: $primaryColorDark;
+		color: $whiteColor;
+	}
+	&:focus {
+		color: $whiteColor;
+	}
+}
+
+.view-more-link {
+	color: $primaryColor;
+	font-weight: 500;
+	&:hover {
+		color: $primaryColorDark;
+	}
+}
+
+.disabled-btn {
+	padding: 0.3rem 0.8rem;
+	background-color: $lightGreyColor;
+	color: $midGreyColor;
+	cursor: auto !important;
+	border: 1px solid $lightGreyColor;
+}
+
+.primary-link {
+	color: $primaryColor;
+	&:hover {
+		color: $primaryColorDark;
+	}
+}
+
+.backdrop-visible {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 3;
+	transition: opacity 0.6s;
+	background: $blackColor;
+	opacity: 0.5;
+}
+
+.hide-on-all-screen {
+	display: none;
+}
+
+@media (max-width: 991.98px) {
+	.hide-on-mobile {
+		display: none;
+	}
+	.show-on-mobile {
+		display: block;
+	}
+}
+
+@media (max-width: 767.98px) {
+}
+
+@media (max-width: 575.98px) {
+	.remove-left-right-padding-small-device {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.div-width-full {
+		width: 100%;
+	}
+
+	.primary-btn {
+		padding: 0.4rem 0.6rem;
+		font-size: 0.8rem;
+	}
+}

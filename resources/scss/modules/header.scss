@@ -1,0 +1,243 @@
+header {
+	width: 100%;
+	background-color: $whiteColor;
+	position: relative;
+	z-index: 4;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	border-bottom: 0.1rem solid $midGreyColor !important;
+	margin: 0 !important;
+}
+
+header .header-content-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+header .header-content-wrapper .left-content-wrapper {
+	order: 1;
+	width: 25%;
+}
+
+header .header-content-wrapper .middle-content-wrapper {
+	order: 2;
+	width: 50%;
+}
+
+header .header-content-wrapper .right-content-wrapper {
+	order: 3;
+	width: 25%;
+}
+
+/* Middle Nav Style */
+header .header-content-wrapper .middle-content-wrapper ul li {
+	float: left;
+	margin-right: 0.3rem;
+	margin-left: 0.9rem;
+}
+
+header .header-content-wrapper .middle-content-wrapper ul li a {
+	text-decoration: none;
+	color: $baseColor;
+	font-size: 1.1rem;
+	&:hover {
+		color: $darkGreyColor;
+	}
+}
+
+header .header-content-wrapper .middle-content-wrapper .header-nav-link.active {
+	color: $blackColor;
+	cursor: auto;
+	font-weight: 500;
+	&:hover {
+		font-weight: 500;
+	}
+}
+
+/* Right Nav Style */
+header .header-content-wrapper .right-content-wrapper ul li {
+	float: right;
+	font-size: 1.1rem;
+	padding-left: 1rem;
+}
+
+header .header-content-wrapper .right-content-wrapper .account-desc-link {
+	display: inline;
+}
+header .header-content-wrapper .right-content-wrapper .header-account-link {
+	text-decoration: none;
+	color: $darkGreyColor !important;
+	background-color: $whiteColor;
+	font-size: 1rem;
+	cursor: pointer;
+	&:hover {
+		color: $blackColor !important;
+	}
+}
+
+header
+	.header-content-wrapper
+	.right-content-wrapper
+	.header-account-link-loggedIn {
+	color: $primaryColor !important;
+	&:hover {
+		color: $primaryColor !important;
+	}
+}
+
+/* Style The Dropdown Button */
+
+/* The container <div> - needed to position the dropdown content */
+header .header-content-wrapper .right-content-wrapper .dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+header .header-content-wrapper .right-content-wrapper .dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: $whiteColor;
+	min-width: 10rem;
+	box-shadow: 0 0.5rem 1rem 0rem rgba(0, 0, 0, 0.2);
+	z-index: 5;
+	text-align: left;
+	top: 1.6rem;
+	right: -0.3rem;
+	padding-top: 0.6rem;
+	padding-bottom: 0.6rem;
+}
+
+header
+	.header-content-wrapper
+	.right-content-wrapper
+	.dropdown-content
+	.span-user-name {
+	text-align: center !important;
+	display: block;
+	border-bottom: 0.1rem solid $midGreyColor;
+	margin: 0 0.8rem 0.3rem 0.8rem;
+}
+
+/* Links inside the dropdown */
+header .header-content-wrapper .right-content-wrapper .dropdown-content a {
+	color: $darkGreyColor;
+	padding: 0.3rem 0.8rem;
+	text-decoration: none;
+	display: block;
+
+	&:hover {
+		background-color: $lighterGreyColor;
+		color: $blackColor;
+	}
+}
+
+/* Show the dropdown menu on hover */
+header
+	.header-content-wrapper
+	.right-content-wrapper
+	.dropdown:hover
+	.dropdown-content {
+	display: block;
+}
+
+header
+	.header-content-wrapper
+	.right-content-wrapper
+	.dropdown
+	a:hover
+	+ .dropdown-content {
+	display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+header
+	.header-content-wrapper
+	.right-content-wrapper
+	.dropdown:hover
+	.account-btn {
+	background-color: $lighterGreyColor;
+}
+
+header .header-content-wrapper .right-content-wrapper .hello-user {
+	padding: 0 0.6rem;
+	color: $primaryColor;
+}
+
+@media (max-width: 991.98px) {
+	header .header-content-wrapper .left-content-wrapper {
+		order: 1;
+		width: 50%;
+	}
+
+	header .header-content-wrapper .middle-content-wrapper {
+		order: 2;
+		// PUSH MENU
+		width: 0;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background-color: $whiteColor;
+		border-top: 0.2rem solid $primaryColor;
+		overflow-x: hidden;
+		transition: 0.5s;
+		box-shadow: 0 0.5rem 1rem 0rem rgba(0, 0, 0, 0.2);
+		z-index: 5;
+		padding-top: 2rem;
+	}
+	header .header-content-wrapper .middle-content-wrapper ul {
+		position: relative;
+		padding-top: 1.5rem;
+	}
+
+	header .header-content-wrapper .middle-content-wrapper ul li button {
+		position: absolute;
+		top: -0.8rem;
+		right: 2rem;
+		background-color: transparent;
+		font-size: 1.6rem;
+	}
+
+	header .header-content-wrapper .middle-content-wrapper ul li {
+		float: none;
+		padding: 0;
+		margin: 0;
+	}
+	header .header-content-wrapper .middle-content-wrapper ul li a {
+		color: $darkGreyColor;
+		display: block;
+		padding: 0.5rem;
+		border-bottom: 0.1rem solid $midGreyColor;
+
+		&:hover {
+			background-color: $lighterGreyColor;
+			color: $blackColor;
+		}
+	}
+
+	header .header-content-wrapper .middle-content-wrapper ul li:last-child a {
+		border-bottom: none;
+	}
+
+	header .header-content-wrapper .right-content-wrapper {
+		order: 3;
+		flex: 1;
+	}
+
+	header .header-content-wrapper .right-content-wrapper .menu-btn {
+		background-color: $whiteColor;
+		font-size: 1.5rem;
+		cursor: pointer;
+		color: $darkGreyColor;
+		display: inline;
+	}
+}
+
+@media (max-width: 767.98px) {
+	header .header-content-wrapper .right-content-wrapper .menu-btn {
+		background-color: transparent;
+	}
+}
+
+@media (max-width: 575.98px) {
+}

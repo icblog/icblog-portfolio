@@ -1,0 +1,50 @@
+.logo-wrapper a {
+	text-decoration: none;
+	font-weight: 600;
+	font-family: $primaryFontFamily;
+	padding: 0;
+	margin: 0;
+	font-size: 1.2rem;
+	text-transform: uppercase;
+	color: $blackColor !important;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.logo-wrapper img {
+	display: inline-block;
+}
+
+@media (max-width: 1280px) {
+	.logo-wrapper a {
+		font-size: 1rem !important;
+	}
+
+	.logo-wrapper .logo-oo {
+		font-size: 1.3rem;
+	}
+}
+
+@media (max-width: 991.98px) {
+}
+
+@media (max-width: 767.98px) {
+	.logo-wrapper a {
+		font-size: 1rem;
+	}
+
+	.logo-wrapper .logo-oo {
+		font-size: 1.2rem;
+	}
+}
+
+@media (max-width: 575.98px) {
+	.logo-wrapper a {
+		font-size: 0.9rem;
+	}
+
+	.logo-wrapper .logo-oo {
+		font-size: 1.1rem;
+	}
+}
