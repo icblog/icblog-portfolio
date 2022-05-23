@@ -4,18 +4,10 @@
 <section class="work">
   <div class="container-fluid">
     @include('layouts.page-intro')
+    <p class="text-center">We pride ourselves with what we do,below are some of our work samples click on image to enlarge.</p>
     @if(!$workData->isEmpty())
-    <div class="row">
-      <div class="masonry">
-       @foreach ($workData as $work)
-       <div class="item">
-        <img src="{{$work->imgUrl}}" />
-       </div>
-       @endforeach
-     </div>
-    
-     
-   </div>
+     <!-- INCLUDE WORK CARD -->
+    @include('work.work-card')
    <div class="row">
      <div class="col-md-12">
        <div id="pagi-link-wrapper">

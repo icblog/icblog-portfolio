@@ -25,7 +25,7 @@
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
       <div class="container-fluid">
         <div class="row">
          <div class="col-md-12">
@@ -104,7 +104,7 @@
 </li>
 @endif
 <li class="hide-on-mobile">
-  <i class="fa fa-mobile-screen"></i> {{config('app.site_contact_number')}}
+  <i class="fa fa-mobile-screen"></i> {{env('APP_CONTACT_NUMBER')}}
 </li>
 </ul>
 </div> <!-- End right-content-wrapper -->
@@ -121,3 +121,6 @@
 
 <!-- include Logout modal -->
 @include('auth.logout-modal')
+
+<!-- include Contact modal -->
+@include('contact.contact-modal')

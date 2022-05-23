@@ -7,4 +7,5 @@ require("./modules/login");
 require("./modules/verify");
 require("./modules/work");
 require("./modules/review");
+require("./modules/contact");
 require("./modules/logout");

@@ -95,18 +95,33 @@
         <p>Below are just a few sample work we've done, scroll down to see more.</p> 
       </div>
      </div>
-    <div class="row">
-      <div class="masonry">
-       @foreach ($workData as $work)
-       <div class="item">
-        <img src="{{$work->imgUrl}}" />
-       </div>
-       @endforeach
-     </div>
-    </div>
+        <!-- INCLUDE WORK CARD -->
+       @include('work.work-card')
     <div class="row">
        <div class="mb-4 text-center col-md-12">
         <a href="{{route('work.index')}}" class="view-more-link">Go to our work page >></a> 
+      </div>
+     </div>
+  </div>
+</section>
+   @endif
+
+  @if(!$reviewData->isEmpty())
+    <section class="review">
+  <div class="container-fluid">
+      <div class="row">
+       <div class="text-center col-md-12">
+       <h2 class="service-h2-heading pb-4 pt-4">
+                Client reviews
+        </h2>
+        <p>Below are what some of client says about us.</p> 
+      </div>
+     </div>
+        <!-- INCLUDE review CARD -->
+       @include('review.review-card')
+    <div class="row">
+       <div class="mb-4 text-center col-md-12">
+        <a href="{{route('review.index')}}" class="view-more-link">Go to our review page >></a> 
       </div>
      </div>
   </div>

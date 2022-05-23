@@ -29,7 +29,7 @@
 <li>
     <a
 
-    href="/admin/reviews"
+    href="{{route('admin.allreviews')}}"
     class="header-nav-link"
     >
     All Reviews

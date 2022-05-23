@@ -25,6 +25,8 @@ __webpack_require__(/*! ./modules/work */ "./resources/js/modules/work.js");
 
 __webpack_require__(/*! ./modules/review */ "./resources/js/modules/review.js");
 
+__webpack_require__(/*! ./modules/contact */ "./resources/js/modules/contact.js");
+
 __webpack_require__(/*! ./modules/logout */ "./resources/js/modules/logout.js");
 
 /***/ }),
@@ -46,7 +48,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "redirect": () => (/* binding */ redirect),
 /* harmony export */   "redirectToHomePage": () => (/* binding */ redirectToHomePage),
 /* harmony export */   "returnLoaderSpinner": () => (/* binding */ returnLoaderSpinner),
-/* harmony export */   "returnPartOfUrl": () => (/* binding */ returnPartOfUrl)
+/* harmony export */   "returnPartOfUrl": () => (/* binding */ returnPartOfUrl),
+/* harmony export */   "scrollToDiv": () => (/* binding */ scrollToDiv)
 /* harmony export */ });
 var returnBaseUrl = function returnBaseUrl() {
   return window.location.protocol + "//" + window.location.host + "/";
@@ -124,6 +127,9 @@ var handleErrorOnFocus = function handleErrorOnFocus() {
   $("textarea").focus(function () {
     $(".err-div").slideUp("slow");
   });
+  $("select").change(function () {
+    $(".err-div").slideUp("slow");
+  });
   $("input[type=file]").change(function () {
     $(".err-div").slideUp("slow");
   });
@@ -158,6 +164,9 @@ var hideElement = function hideElement(timeTohide, elementToHide, speedToHideIt)
     elementToHide.slideUp(speedToHideIt);
   }, timeTohide);
 };
+var scrollToDiv = function scrollToDiv(divToScrollTo) {
+  divToScrollTo.scrollTop(0);
+};
 
 /***/ }),
 
@@ -170,6 +179,7 @@ var hideElement = function hideElement(timeTohide, elementToHide, speedToHideIt)
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "validateElementEmpty": () => (/* binding */ validateElementEmpty),
 /* harmony export */   "validateEmail": () => (/* binding */ validateEmail)
 /* harmony export */ });
 /* harmony import */ var _functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./functions */ "./resources/js/helper/functions.js");
@@ -268,6 +278,17 @@ var validateEmail = function validateEmail(elemId) {
   return true;
 }; // function validateEmail ends
 
+var validateElementEmpty = function validateElementEmpty(elemId, message) {
+  var result = "";
+  result = checkElementEmpty(elemId, message);
+
+  if (!result.outCome) {
+    return result.errorDiv;
+  }
+
+  return true;
+}; // function validateElementEmpty ends
+
 /***/ }),
 
 /***/ "./resources/js/modules/auth.js":
@@ -321,6 +342,122 @@ $(".auth-btn").click(function () {
 $(document).on("click", "#auth-modal-close-btn", function () {
   var authModal = $("#authModal");
   (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleCloseModal)(authModal, "", false, true, true);
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/contact.js":
+/*!*****************************************!*\
+  !*** ./resources/js/modules/contact.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/functions */ "./resources/js/helper/functions.js");
+/* harmony import */ var _helper_validations__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../helper/validations */ "./resources/js/helper/validations.js");
+
+
+
+var handleContactLink = function handleContactLink(e) {
+  $(document).on("click", "#contact-link", function (e) {
+    e.preventDefault();
+    $("#contactModal").modal("show");
+  });
+};
+
+var handleContactForm = function handleContactForm() {
+  $(document).on("click", "#contact-form-btn", function (e) {
+    e.preventDefault();
+    var contactForm = $("#contact-form"),
+        errDiv = $(".err-div"),
+        formWrapper = $(".form-wrapper"),
+        formData = contactForm.serializeArray(),
+        loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+        errorElement = "",
+        msg = "",
+        timer = "",
+        validationRes = "",
+        time = 1200; //hide validation error
+
+    errDiv.slideUp("slow"); //Validate form values
+
+    validationRes = (0,_helper_validations__WEBPACK_IMPORTED_MODULE_1__.validateElementEmpty)($("#c-name"), "*Please provide your name");
+
+    if (validationRes != true) {
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
+      errDiv.html(validationRes).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    validationRes = (0,_helper_validations__WEBPACK_IMPORTED_MODULE_1__.validateEmail)($("#c-email"));
+
+    if (validationRes != true) {
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
+      errDiv.html(validationRes).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    validationRes = (0,_helper_validations__WEBPACK_IMPORTED_MODULE_1__.validateElementEmpty)($("#c-phone"), "*Please provide a phone number");
+
+    if (validationRes != true) {
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
+      errDiv.html(validationRes).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    validationRes = (0,_helper_validations__WEBPACK_IMPORTED_MODULE_1__.validateElementEmpty)($("#c-message"), "*Please provide your message");
+
+    if (validationRes != true) {
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
+      errDiv.html(validationRes).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    formWrapper.append(loader);
+    $(".form-top-text").hide("slow");
+    contactForm.hide("slow");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json"
+        },
+        url: routes.contactIndex,
+        //Blade Global veriable defined in the footer
+        data: formData,
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            $(".loader").remove();
+            msg = "Please check your email and follow the instruction to continue thank you.";
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info", false);
+            contactForm.trigger("reset");
+            formWrapper.html(errorElement);
+          } else {
+            //Remove validation error
+            $(".alert").remove();
+            $(".loader").remove();
+            $(".form-top-text").show("slow");
+            contactForm.slideDown("slow");
+            msg = data.error;
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            errDiv.html(errorElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+          }
+        }
+      });
+    }, time); // timer before action;
+  });
+};
+
+$(function () {
+  handleContactLink();
+  handleContactForm();
 });
 
 /***/ }),
@@ -871,7 +1008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/functions */ "./resources/js/helper/functions.js");
 
 
-var handleRview = function handleRview() {
+var handleReview = function handleReview() {
   $("#user-star").val("");
   $(document).on("click", "#review-form-btn", function (e) {
     e.preventDefault();
@@ -905,7 +1042,6 @@ var handleRview = function handleRview() {
     }
 
     formWrapper.append(loader);
-    $(".auth-back-btn").hide("slow");
     $(".form-top-text").hide("slow");
     reviewForm.hide("slow");
     clearInterval(timer);
@@ -942,7 +1078,7 @@ var handleRview = function handleRview() {
   });
 };
 
-var checkUserRview = function checkUserRview() {
+var checkUserReview = function checkUserReview() {
   $(document).on("click", "#leave-review-btn", function () {
     $.ajax({
       method: "POST",
@@ -982,11 +1118,108 @@ var checkUserRview = function checkUserRview() {
       }
     });
   });
+}; //========ADMIN REVIEW FUCNTIONS=========
+
+
+var hideAndShowReplyForm = function hideAndShowReplyForm() {
+  $(".show-reply-form-btn").click(function () {
+    $(this).hide("slow");
+    $(this).parent().parent().find(".reply-form-wrapper").show("slow");
+  });
+  $(".close-reply-form-btn").click(function () {
+    $(this).parent().parent().hide("slow");
+    $(this).parent().parent().parent().find(".show-reply-form-btn").show("slow");
+  });
+};
+
+var handleReviewReplyForm = function handleReviewReplyForm() {
+  $(".reply-form-btn").click(function (e) {
+    e.preventDefault();
+    var reviewReplyForm = $(this).parent().parent(),
+        errDiv = $(this).parent().parent().parent().find(".err-div"),
+        closeFormBtn = $(this).parent().parent().parent().find(".close-reply-form-btn"),
+        takeActionBtn = $(this).parent().parent().parent().parent().find(".show-reply-form-btn"),
+        statusValue = $(this).parent().parent().find(".status").val(),
+        formWrapper = $(this).parent().parent().parent(),
+        formData = reviewReplyForm.serializeArray(),
+        loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+        errorElement = "",
+        msg = "",
+        timer = "",
+        time = 2000; //hide validation error
+
+    errDiv.slideUp("slow"); //Validate form values
+
+    if (statusValue == "") {
+      msg = "Please select status";
+      errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", false);
+      errDiv.html(errorElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    if ($(this).parent().parent().find(".comment").val() == "") {
+      msg = "Please enter your reply";
+      errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", false);
+      errDiv.html(errorElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    formWrapper.prepend(loader);
+    reviewReplyForm.hide("slow");
+    closeFormBtn.hide("slow");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json"
+        },
+        url: routes.storeReviewReply,
+        //Blade Global veriable defined in the footer
+        data: formData,
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            $(".loader").remove();
+            msg = "You have sucessfully ".concat(statusValue, " the review");
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", true);
+            reviewReplyForm.trigger("reset");
+            formWrapper.html(errorElement);
+            clearInterval(timer);
+            timer = setTimeout(function () {
+              formWrapper.slideUp("slow");
+              takeActionBtn.show("slow");
+              location.reload();
+            }, time); // timer before action;
+          } else {
+            //Remove validation error
+            $(".alert").remove();
+            $(".loader").remove();
+            reviewReplyForm.slideDown("slow");
+            closeFormBtn.show("slow");
+            msg = data.error;
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            errDiv.html(errorElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+          }
+        }
+      });
+    }, time); // timer before action;
+  });
 };
 
 $(function () {
-  checkUserRview();
-  handleRview();
+  checkUserReview();
+  handleReview(); //ADMIN REVIEW
+
+  $(".admin-review-stars").jsRapStar({
+    length: 5,
+    starHeight: 40,
+    enabled: false
+  });
+  hideAndShowReplyForm();
+  handleReviewReplyForm();
 });
 
 /***/ }),

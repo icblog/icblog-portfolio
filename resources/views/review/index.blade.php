@@ -5,15 +5,18 @@
 <section class="reviews">
   <div class="container-fluid">
     @include('layouts.page-intro')
-    <div class="row">
+    
       @if (session('access_error'))
+      <div class="row">
       <div class="col-md-12">
         <div class="no-border-radius alert alert-danger">
          <strong>Error!</strong>
          {{ session('access_error') }}
        </div>
      </div>
+     </div>
      @endif
+     <div class="row">
      <div class="col-md-8 mx-auto">
       <p className="small-bottom-padding">
         We pride ourselves about the excellent
@@ -35,8 +38,25 @@
 
       </p>
     </div>
-
   </div>
+@if(!$reviewData->isEmpty())
+  <!-- INCLUDE REVIEW CARD -->
+  @include('review.review-card')
+   <div class="row">
+     <div class="col-md-12">
+       <div id="pagi-link-wrapper">
+       {!! $reviewData->links() !!}
+     </div>
+       
+     </div>
+   </div>
+   @else
+   <div class="row">
+     <div class="text-center col-md-12">
+       <p>Sorry there no reviews, please check back soon.</p>
+     </div>
+   </div>
+   @endif
 </div>
 </section>
 

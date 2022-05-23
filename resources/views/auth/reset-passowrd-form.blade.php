@@ -4,7 +4,7 @@
     <div class="err-div"></div>
     <form id="reset-password-form" method="POST">
      <div class="form-group">
-    <label>Password *</label>
+    <label class="form-label" for="pwd">Password *</label>
     <div class="input-group mb-3">
       <input type="password" name="pwd" id="reset-pwd" class="form-control">
       <div class="input-group-append">

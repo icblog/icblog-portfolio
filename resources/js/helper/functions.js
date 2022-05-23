@@ -100,6 +100,10 @@ export const handleErrorOnFocus = () => {
 		$(".err-div").slideUp("slow");
 	});
 
+	$("select").change(() => {
+		$(".err-div").slideUp("slow");
+	});
+
 	$("input[type=file]").change(() => {
 		$(".err-div").slideUp("slow");
 	});
@@ -138,3 +142,9 @@ export const hideElement = (timeTohide, elementToHide, speedToHideIt) => {
 		elementToHide.slideUp(speedToHideIt);
 	}, timeTohide);
 };
+
+
+export const scrollToDiv = (divToScrollTo) =>{
+	              
+                    divToScrollTo.scrollTop(0);
+}

@@ -6,10 +6,13 @@
    <form id="registerForm1" method="POST">
 
     <div class="form-group">
-     <label for="email">Email:</label>
+     <label class="form-label" for="email">Email *</label>
       <input type="text" class="form-control" id="registerFormEmail" name="email">
     </div>
      <input type="hidden" value="register" name="action">
+     <p class="small">
+    All fields marked with a * are mandatory
+  </p>
       <div class="pt-3 text-center">
        <button id="register-form1-btn" type="submit" class="primary-btn">Submit</button>
      </div>

@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VerifyController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminWorkController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\AboutController;
-
+use App\Http\Controllers\AdminReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::get('/work',[WorkController::class, 'index'])->name("work.index");
 // ==========ABOUT US ROUTE===========//
 Route::get('/about',[AboutController::class, 'index'])->name("about.index");
 
+// ==========CONTACT ROUTE===========//
+Route::post('/contact',[ContactController::class, 'index'])->name("contact.index");
+
 
 // ==========REVIEW ROUTE===========//
 Route::get('/reviews',[ReviewController::class, 'index'])->name("review.index");
@@ -65,6 +69,12 @@ Route::get('/admin/add-work',[AdminWorkController::class, 'addWork'])->name("adm
 Route::post('/admin/store',[AdminWorkController::class, 'store'])->name("admin.store")->middleware('a_admin');
 
 Route::post('/admin/delete-work',[AdminWorkController::class, 'deleteWork'])->name("admin.deleteWork")->middleware('a_admin');
+
+Route::get('/admin/all-reviews',[AdminReviewController::class, 'index'])->name("admin.allreviews")->middleware('a_admin');
+
+Route::post('/admin/store-review-reply',[AdminReviewController::class, 'storeReviewReply'])->name("admin.storeReviewReply")->middleware('a_admin');
+
+
 
 
 

@@ -1,7 +1,7 @@
 <?php
 
 return [
-          'site_contact_number' => env('APP_CONTACT_NUMBER',''),
+          
     /*
     |--------------------------------------------------------------------------
     | Application Name

@@ -35,6 +35,7 @@
 
     href="/contact"
     class="header-nav-link"
+    id="contact-link"
     >
     Contact
 </a>

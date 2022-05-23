@@ -19,7 +19,7 @@
     <label for="star">Your star:</label>
     <div id="review-stars" value="3"></div>
    <div class="mt-3 form-group">
-     <label for="comment">Your comment:</label>
+     <label class="form-label" for="comment">Your comment:</label>
       <textarea name="comment" id="comment" class="form-control" maxlength="6000"></textarea> 
     </div>
      <input type="hidden" value="" name="reviewId" id="reviewId">

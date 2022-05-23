@@ -1,8 +1,6 @@
 @extends("layouts.layout")
 @section("content")
-@section('title', 'admin dashboard')
-
-
+@section('title', 'admin work')
 <section class="admin-work">
   <div class="container-fluid">
     @include('layouts.page-intro')

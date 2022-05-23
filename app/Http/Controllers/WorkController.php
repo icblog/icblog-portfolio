@@ -11,9 +11,9 @@ class WorkController extends Controller{
 
 public function index(){
    $pageIntro = "Our Work";
-   $workData = $this->getWork(16);
-   //dd($workData);
-  
-   return view('/work.index', ["pageIntro"=>$pageIntro,"workData"=> $workData]);
+   $paginate = true;
+   $resPerPage = 16;
+   $workData = $this->getWorks($resPerPage,$paginate);
+  return view('/work.index', ["pageIntro"=>$pageIntro,"workData"=> $workData]);
   }
 }

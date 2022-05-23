@@ -6,36 +6,25 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Traits\HelperTrait;
+use App\Traits\ReviewTrait;
 
 class ReviewController extends Controller{
     use HelperTrait;
-    public function index(){
-        $pageIntro = "Latest reviews";
-        return view('/review.index', ["pageIntro"=>$pageIntro]);
+    use ReviewTrait;
+
+
+public function index(){
+          $pageIntro = "Latest reviews";
+          $isAdminPage = false;
+          $paginate = true;
+          $resPerPage = 16;
+          $reviewDataRes = $this->getReviews($resPerPage, $paginate,$isAdminPage);
+          $reviewData = $this->sortReviewData($reviewDataRes);
+          //dd($reviewData);
+        return view('/review.index', ["pageIntro"=>$pageIntro,"reviewData"=>$reviewData]);
     }
 
-    public function show(){
-
-
-    }
-
-    public function create(){
-
-
-    }
-
-    public function store(){
-
-
-
-  //    return response()->json([
-  //     'error' => [$this->returnGenericSystemErrMsg()],
-  //     'action'=>$request->$action
-  // ]);
-
-    }
-
-    public function checkUserReview(){
+ public function checkUserReview(){
 
         $res = $this->checkIfReviewExist(Auth::user()->id);
 
@@ -85,11 +74,11 @@ class ReviewController extends Controller{
          die();
       }//end if validation
 
-      //Check action and saveor update review data in Db
+      //Check action and save or update review data in Db
 try {
 
     if($request->action == "old-review"){
-           Review::where('id', $request->reviewId)->update(['star' => $request->star,'comment' => $request->comment]);
+           Review::where('id', $request->reviewId)->update(['star' => $request->star,'comment' => $request->comment,'status' => 'Pending']);
 
                 return response()->json([
                       "error"=>"",

@@ -46,11 +46,10 @@ class AuthController extends Controller
     ];
 }
 
+ }// End sendAlinkToUser
 
-    }// End sendAlinkToUser
 
-
-    public function index(Request $request){
+public function index(Request $request){
        $validator = Validator::make($request->all(), [
            'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i'
        ]);

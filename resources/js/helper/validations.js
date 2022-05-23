@@ -80,3 +80,18 @@ export const validateEmail = (elemId) => {
 
 	return true;
 }; // function validateEmail ends
+
+
+export const validateElementEmpty = (elemId,message) => {
+	let  result = "";
+
+	result = checkElementEmpty(elemId, message);
+	if (!result.outCome) {
+		return result.errorDiv;
+	}
+
+	
+	return true;
+}; // function validateElementEmpty ends
+
+

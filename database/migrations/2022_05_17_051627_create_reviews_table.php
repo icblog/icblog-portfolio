@@ -20,7 +20,7 @@ class CreateReviewsTable extends Migration
             $table->integer('review_by',11);
             $table->integer('reply_by',11)->nullable();
             $table->integer('parent_id',11)->nullable();
-            $table->integer('approved')->default(0);
+            $table->string('status')->default('Pending');
             $table->timestamps();
         });
     }

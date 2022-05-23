@@ -569,6 +569,10 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
   display: none;
 }
 
+.form-label {
+  color: #252525;
+}
+
 @media (max-width: 991.98px) {
   .form-wrapper .primary-btn {
     width: 100% !important;
@@ -637,6 +641,10 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
 
   .add-work-submit-btn {
     width: 100%;
+  }
+
+  .admin-work-item button {
+    right: 2rem;
   }
 }
 footer {
@@ -763,6 +771,7 @@ footer {
 .item img {
   max-width: 100%;
   height: auto;
+  cursor: pointer;
 }
 
 @media (max-width: 991.98px) {
@@ -776,11 +785,23 @@ footer {
     -moz-column-count: 2;
     column-count: 2;
   }
+
+  .item img {
+    display: block;
+    margin: 0 auto;
+  }
 }
 @media (max-width: 575.98px) {
   .masonry {
     -moz-column-count: 1;
     column-count: 1;
+    margin: 0 auto;
+  }
+
+  .item {
+    display: block;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
   }
 }
 .rapStar {
@@ -809,4 +830,20 @@ footer {
 
 .rapStarDisable {
   cursor: default;
+}
+
+.reply-form-wrapper {
+  display: none;
+}
+
+.review-item {
+  padding: 1rem;
+  background-color: #f3f3f3;
+}
+
+@media (max-width: 767.98px) {
+  .review-item-wrapper {
+    margin-left: 0.8rem;
+    margin-right: 0.8rem;
+  }
 }

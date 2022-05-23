@@ -3,11 +3,11 @@
     <div class="err-div"></div>
     <form id="login-form" method="POST">
        <div class="form-group">
-       <label for="email">Email:</label>
+       <label class="form-label" for="email">Email *</label>
        <input type="text" class="form-control" id="login-email" name="email">
      </div>
   <div class="form-group">
-    <label>Password *</label>
+    <label class="form-label" for="password">Password *</label>
     <div class="input-group mb-3">
       <input type="password" name="password" id="login-pwd" class="form-control">
       <div class="input-group-append">
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <p className="small-font-size">
+   <p class="small">
     All fields marked with a * are mandatory
   </p>
   <div class="pt-3 text-center">

@@ -5,10 +5,13 @@
    <div class="err-div"></div>
  <form id="forgotten-pwd-form" action="POST">
     <div class="form-group">
-      <label for="email">Email:</label>
+      <label class="form-label" for="email">Email *</label>
       <input type="email" class="form-control" id="forgotten-pwd-email" placeholder="Enter email" name="email">
     </div>
     <input type="hidden" value="forgotten_pass" name="action">
+     <p class="small">
+    All fields marked with a * are mandatory
+  </p>
     <div class="text-center">
    <button type="submit" id="forgotten-pwd-form-btn" class="primary-btn">Submit</button>
    </div>

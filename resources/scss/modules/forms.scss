@@ -14,6 +14,9 @@
 .form-wrapper .err-div {
 	display: none;
 }
+.form-label{
+	color: $darkGreyColor;
+}
 
 @media (max-width: 991.98px) {
 	.form-wrapper .primary-btn {

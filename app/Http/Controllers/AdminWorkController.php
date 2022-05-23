@@ -6,17 +6,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\HelperTrait;
+use App\Traits\WorkTrait;
 use App\Models\Work;
 
 
 class AdminWorkController extends Controller{
   use HelperTrait;
-  
+  use WorkTrait;
 
-  public function index(){
+public function index(){
    $pageIntro = "Admin All Work";
-   $workData = Work::orderBy('id', 'desc')->paginate(16);
-   return view('/admin.work.index', ["pageIntro"=>$pageIntro,"workData"=>$workData]);
+   $paginate = true;
+   $resPerPage = 16;
+   $workData = $this->getWorks($resPerPage,$paginate);
+  return view('/admin.work.index', ["pageIntro"=>$pageIntro,"workData"=>$workData]);
 }
 
 public function addWork(){

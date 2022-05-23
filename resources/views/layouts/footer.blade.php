@@ -25,6 +25,8 @@
          'adminDeleteWork': '{{ route('admin.deleteWork') }}',
          'storeUserReview': '{{ route('review.userStore') }}',
          'checkUserReview': '{{ route('review.checkUserReview') }}',
+         'storeReviewReply': '{{ route('admin.storeReviewReply') }}',
+         'contactIndex': '{{ route('contact.index') }}',
          
          
        };

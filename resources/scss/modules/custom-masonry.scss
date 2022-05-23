@@ -17,18 +17,18 @@
 .item {
   display: inline-block;
   background: $whiteColor;
-  //padding: 1em;
   margin: 0 0 1.5em;
   width: 100%;
   -webkit-transition: 1s ease all;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  //box-shadow: 2px 2px 4px 0 #ccc;
 }
 .item img {
   max-width: 100%;
+  // margin: 0 1rem;
   height: auto;
+  cursor: pointer;
 }
 
 @media (max-width: 991.98px) {
@@ -45,6 +45,10 @@
     -webkit-column-count: 2;
     column-count: 2;
   }
+  .item img {
+    display: block;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 575.98px) {
@@ -52,5 +56,12 @@
     -moz-column-count: 1;
     -webkit-column-count: 1;
     column-count: 1;
+    margin: 0 auto;
+  }
+
+  .item {
+    display: block;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
   }
 }
