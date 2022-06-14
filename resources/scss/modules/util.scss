@@ -50,9 +50,11 @@
 	font-size: 1rem;
 	font-weight: 500;
 	cursor: pointer;
+	text-decoration: none;
 	&:hover {
 		background-color: $primaryColorDark;
-		color: $whiteColor;
+		color: $lightGreyColor;
+		text-decoration: none;
 	}
 	&:focus {
 		color: $whiteColor;

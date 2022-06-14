@@ -1,10 +1,8 @@
 <div class="logo-wrapper">
     <a href="{{route('home.index')}}">
-        Adom
-        <span class="logo-oo">
-            <img src="https://res.cloudinary.com/adomb/image/upload/v1648977490/imgs/logo-icon_uaw2yr.png" alt=""/>
-        </span>
-        Balloons
+        <span class="logo-o logo-dot">.</span>
+        <span class="logo-o logo-dot">.</span>
+        <span class="logo-ic">ic</span>Blog
     </a>
     
 </div> 

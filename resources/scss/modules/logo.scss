@@ -1,50 +1,49 @@
 .logo-wrapper a {
 	text-decoration: none;
-	font-weight: 600;
-	font-family: $primaryFontFamily;
+	font-weight: bolder;
+	font-family: $basefontFamily;
 	padding: 0;
+	position: relative;
 	margin: 0;
-	font-size: 1.2rem;
-	text-transform: uppercase;
+	font-size: 1.5rem;
+	text-transform: lowercase;
 	color: $blackColor !important;
 	&:hover {
 		text-decoration: none;
 	}
 }
-
-.logo-wrapper img {
-	display: inline-block;
+.logo-ic{
+	//color: $primaryColor;
 }
+
+.logo-dot{
+	position: absolute;
+	top: -1.1rem;
+	left: -0.2rem;
+	font-weight: bold;
+	font-size: 3.5rem;
+	color: $primaryColor !important;
+
+}
+
 
 @media (max-width: 1280px) {
-	.logo-wrapper a {
-		font-size: 1rem !important;
-	}
 
-	.logo-wrapper .logo-oo {
-		font-size: 1.3rem;
-	}
 }
+
+
+
 
 @media (max-width: 991.98px) {
 }
 
 @media (max-width: 767.98px) {
-	.logo-wrapper a {
-		font-size: 1rem;
-	}
+	
 
-	.logo-wrapper .logo-oo {
-		font-size: 1.2rem;
-	}
+	
 }
 
 @media (max-width: 575.98px) {
-	.logo-wrapper a {
-		font-size: 0.9rem;
-	}
 
-	.logo-wrapper .logo-oo {
-		font-size: 1.1rem;
-	}
+
 }

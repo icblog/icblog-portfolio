@@ -3,9 +3,9 @@ header {
 	background-color: $whiteColor;
 	position: relative;
 	z-index: 4;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	border-bottom: 0.1rem solid $midGreyColor !important;
+	padding-top: 1em;
+	padding-bottom: 1em;
+	// border-bottom: 0.1rem solid $midGreyColor !important;
 	margin: 0 !important;
 }
 
@@ -16,22 +16,23 @@ header .header-content-wrapper {
 
 header .header-content-wrapper .left-content-wrapper {
 	order: 1;
-	width: 25%;
+	width: 15%;
 }
 
 header .header-content-wrapper .middle-content-wrapper {
 	order: 2;
-	width: 50%;
+	width: 80%;
+	line-height: 2.375rem;
 }
 
 header .header-content-wrapper .right-content-wrapper {
 	order: 3;
-	width: 25%;
+	width: 5%;
 }
 
 /* Middle Nav Style */
 header .header-content-wrapper .middle-content-wrapper ul li {
-	float: left;
+	float: right;
 	margin-right: 0.3rem;
 	margin-left: 0.9rem;
 }

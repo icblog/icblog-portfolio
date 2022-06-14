@@ -14,19 +14,7 @@
      });
      //ROUTE NAMES
      let routes = {
-         'authIndex': '{{ route('auth.index') }}',
-         'homeIndex': '{{ route('home.index') }}',
-         'verifyToken': '{{ route('verify.verifyToken') }}',
-         'authStore': '{{ route('auth.store') }}',
-         'authUpdate': '{{ route('auth.update') }}',
-         'authLogin': '{{ route('auth.login') }}',
-         'authLogout': '{{ route('auth.logout') }}',
-         'adminStore': '{{ route('admin.store') }}',
-         'adminDeleteWork': '{{ route('admin.deleteWork') }}',
-         'storeUserReview': '{{ route('review.userStore') }}',
-         'checkUserReview': '{{ route('review.checkUserReview') }}',
-         'storeReviewReply': '{{ route('admin.storeReviewReply') }}',
-         'contactIndex': '{{ route('contact.index') }}',
+          'contactIndex': '{{ route('contact.index') }}'
          
          
        };

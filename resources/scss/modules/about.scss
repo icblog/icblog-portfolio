@@ -1,62 +1,64 @@
-// .meet-joanah-img,
-// .our-history-img {
-// 	height: 400px;
-// }
-.aboutus-wrapper {
-	padding-top: 2rem;
+.about-h5-intro{
+  display: inline-block;
+  border-bottom: 0.2rem solid $primaryColor;
+  cursor: pointer;	
 }
-.aboutus-detail-wrapper {
-	width: 100%;
+.about-arrow-up{
+  display: none;
 }
-.aboutus-detail-wrapper .image {
-	height: 0;
-	padding-bottom: 40%;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center center;
-	position: relative;
-	width: 40%;
+.project-detail{
+	padding: 0.6rem;
+	background-color: $whiteColor;
+	margin-bottom: 1.5rem;
 }
-.aboutus-detail-wrapper .desc,
-.aboutus-detail-wrapper .image {
-	float: left;
-	display: block;
+.project-exp-wrapper{
+	margin-top: 1.5rem;
 }
-.aboutus-detail-wrapper .desc {
-	width: 60%;
-	padding-left: 1.5rem;
+.collapse-history-wrapper{
+	background-color: $whiteColor;
+	padding: 1rem;
+	margin-bottom: 2rem;
+
+}
+.project-collapse-wrapper{
+	margin-bottom: 2rem;
+
+}
+.source-link-wrapper a{
+	text-decoration: underline;
 }
 
-.aboutus-detail-wrapper .desc h6 {
-	display: inline-block;
-	border-bottom: 0.2rem solid $primaryColor;
-	margin-bottom: 0.8rem;
+.w3c-link{
+ text-decoration: underline;
+ font-style: italic;
+	
 }
-.aboutus-detail-wrapper .meet-joanah-wrapper {
-	padding-left: 0;
-	padding-right: 0.8rem;
+.tech-stack-name{
+  font-size: 0.9rem;
+   
 }
+.skill-detail span{
+	font-weight: 600;
+}
+.skills-heading-p{
+	
+	font-size: 1.3rem;
+	padding-top: 1rem;
+}
+
+.skills-detail-div{
+  padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+	
+
+}
+
 
 @media (max-width: 991.98px) {
 }
 
 @media (max-width: 767.98px) {
-	.aboutus-wrapper {
-		padding-top: 0.5rem;
-	}
-	.aboutus-detail-wrapper .desc,
-	.aboutus-detail-wrapper .image {
-		float: none;
-		width: 100%;
-	}
-	.aboutus-detail-wrapper .desc {
-		padding-left: 0;
-	}
-	.aboutus-detail-wrapper .desc h6 {
-		padding-left: 0;
-		margin-bottom: 1rem;
-		margin-top: 1rem;
-	}
+
 }
 
 @media (max-width: 575.98px) {

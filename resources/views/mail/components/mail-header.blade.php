@@ -30,14 +30,15 @@
    .lmt{
        margin-top: 1.8rem;
    }
+   .bolded{
+    font-weight: bold;
+   }
 
  </style>
 </head>
 <body>
 <div class="content-wrapper">
-   <a class="logo" href="{{route('home.index')}}" target="_blank">
-      ADOM<span><img src="https://res.cloudinary.com/adomb/image/upload/v1648977490/imgs/logo-icon_uaw2yr.png" /></span>
-       BALLOONS
+   <a class="logo" href="{{route('home.index')}}" target="_blank">icBlog
   </a>
 
   @if($dataObj->name == "")

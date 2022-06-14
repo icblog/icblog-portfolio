@@ -7,7 +7,7 @@
     </div>
     </div>
     </div>
-<div class="content-wrapper">
+<div class="content-wrapper-layout">
   @yield("content")
 </div>
 @include('layouts.footer')

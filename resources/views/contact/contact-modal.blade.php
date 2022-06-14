@@ -5,30 +5,22 @@
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h5 class="modal-title text-center">Contact us</h5>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h5 class="modal-title text-center">Get intouch</h5>
+        <button type="button" class="close close-contact-modal" data-dismiss="modal">&times;</button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
         <div class="form-top-text">
-          <p>We are always happy to help, get intouch using the form or the details below and a member of our team will get back to you.</p>
+          <p>Use the form or the email address below and I will get back to you as soon as possible thank you.</p>
           <p>
-            <span class="form-label font-weight-bold">Email us : </span>
+            <span class="form-label font-weight-bold">Email me : </span>
 
-            {{env('APP_SUPPORT_EMAIL')}}
+            {{env('APP_ADMIN_EMAIL')}}
           </p>
 
           <p>
-            <span class="form-label font-weight-bold">Call us : </span>
-            {{env('APP_CONTACT_NUMBER')}}
-            <span class="small">
-              (Mon-Sat 8am-7pm)
-            </span>
-          </p>
-
-          <p>
-            <span class="form-label font-weight-bold">Message us : </span>
+            <span class="form-label font-weight-bold">Message me : </span>
 
           </p>
         </div>

@@ -15,4 +15,4 @@ mix.js("resources/js/app.js", "public/js").sass(
     "resources/scss/main.scss",
     "public/css"
 );
-mix.browserSync("adomballoons.com");
+mix.browserSync("icblog.lo");

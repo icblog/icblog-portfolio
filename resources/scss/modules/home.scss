@@ -1,51 +1,38 @@
-.welcome-services {
-	background-color: $whiteColor;
-	padding-bottom: 3rem;
+.home-wrapper{
+	padding-top: 8rem;
+}
+.more-about-me-link-home-page{
+	color: $blackColor;
+	text-decoration: underline;
+	
+	font-weight: bold;
+	&:hover{
+		color: $darkGreyColor;
+		text-decoration: underline;
+		
+	}
+}
+.more-about-me-arrow{
+	color: $primaryColorDark;
+	font-weight: bold;
 }
 
-.individual-service-wrapper {
-	margin-bottom: 3.6rem;
-	height: 4rem;
-}
-.service-icon {
-	margin-right: 0.4rem;
-	font-size: 3rem;
+.more-about-me-link-home-page:hover ~ .more-about-me-arrow{
+   color: $darkGreyColor;
 }
 
-.individual-service-wrapper div {
-	font-weight: 500;
-}
-.service-wrapper {
-	border-left: 1px solid $midGreyColor;
-}
 
-.latest-work {
-	margin-top: 2rem;
-	padding-top: 1rem;
-}
-
-.load-more-wrapper {
-	border-top: 0.1rem solid $midGreyColor;
-	margin: 1rem 1.5rem;
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
 
 @media (max-width: 991.98px) {
+
+	.home-wrapper{
+	padding-top: 5rem;
+}
+
 }
 
 @media (max-width: 767.98px) {
-	.welcome-wrapper {
-		margin-bottom: 2rem;
-		text-align: center;
-	}
-	.service-wrapper {
-		border-left: none;
-		text-align: center;
-	}
-	.service-h2-heading {
-		text-align: center;
-	}
+
 }
 
 @media (max-width: 575.98px) {

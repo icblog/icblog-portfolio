@@ -7,10 +7,17 @@ import {
 import { validateEmail, validateElementEmpty } from "../helper/validations";
 
 const handleContactLink = (e) =>{
-    $(document).on("click", "#contact-link", function (e) {
+    $(document).on("click", ".contact-link", function (e) {
     e.preventDefault();
     $("#contactModal").modal("show");
+    $(".contact-link").hide("slow");
     });
+
+     $(document).on("click", ".close-contact-modal", function () {
+       $(".contact-link").show("slow");
+    });
+
+    
 
 }
 
@@ -90,8 +97,8 @@ const handleContactForm = () => {
                         $(".loader").remove();
 
                         msg =
-                            "Please check your email and follow the instruction to continue thank you.";
-                        errorElement = handleOutputInFo(msg, "info", false);
+                            "Thank you for getting intouch, I will get back to you soon.";
+                        errorElement = handleOutputInFo(msg, "success", false);
                         contactForm.trigger("reset");
                         formWrapper.html(errorElement);
                     } else {
