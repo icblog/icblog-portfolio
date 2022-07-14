@@ -109,7 +109,35 @@
                 </div>
               </div>
              </div>
-         </div>
+         </div><!-- end row-->
+
+         <div class="row">
+           <div class="col-md-6">
+               <div class="box-shadow project-detail">
+                <img src="{{ asset('imgs/icblog.png') }}" class="project-img" alt="Ishop"/>
+                <p>This is my portfolio site which you're browsing, I showcase my skills and talent here with
+                  blog section coming soon to help give back to the onilne web community that has been a huge part of my coding journey.</p>
+                  <strong>Key features:</strong><br/>
+                  <span class="tech-stack-name">Responsive . </span>
+                  <span class="tech-stack-name"> Blog .</span>
+                  <span class="tech-stack-name"> Admin  CRUD </span>
+                <br/>
+                  <strong>Main tech stack:</strong><br/>
+                <span class="tech-stack-name">HTML . </span>
+                <span class="tech-stack-name">Scss .</span>
+                <span class="tech-stack-name">Javascript .</span>
+                <span class="tech-stack-name">Bootstrap . </span>
+                <span class="tech-stack-name">Php . </span>
+                <span class="tech-stack-name">Mysql .  </span>
+                
+                <span class="tech-stack-name">Laravel </span>
+                </p>
+              
+              </div>
+             </div>
+          
+          
+         </div><!-- end row-->
          </div><!-- end project-collapse-wrapper -->
         </div><!-- end collapse  -->   
 </div> <!-- end Container div -->
@@ -170,7 +198,7 @@
                 <span>Node Js</span> .
                 <span>Composer</span> .
                   <span>Git/Github</span> .
-                  <span>Sublime</span>
+                  <span>VS code</span>
                </div>
              </div>
              

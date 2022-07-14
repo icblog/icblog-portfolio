@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BlogController;
 
 
 
@@ -34,7 +35,8 @@ Route::get('/about',[AboutController::class, 'index'])->name("about.index");
 Route::post('/contact',[ContactController::class, 'index'])->name("contact.index");
 
 
-
+// ==========BLOG ROUTE===========//
+Route::get('/blog',[BlogController::class, 'index'])->name("blog.index");
 
 
 

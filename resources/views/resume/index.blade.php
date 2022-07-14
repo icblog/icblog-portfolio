@@ -1,6 +1,6 @@
 @extends("layouts.layout")
 @section("content")
-@section('title', 'about me')
+@section('title', 'resume')
 <section>
   <div class="container">
     <div class="about-wrapper row pt-5">
