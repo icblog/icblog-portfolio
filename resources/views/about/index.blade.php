@@ -43,7 +43,7 @@
           <div class="project-collapse-wrapper">
          
           <div class="row">
-           <div class="col-md-6">
+           <!-- <div class="col-md-6">
                <div class="box-shadow project-detail">
                 <img src="{{ asset('imgs/ishop.jpg') }}" class="project-img" alt="Ishop"/>
                 <p>Through out my coding journey, I've always wanted to build ecommerce application from the ground up to challenge myself. 
@@ -73,7 +73,7 @@
                   <a href="https://github.com/icblog/ishop-api" target="_blank"><strong>Source code Api</strong></a>
                 </div>
               </div>
-             </div>
+             </div> -->
           
             <div class="col-md-6">
               <div class="box-shadow project-detail">
@@ -89,30 +89,22 @@
                  
                   <br/>
                 
-                <strong>Main tech stack:</strong><br/>
-                <span class="tech-stack-name">React Js .</span>
-                <span class="tech-stack-name">Bootstrap .</span>
-                <span class="tech-stack-name">Node js .</span>
-                <span class="tech-stack-name">MongoDb . </span>
+                  <strong>Main tech stack:</strong><br/>
+                <span class="tech-stack-name">HTML . </span>
+                <span class="tech-stack-name">Scss .</span>
                 <span class="tech-stack-name">Javascript .</span>
-                <span class="tech-stack-name">scss </span>
+                <span class="tech-stack-name">Bootstrap . </span>
+                <span class="tech-stack-name">Php . </span>
+                <span class="tech-stack-name">Mysql .  </span>
+                <span class="tech-stack-name">Laravel </span>
+                
+                <span class="source-link-wrapper"><a href="https://adomballoons.42web.io" target="_blank"><strong>Site link</strong></a> <strong>.</strong> <a href="https://github.com/icblog/icblog-portfolio" target="_blank"><strong>Source code</strong></a></span> 
                 </p>
-                <div class="source-link-wrapper">
-                  <a href="https://adom-balloons.herokuapp.com" target="_blank"><strong>Site link  </strong></a> .
-                  <a href="https://github.com/icblog/Adom" target="_blank"><strong>Source code</strong></a> .
-                  <a href="https://github.com/icblog/Adom-api" target="_blank"><strong>Source code Api</strong></a>
-                </div>
-
-                <span><strong>Laravel version:</strong></span><br/>
-                <div class="source-link-wrapper">
-                <a href="https://github.com/icblog/Adom-laravel" target="_blank"><strong>Source code</strong></a>
-                </div>
-              </div>
+           
              </div>
-         </div><!-- end row-->
+             </div>
 
-         <div class="row">
-           <div class="col-md-6">
+             <div class="col-md-6">
                <div class="box-shadow project-detail">
                 <img src="{{ asset('imgs/icblog.png') }}" class="project-img" alt="Ishop"/>
                 <p>This is my portfolio site which you're browsing, I showcase my skills and talent here with
@@ -129,16 +121,16 @@
                 <span class="tech-stack-name">Bootstrap . </span>
                 <span class="tech-stack-name">Php . </span>
                 <span class="tech-stack-name">Mysql .  </span>
-                
                 <span class="tech-stack-name">Laravel </span>
+                
+                <span class="source-link-wrapper"><a href="https://github.com/icblog/icblog-portfolio" target="_blank"><strong>Source code</strong></a></span> 
                 </p>
               
               </div>
              </div>
-          
-          
          </div><!-- end row-->
-         </div><!-- end project-collapse-wrapper -->
+
+        </div><!-- end project-collapse-wrapper -->
         </div><!-- end collapse  -->   
 </div> <!-- end Container div -->
 </section>
@@ -170,12 +162,10 @@
             <div class="col-md-6">
               <div class="box-shadow skill-detail project-detail">
                 <p class="skills-heading-p">FrameWorks</p>
-                <span>React/Redux</span> .
-                  <span>Bootstrap</span> .
-                  <span>Jquery/Ajax</span> .
-                  <span>Laravel/Blade</span> .
-                   <span>Ejs</span> .
-                   <span>Jsx</span>
+                <span>Laravel/Blade</span> .
+                <span>Bootstrap</span> .
+                  <span>Jquery/Ajax</span> 
+                  
                </div>
              </div>
            </div><!-- end row div -->
@@ -185,17 +175,14 @@
               <div class="box-shadow skill-detail project-detail">
                 <p class="skills-heading-p">Database & Drivers</p>
                   <span>Mysql/PhpMyAdmin</span> .
-                  <span>MongoDB/Mongoose</span>
-                  <span>Express</span>
-                  
-               </div>
+                  <span>MongoDB</span>
+                </div>
              </div>
 
              <div class="col-md-6">
               <div class="box-shadow skill-detail project-detail">
                 <p class="skills-heading-p">Tools & Systems</p>
                 <span>Npm</span> .
-                <span>Node Js</span> .
                 <span>Composer</span> .
                   <span>Git/Github</span> .
                   <span>VS code</span>
