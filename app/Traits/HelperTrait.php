@@ -1,73 +1,48 @@
 <?php
 namespace App\Traits;
-use App\Models\User;
-use App\Models\Review;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppMail;
 
 trait HelperTrait{
-
+  
 public function returnGenericSystemErrMsg(){
 	return "Sorry system error, were unable to process your request please try again later thank you";
 }//End returnGenericSystemErrMsg
 
-public function checkIfUserExist($fieldTocheck,$fieldValue){
-  $outComeArray = array("msg"=>"", "data"=>"", "user"=>"");
+public function returnLinkErrMsg(){
+	return "Sorry the link has expired or Invalid, we redirecting you to page to create and one thank you.";
+}//End returnGenericSystemErrMsg
 
-try {
-
-   $user = User::where($fieldTocheck, $fieldValue)->first();
-
-if($user && $user->count() > 0) {
-    $outComeArray["msg"] = "";
-	$outComeArray["data"] = true;
-    $outComeArray["user"] = $user;
-     
-    }else{
-      $outComeArray["msg"] = "";
-	  $outComeArray["data"] = false;
-   }
-
-   return $outComeArray;
-
-
-} catch (\Exception $e) { // Also tried JwtException
-    $outComeArray["msg"] = $this->returnGenericSystemErrMsg();
-    $outComeArray["data"] = 'error';
-    return $outComeArray;
-}
+public function sendAlinkToUser($token,$email,$action,$subject,$emailTemplate){
+  $outComeArray = array("error"=>"", "outcome"=>"");
  
-}//End check if user exist
+  $verifyLink = env('APP_URL')."/verify/".$token."/".$action;
+  
+  $dataArray = array(
+      "name"=>"",
+      "link"=>$verifyLink
+  );
+   //convert data array into data object for blade view
+  $dataObj = (object)$dataArray;
+  try {
 
-public function checkIfReviewExist($fieldValue){
-  $outComeArray = array("msg"=>"", "data"=>"", "userReview"=>"");
+      Mail::to($email)->send(new AppMail($subject,$emailTemplate,$dataObj));
+      $outComeArray["outcome"] = true; 
+      return $outComeArray;
 
-try {
-
-   $userReview =  Review::select('id','star','comment')->where('review_by',$fieldValue)->first();
-
-if($userReview && $userReview->count() > 0) {
-    //Remove some review Data
-
-
-    $outComeArray["msg"] = "";
-    $outComeArray["data"] = true;
-    $outComeArray["userReview"] = $userReview;
-     
-    }else{
-      $outComeArray["msg"] = "";
-      $outComeArray["data"] = false;
-   }
-
-   return $outComeArray;
-
-
-} catch (\Exception $e) { // Also tried JwtException
-
-    $outComeArray["msg"] = $this->returnGenericSystemErrMsg();
-    $outComeArray["data"] = 'error';
+  } catch (\Exception $e) { 
+    $outComeArray["error"] = true; 
     return $outComeArray;
+  }
+
+}// End sendAlinkToUser
+
+public function checkIsEmail($email){
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+     return false;
+  }else{
+    return true;
+  }
 }
- 
-}//End check if user exist
 
 }// END CLASS
