@@ -56,7 +56,7 @@ const handleInitialRegister = () => {
                         localStorage.setItem("regemail", $("#initial-register-email-input").val());
                         msg =
                             "Please check your email and follow the instruction to continue thank you.";
-                        infoElement = handleOutputInFo(msg, "info", false);
+                        infoElement = handleOutputInFo(msg, "info");
                         regForm.trigger("reset");
                         formWrapper.html(infoElement);
                     } else {
@@ -66,7 +66,7 @@ const handleInitialRegister = () => {
                         $(".form-top-text").show("slow");
                         regForm.slideDown("slow");
                         msg = data.error;
-                        infoElement = handleOutputInFo(msg, "error", false);
+                        infoElement = handleOutputInFo(msg, "error");
                         errDiv.html(infoElement).slideDown("slow");
 
                         handleErrorOnFocus();
@@ -133,7 +133,7 @@ const handleCompleteRegister = () => {
                     if ($.isEmptyObject(data.error)) {
                         completeRegForm.trigger("reset");
                         msg = "Registration successful";
-                        infoElement = handleOutputInFo(msg, "success", false);
+                        infoElement = handleOutputInFo(msg, "success");
                         $(".loader").append(infoElement);
                         clearInterval(timer2);
                         timer2 = setTimeout(function () {
@@ -151,7 +151,7 @@ const handleCompleteRegister = () => {
                         $(".form-top-text").show("slow");
                         completeRegForm.slideDown("slow");
                         msg = data.error;
-                        infoElement = handleOutputInFo(msg, "error", true);
+                        infoElement = handleOutputInFo(msg, "error");
                         errDiv.html(infoElement).show("slow");
 
                         handleErrorOnFocus();

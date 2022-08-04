@@ -1,58 +1,43 @@
-.form-wrapper {
-	padding: 2rem;
-	margin-top: 3.5rem;
-	background-color: $lightGreyColor;
-}
-.form-wrapper .primary-btn {
-	width: 60% !important;
+.form-wrapper,
+.form-wrapper-contact-form {
+    padding: 2rem;
+    margin-top: 3.5rem;
+    background-color: $lightGreyColor;
 }
 
-.form-wrapper label {
-	font-weight: 500;
+.form-wrapper .primary-btn,
+.form-wrapper-contact-form .primary-btn {
+    width: 60% !important;
 }
 
-.form-wrapper .err-div {
-	display: none;
-}
-.form-label{
-	color: $darkGreyColor;
-}
-
-.has-search{
-    width: 46%;
-    
+.form-wrapper label,
+.form-wrapper-contact-form label {
+    font-weight: 500;
+    color: $darkGreyColor;
 }
 
-.has-search .form-control {
-    padding-left: 2.375rem;
-    
+.form-wrapper .err-div,
+.form-wrapper-contact-form .err-div-contact-form {
+    display: none;
 }
 
-.has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
-}
+
+
 
 @media (max-width: 991.98px) {
-	.form-wrapper .primary-btn {
-		width: 100% !important;
-	}
-}
 
-@media (max-width: 767.98px) {
-    .form-wrapper {
-      
-        margin-top: 0.8rem;
-       
+    .form-wrapper .primary-btn,
+    .form-wrapper-contact-form .primary-btn {
+        width: 100% !important;
     }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 767.98px) {
+
+    .form-wrapper,
+    .form-wrapper-contact-form {
+        margin-top: 0.8rem;
+    }
 }
+
+@media (max-width: 575.98px) {}

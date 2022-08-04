@@ -20,6 +20,7 @@
                             <label class="form-label" for="password">Password *</label>
                             <div class="input-group mb-3">
                                 <input type="password" name="password" id="login-pwd" class="login-pwd form-control">
+                                <input type="hidden" value="" name="recaptcha">
                                 <div class="input-group-append">
                                     <button id="pwd-btn" class="pwd-btn no-border-radius btn btn-light"
                                         type="button"><span><i class="fa fa-eye"></i></span></button>

@@ -6,18 +6,19 @@ import {
 } from "../helper/functions";
 import { validateEmail, validateElementEmpty } from "../helper/validations";
 
-const handleContactLink = (e) =>{
+const handleContactLink = (e) => {
     $(document).on("click", ".contact-link", function (e) {
-    e.preventDefault();
-    $("#contactModal").modal("show");
-    $(".contact-link").hide("slow");
+        e.preventDefault();
+        $("#contactModal").modal("show");
+        $(".contact-link").hide("slow");
     });
 
-     $(document).on("click", ".close-contact-modal", function () {
-       $(".contact-link").show("slow");
+    $(document).on("click", ".close-contact-modal", function () {
+        $(".contact-link").show("slow");
+        //location.reload();
     });
 
-    
+
 
 }
 
@@ -25,11 +26,11 @@ const handleContactForm = () => {
     $(document).on("click", "#contact-form-btn", function (e) {
         e.preventDefault();
         let contactForm = $("#contact-form"),
-            errDiv = $(".err-div"),
-            formWrapper = $(".form-wrapper"),
+            errDiv = $(".err-div-contact-form"),
+            formWrapper = $(".form-wrapper-contact-form"),
             formData = contactForm.serializeArray(),
             loader = returnLoaderSpinner(),
-            errorElement = "",
+            infoElement = "",
             msg = "",
             timer = "",
             validationRes = "",
@@ -39,43 +40,43 @@ const handleContactForm = () => {
         errDiv.slideUp("slow");
 
         //Validate form values
-        validationRes = validateElementEmpty($("#c-name"),"*Please provide your name");
-        
-       if (validationRes != true) {
-            scrollToDiv($("#contactModal"));
-            errDiv.html(validationRes).slideDown("slow");
-            
-            handleErrorOnFocus();
-            return;
-        }
-
-         validationRes = validateEmail($("#c-email"));
+        validationRes = validateElementEmpty($("#c-name"), "*Please provide your name");
 
         if (validationRes != true) {
             scrollToDiv($("#contactModal"));
             errDiv.html(validationRes).slideDown("slow");
-            handleErrorOnFocus();
+
+            handleErrorOnFocus("err-div-contact-form");
             return;
         }
 
-         validationRes = validateElementEmpty($("#c-phone"),"*Please provide a phone number");
-        
-       if (validationRes != true) {
+        validationRes = validateEmail($("#c-email"));
+
+        if (validationRes != true) {
             scrollToDiv($("#contactModal"));
             errDiv.html(validationRes).slideDown("slow");
-            
-            handleErrorOnFocus();
+            handleErrorOnFocus("err-div-contact-form");
+            return;
+        }
+
+        validationRes = validateElementEmpty($("#c-phone"), "*Please provide a phone number");
+
+        if (validationRes != true) {
+            scrollToDiv($("#contactModal"));
+            errDiv.html(validationRes).slideDown("slow");
+
+            handleErrorOnFocus("err-div-contact-form");
             return;
         }
 
 
-         validationRes = validateElementEmpty($("#c-message"),"*Please provide your message");
-        
-       if (validationRes != true) {
+        validationRes = validateElementEmpty($("#c-message"), "*Please provide your message");
+
+        if (validationRes != true) {
             scrollToDiv($("#contactModal"));
             errDiv.html(validationRes).slideDown("slow");
-            
-            handleErrorOnFocus();
+
+            handleErrorOnFocus("err-div-contact-form");
             return;
         }
 
@@ -98,9 +99,9 @@ const handleContactForm = () => {
 
                         msg =
                             "Thank you for getting intouch, I will get back to you soon.";
-                        errorElement = handleOutputInFo(msg, "success", false);
+                        infoElement = handleOutputInFo(msg, "success");
                         contactForm.trigger("reset");
-                        formWrapper.html(errorElement);
+                        formWrapper.html(infoElement);
                     } else {
                         //Remove validation error
                         $(".alert").remove();
@@ -108,10 +109,10 @@ const handleContactForm = () => {
                         $(".form-top-text").show("slow");
                         contactForm.slideDown("slow");
                         msg = data.error;
-                        errorElement = handleOutputInFo(msg, "error", true);
-                        errDiv.html(errorElement).slideDown("slow");
+                        infoElement = handleOutputInFo(msg, "error");
+                        errDiv.html(infoElement).slideDown("slow");
 
-                        handleErrorOnFocus();
+                        handleErrorOnFocus("err-div-contact-form");
                     }
                 },
             });
@@ -120,6 +121,6 @@ const handleContactForm = () => {
 };
 
 $(function () {
-   handleContactLink();
-   handleContactForm();
+    handleContactLink();
+    handleContactForm();
 });

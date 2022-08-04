@@ -12,7 +12,7 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="form-top-text">
-          <p>Use the form or the email address below and I will get back to you as soon as possible thank you.</p>
+          <p>Using the form or the email address below, I will get back to you as soon as I'm able to thank you.</p>
           <p>
             <span class="form-label font-weight-bold">Email me : </span>
 
@@ -24,9 +24,9 @@
 
           </p>
         </div>
-        <div class="form-wrapper">
+        <div class="form-wrapper-contact-form">
          <form id="contact-form">
-          <div class="err-div"></div>
+          <div class="err-div-contact-form"></div>
           <div class="form-group">
            <label class="form-label" for="name">Name *</label>
            <input type="text" name="name" id="c-name" class="form-control" maxlength="120"/> 
@@ -43,6 +43,7 @@
            <label class="form-label" for="message">Message *</label>
            <textarea name="message" id="c-message" class="form-control" maxlength="6000"></textarea> 
          </div>
+         <input type="hidden" value="" name="recaptcha">
          <p class="small">
           All fields marked with a * are mandatory
         </p>

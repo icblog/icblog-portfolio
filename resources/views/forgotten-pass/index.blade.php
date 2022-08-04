@@ -18,7 +18,7 @@
                             <input type="email" class="form-control" id="forgotten-pwd-email-input"
                                 placeholder="Enter email" name="email">
                         </div>
-                        <input type="hidden" value="forgotten_pass" name="action">
+                        <input type="hidden" value="" name="recaptcha">
                         <p class="small">
                             All fields marked with a * are mandatory
                         </p>

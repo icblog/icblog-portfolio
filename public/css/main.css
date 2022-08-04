@@ -85,6 +85,15 @@ body {
   padding: 0;
 }
 
+.content-wrapper {
+  padding-top: 8rem;
+}
+
+@media (max-width: 991.98px) {
+  .content-wrapper {
+    padding-top: 5rem;
+  }
+}
 *,
 ::after,
 ::before {
@@ -442,10 +451,6 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
     padding-top: 0;
   }
 }
-.home-wrapper {
-  padding-top: 8rem;
-}
-
 .more-about-me-link-home-page {
   color: #000000;
   text-decoration: underline;
@@ -465,11 +470,6 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
   color: #252525;
 }
 
-@media (max-width: 991.98px) {
-  .home-wrapper {
-    padding-top: 5rem;
-  }
-}
 .logo-wrapper a {
   text-decoration: none;
   font-weight: bolder;
@@ -547,88 +547,41 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
   padding-right: 2rem;
 }
 
-.form-wrapper {
+.form-wrapper,
+.form-wrapper-contact-form {
   padding: 2rem;
   margin-top: 3.5rem;
   background-color: #e9e9e9;
 }
 
-.form-wrapper .primary-btn {
+.form-wrapper .primary-btn,
+.form-wrapper-contact-form .primary-btn {
   width: 60% !important;
 }
 
-.form-wrapper label {
+.form-wrapper label,
+.form-wrapper-contact-form label {
   font-weight: 500;
-}
-
-.form-wrapper .err-div {
-  display: none;
-}
-
-.form-label {
   color: #252525;
 }
 
-.has-search {
-  width: 46%;
-}
-
-.has-search .form-control {
-  padding-left: 2.375rem;
-}
-
-.has-search .form-control-feedback {
-  position: absolute;
-  z-index: 2;
-  display: block;
-  width: 2.375rem;
-  height: 2.375rem;
-  line-height: 2.375rem;
-  text-align: center;
-  pointer-events: none;
-  color: #aaa;
+.form-wrapper .err-div,
+.form-wrapper-contact-form .err-div-contact-form {
+  display: none;
 }
 
 @media (max-width: 991.98px) {
-  .form-wrapper .primary-btn {
+  .form-wrapper .primary-btn,
+.form-wrapper-contact-form .primary-btn {
     width: 100% !important;
   }
 }
 @media (max-width: 767.98px) {
-  .form-wrapper {
+  .form-wrapper,
+.form-wrapper-contact-form {
     margin-top: 0.8rem;
   }
 }
-#authModal .auth-btn,
-#authModal .auth-back-btn {
-  font-weight: 500;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 1.5rem;
-  color: #3466F6;
-  font-size: 1.3rem;
-  background-color: #ffffff;
-}
-#authModal .auth-btn:hover,
-#authModal .auth-back-btn:hover {
-  color: #3466F6;
-  text-decoration: none;
-  background-color: #ffffff;
-}
-#authModal .auth-btn:focus,
-#authModal .auth-back-btn:focus {
-  color: #3466F6;
-  background-color: #ffffff;
-}
-
-#auth-option-login-wrapper,
-#auth-option-forgotten-pass-wrapper,
-#auth-option-register-wrapper,
-#review-form-wrapper,
-#after-login-action-wrapper {
-  display: none;
-}
-
 #verifyModal .modal-content {
   min-height: 20rem;
 }
@@ -647,9 +600,39 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
 }
 
 .about-h5-intro {
-  display: inline-block;
-  border-bottom: 0.2rem solid #3466F6;
   cursor: pointer;
+  display: inline-block;
+  padding: 0.5rem;
+  background-color: #3466F6;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 1rem;
+  z-index: 2;
+}
+
+.about-h5-intro.active {
+  color: #4c4c4c;
+  border: 0.1rem solid #c2c2c2;
+  border-bottom: none;
+  background-color: #ffffff;
+  margin-top: 1.3rem;
+}
+
+.about-centent-tabs .tab-content-wrapper-outter {
+  display: none;
+}
+
+.tab-content-wrapper-outter .tab-content-wrapper-inner {
+  padding: 0.5rem;
+  border: 0.1rem solid #c2c2c2;
+  z-index: 0;
+  position: relative;
+  margin-top: -1.1rem;
+  background-color: #ffffff;
+}
+
+.about-centent-tabs .tab-heading-mobile {
+  display: none;
 }
 
 .about-arrow-up {
@@ -660,20 +643,6 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
   padding: 0.6rem;
   background-color: #ffffff;
   margin-bottom: 1.5rem;
-}
-
-.project-exp-wrapper {
-  margin-top: 1.5rem;
-}
-
-.collapse-history-wrapper {
-  background-color: #ffffff;
-  padding: 1rem;
-  margin-bottom: 2rem;
-}
-
-.project-collapse-wrapper {
-  margin-bottom: 2rem;
 }
 
 .source-link-wrapper {
@@ -707,6 +676,21 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
   padding-bottom: 0.5rem;
 }
 
+@media (max-width: 767.98px) {
+  .tab-heading-desktop {
+    display: none;
+  }
+  .about-centent-tabs .tab-heading-mobile {
+    display: block;
+    padding: 0.5rem;
+  }
+  .about-centent-tabs .tab-heading-mobile.active {
+    background-color: #e9e9e9;
+  }
+  .about-centent-tabs .tab-content-wrapper-outter {
+    margin-bottom: 1.5rem;
+  }
+}
 footer {
   padding: 1rem;
   text-align: center;

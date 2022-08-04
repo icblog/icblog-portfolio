@@ -85,14 +85,14 @@ const verifyToken = () => {
                 if ($.isEmptyObject(data.error)) {
                     //If no error
                     msg = "Redirecting";
-                    infoElement = handleOutputInFo(msg, "info", false);
-                    redirectAfterVerify(action, infoElement, false);//Find this function above
+                    infoElement = handleOutputInFo(msg, "info");
+                    redirectAfterVerify(action, infoElement);//Find this function above
 
                 } else {
 
                     //Show error
                     msg = data.error;
-                    infoElement = handleOutputInFo(msg, "error", false);
+                    infoElement = handleOutputInFo(msg, "error");
                     redirectAfterVerify(action, infoElement, true);// Find this function above
                 }
             },

@@ -34,6 +34,15 @@ class RegisterController extends BaseController{
   }// end index
 
     public function handleInitialRegister(Request $request){
+        //Check if the hidden recaptcha input is filled in,
+        //is a bot that filled the form in, throw an error.
+        if($request->recaptcha != ""){
+          return response()->json([
+            'error' => $this->returnGenericSystemErrMsg()
+            ]);
+          die();
+         }
+
         $action = "";
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i'
@@ -88,6 +97,14 @@ class RegisterController extends BaseController{
 }// end initialRegister
 
 public function store(Request $request){
+  //Check if the hidden recaptcha input is filled in,
+        //is a bot that filled the form in, throw an error.
+        if($request->recaptcha != ""){
+          return response()->json([
+            'error' => $this->returnGenericSystemErrMsg()
+            ]);
+          die();
+         }
 
   //Custom attribute names
 $attributeNames = array(

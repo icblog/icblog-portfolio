@@ -48,7 +48,7 @@ const handleLogin = () => {
                 success: function (data) {
                     if ($.isEmptyObject(data.error)) {
                         msg = "Login successful, please wait...";
-                        errorElement = handleOutputInFo(msg, "success", false);
+                        errorElement = handleOutputInFo(msg, "success");
                         loginForm.trigger("reset");
                         $(".loader").append(errorElement);
                         clearInterval(timer2);
@@ -73,7 +73,7 @@ const handleLogin = () => {
                         $(".form-top-text").show("slow");
                         loginForm.slideDown("slow");
                         msg = data.error;
-                        errorElement = handleOutputInFo(msg, "error", true);
+                        errorElement = handleOutputInFo(msg, "error");
                         errDiv.html(errorElement).slideDown("slow");
 
                         handleErrorOnFocus();

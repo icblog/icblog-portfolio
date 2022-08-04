@@ -1,9 +1,11 @@
 @if(Route::currentRouteName() == 'blog.index')
+    @if(!Auth::check())
     <li>
         <a href="{{ route('login.index') }}" class="header-nav-link">
             Login/Register
         </a>
     </li>
+    @endif
 @endif
 
 

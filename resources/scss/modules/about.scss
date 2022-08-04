@@ -1,68 +1,117 @@
-.about-h5-intro{
-  display: inline-block;
-  border-bottom: 0.2rem solid $primaryColor;
-  cursor: pointer;	
+.about-h5-intro {
+	cursor: pointer;
+	display: inline-block;
+	padding: 0.5rem;
+	background-color: $primaryColor;
+	color: $whiteColor;
+	position: relative;
+	margin-bottom: 1rem;
+	z-index: 2;
+
 }
-.about-arrow-up{
-  display: none;
+
+.about-h5-intro.active {
+	color: $baseColor;
+	border: 0.1rem solid $midGreyColor;
+	border-bottom: none;
+	background-color: $whiteColor;
+	margin-top: 1.3rem;
+
 }
-.project-detail{
+
+.about-centent-tabs .tab-content-wrapper-outter {
+	display: none;
+
+}
+
+.tab-content-wrapper-outter .tab-content-wrapper-inner {
+	padding: 0.5rem;
+	border: 0.1rem solid $midGreyColor;
+	z-index: 0;
+	position: relative;
+	margin-top: -1.1rem;
+	background-color: $whiteColor;
+}
+
+
+
+.about-centent-tabs .tab-heading-mobile {
+	display: none;
+}
+
+.about-arrow-up {
+	display: none;
+}
+
+.project-detail {
 	padding: 0.6rem;
 	background-color: $whiteColor;
 	margin-bottom: 1.5rem;
 }
-.project-exp-wrapper{
-	margin-top: 1.5rem;
-}
-.collapse-history-wrapper{
-	background-color: $whiteColor;
-	padding: 1rem;
-	margin-bottom: 2rem;
 
-}
-.project-collapse-wrapper{
-	margin-bottom: 2rem;
-
-}
 .source-link-wrapper {
 	display: block;
 }
-.source-link-wrapper a{
+
+.source-link-wrapper a {
 	text-decoration: underline;
 }
 
-.w3c-link{
- text-decoration: underline;
- font-style: italic;
-	
+.w3c-link {
+	text-decoration: underline;
+	font-style: italic;
+
 }
-.tech-stack-name{
-  font-size: 0.9rem;
-   
+
+.tech-stack-name {
+	font-size: 0.9rem;
+
 }
-.skill-detail span{
+
+.skill-detail span {
 	font-weight: 600;
 }
-.skills-heading-p{
-	
+
+.skills-heading-p {
+
 	font-size: 1.3rem;
 	padding-top: 1rem;
 }
 
-.skills-detail-div{
-  padding-top: 0.5rem;
+.skills-detail-div {
+	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
-	
-
 }
 
 
-@media (max-width: 991.98px) {
-}
+@media (max-width: 991.98px) {}
 
 @media (max-width: 767.98px) {
 
+	.tab-heading-desktop {
+		display: none;
+	}
+
+	.about-centent-tabs .tab-heading-mobile {
+		display: block;
+		padding: 0.5rem;
+
+	}
+
+	.about-centent-tabs .tab-heading-mobile.active {
+		background-color: $lightGreyColor;
+
+	}
+
+	.about-centent-tabs .tab-content-wrapper-outter {
+		margin-bottom: 1.5rem;
+
+	}
+
+
+
 }
 
-@media (max-width: 575.98px) {
-}
+
+
+@media (max-width: 575.98px) {}

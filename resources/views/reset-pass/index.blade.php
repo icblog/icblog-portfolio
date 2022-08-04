@@ -27,7 +27,7 @@
                             All fields marked with a * are mandatory
                         </p>
                         <input type="hidden" value="reset_password" name="action">
-
+                        <input type="hidden" value="" name="recaptcha">
                         <div class="pt-3 text-center">
                             <button id="reset-password-form-btn" type="submit" class="primary-btn">Submit</button>
                         </div>

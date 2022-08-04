@@ -31,8 +31,8 @@ const logout = () => {
                 data: {},
                 success: function (data) {
                     if ($.isEmptyObject(data.error)) {
-                        msg = "Login successful, please wait...";
-                        errorElement = handleOutputInFo(msg, "success", false);
+                        msg = "signed out successful, please wait...";
+                        errorElement = handleOutputInFo(msg, "success");
                         $(".loader").append(errorElement);
                         clearInterval(timer2);
                         timer2 = setTimeout(function () {
@@ -44,7 +44,7 @@ const logout = () => {
                     } else {
                         $(".loader").remove();
                         msg = data.error;
-                        errorElement = handleOutputInFo(msg, "error", true);
+                        errorElement = handleOutputInFo(msg, "error");
                         logoutModalBody.html(errorElement);
                     }
                 },

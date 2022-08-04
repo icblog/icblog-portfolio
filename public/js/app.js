@@ -51,6 +51,10 @@ var returnBaseUrl = function returnBaseUrl() {
   return window.location.protocol + "//" + window.location.host + "/";
 };
 
+var isObject = function isObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]';
+};
+
 var redirect = function redirect(url, external) {
   var ext = external || false;
 
@@ -91,14 +95,12 @@ var returnPartOfUrl = function returnPartOfUrl(partNumber) {
   return urlpart;
 };
 var handleOutputInFo = function handleOutputInFo(msg, type) {
-  var isMsgArr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
   switch (type) {
     case "success":
       return '<div class="no-border-radius alert alert-success"><strong>Success! </strong>' + msg + "</div>";
 
     case "error":
-      if (isMsgArr) {
+      if (isObject(msg)) {
         var errElement = "<ul>";
         $.each(msg, function (key, value) {
           errElement += "<li>*" + value + "</li>";
@@ -117,17 +119,18 @@ var handleOutputInFo = function handleOutputInFo(msg, type) {
   }
 };
 var handleErrorOnFocus = function handleErrorOnFocus() {
+  var errDiv = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "err-div";
   $("input").focus(function () {
-    $(".err-div").slideUp("slow");
+    $(".".concat(errDiv)).slideUp("slow");
   });
   $("textarea").focus(function () {
-    $(".err-div").slideUp("slow");
+    $(".".concat(errDiv)).slideUp("slow");
   });
   $("select").change(function () {
-    $(".err-div").slideUp("slow");
+    $(".".concat(errDiv)).slideUp("slow");
   });
   $("input[type=file]").change(function () {
-    $(".err-div").slideUp("slow");
+    $(".".concat(errDiv)).slideUp("slow");
   });
 };
 var returnLoaderSpinner = function returnLoaderSpinner() {
@@ -161,7 +164,9 @@ var hideElement = function hideElement(timeTohide, elementToHide, speedToHideIt)
   }, timeTohide);
 };
 var scrollToDiv = function scrollToDiv(divToScrollTo) {
-  divToScrollTo.scrollTop(0);
+  $('html, body').animate({
+    scrollTop: divToScrollTo.offset().top
+  }, 2000);
 };
 
 /***/ }),
@@ -291,30 +296,73 @@ var validateElementEmpty = function validateElementEmpty(elemId, message) {
 /*!***************************************!*\
   !*** ./resources/js/modules/about.js ***!
   \***************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/functions */ "./resources/js/helper/functions.js");
+
 
 var handleUpAndDownArrow = function handleUpAndDownArrow(e) {
   $(".about-h5-intro").click(function () {
     if ($(this).hasClass("opened")) {
       $(this).parent().find(".about-arrow-down").show();
       $(this).parent().find(".about-arrow-up").hide();
-      $(this).css({
-        "color": "#000000",
-        "borderBottomColor": "#3466F6"
-      }).removeClass("opened");
+      $(this).removeClass("opened");
     } else {
       $(this).parent().find(".about-arrow-up").show();
       $(this).parent().find(".about-arrow-down").hide();
-      $(this).css({
-        "color": "#565656",
-        "borderBottomColor": "#565656"
-      }).addClass("opened");
+      $(this).addClass("opened");
     }
   });
 };
 
+var handleAboutTabContent = function handleAboutTabContent() {
+  $(".tab_content").hide(); //$(".tab_content:first").show();
+
+  /* if in tab mode */
+
+  $(".about-h5-intro").click(function () {
+    var activeTab = $(this).attr("rel");
+    $("#" + activeTab).removeClass("tab_content");
+    $(".tab_content").hide();
+    $("#" + activeTab).addClass("tab_content"); //Reset tab heading arror to default style
+
+    $(".about-arrow-down").show();
+    $(".about-arrow-up").hide(); //Hide and show up and down arrows
+
+    if ($(this).hasClass("active")) {
+      $(this).find(".about-arrow-up").hide();
+      $(this).find(".about-arrow-down").show();
+      $(".about-h5-intro").removeClass("active");
+      $("#" + activeTab).slideUp("slow");
+    } else {
+      $(this).find(".about-arrow-up").show();
+      $(this).find(".about-arrow-down").hide();
+      $(".about-h5-intro").removeClass("active");
+      $(this).addClass("active");
+      $("#" + activeTab).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#" + activeTab));
+    }
+
+    $(".tab_drawer_heading").removeClass("d_active");
+    $(".tab_drawer_heading[rel^='" + activeTab + "']").addClass("d_active");
+  });
+  /* if in drawer mode */
+  // $(".tab_drawer_heading").click(function () {
+  //    $(".tab_content").hide();
+  //    var d_activeTab = $(this).attr("rel");
+  //    $("#" + d_activeTab).fadeIn();
+  //    $(".tab_drawer_heading").removeClass("d_active");
+  //    $(this).addClass("d_active");
+  //    $("ul.tabs li").removeClass("active");
+  //    $("ul.tabs li[rel^='" + d_activeTab + "']").addClass("active");
+  // });
+};
+
 $(function () {
-  handleUpAndDownArrow();
+  //handleUpAndDownArrow();
+  handleAboutTabContent();
 });
 
 /***/ }),
@@ -339,7 +387,7 @@ var handleContactLink = function handleContactLink(e) {
     $(".contact-link").hide("slow");
   });
   $(document).on("click", ".close-contact-modal", function () {
-    $(".contact-link").show("slow");
+    $(".contact-link").show("slow"); //location.reload();
   });
 };
 
@@ -347,11 +395,11 @@ var handleContactForm = function handleContactForm() {
   $(document).on("click", "#contact-form-btn", function (e) {
     e.preventDefault();
     var contactForm = $("#contact-form"),
-        errDiv = $(".err-div"),
-        formWrapper = $(".form-wrapper"),
+        errDiv = $(".err-div-contact-form"),
+        formWrapper = $(".form-wrapper-contact-form"),
         formData = contactForm.serializeArray(),
         loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
-        errorElement = "",
+        infoElement = "",
         msg = "",
         timer = "",
         validationRes = "",
@@ -364,7 +412,7 @@ var handleContactForm = function handleContactForm() {
     if (validationRes != true) {
       (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
       errDiv.html(validationRes).slideDown("slow");
-      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)("err-div-contact-form");
       return;
     }
 
@@ -373,7 +421,7 @@ var handleContactForm = function handleContactForm() {
     if (validationRes != true) {
       (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
       errDiv.html(validationRes).slideDown("slow");
-      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)("err-div-contact-form");
       return;
     }
 
@@ -382,7 +430,7 @@ var handleContactForm = function handleContactForm() {
     if (validationRes != true) {
       (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
       errDiv.html(validationRes).slideDown("slow");
-      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)("err-div-contact-form");
       return;
     }
 
@@ -391,7 +439,7 @@ var handleContactForm = function handleContactForm() {
     if (validationRes != true) {
       (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($("#contactModal"));
       errDiv.html(validationRes).slideDown("slow");
-      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)("err-div-contact-form");
       return;
     }
 
@@ -412,9 +460,9 @@ var handleContactForm = function handleContactForm() {
           if ($.isEmptyObject(data.error)) {
             $(".loader").remove();
             msg = "Thank you for getting intouch, I will get back to you soon.";
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
             contactForm.trigger("reset");
-            formWrapper.html(errorElement);
+            formWrapper.html(infoElement);
           } else {
             //Remove validation error
             $(".alert").remove();
@@ -422,9 +470,9 @@ var handleContactForm = function handleContactForm() {
             $(".form-top-text").show("slow");
             contactForm.slideDown("slow");
             msg = data.error;
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
-            errDiv.html(errorElement).slideDown("slow");
-            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
+            errDiv.html(infoElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)("err-div-contact-form");
           }
         }
       });
@@ -506,14 +554,14 @@ var handleForgottenPwdForm = function handleForgottenPwdForm() {
             }
 
             msg = "Please check your email and follow the instruction to continue thank you.";
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info");
             forgottenPwdForm.trigger("reset");
             formWrapper.html(infoElement);
           } else {
             $(".form-top-text").show("slow");
             forgottenPwdForm.slideDown("slow");
             msg = data.error;
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             errDiv.html(infoElement).slideDown("slow");
             (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
           }
@@ -603,7 +651,7 @@ var handleLogin = function handleLogin() {
         success: function success(data) {
           if ($.isEmptyObject(data.error)) {
             msg = "Login successful, please wait...";
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", false);
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
             loginForm.trigger("reset");
             $(".loader").append(errorElement);
             clearInterval(timer2);
@@ -629,7 +677,7 @@ var handleLogin = function handleLogin() {
             $(".form-top-text").show("slow");
             loginForm.slideDown("slow");
             msg = data.error;
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             errDiv.html(errorElement).slideDown("slow");
             (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
           }
@@ -688,8 +736,8 @@ var logout = function logout() {
         data: {},
         success: function success(data) {
           if ($.isEmptyObject(data.error)) {
-            msg = "Login successful, please wait...";
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", false);
+            msg = "signed out successful, please wait...";
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
             $(".loader").append(errorElement);
             clearInterval(timer2);
             timer2 = setTimeout(function () {
@@ -701,7 +749,7 @@ var logout = function logout() {
           } else {
             $(".loader").remove();
             msg = data.error;
-            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            errorElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             logoutModalBody.html(errorElement);
           }
         }
@@ -774,7 +822,7 @@ var handleInitialRegister = function handleInitialRegister() {
 
             localStorage.setItem("regemail", $("#initial-register-email-input").val());
             msg = "Please check your email and follow the instruction to continue thank you.";
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info");
             regForm.trigger("reset");
             formWrapper.html(infoElement);
           } else {
@@ -784,7 +832,7 @@ var handleInitialRegister = function handleInitialRegister() {
             $(".form-top-text").show("slow");
             regForm.slideDown("slow");
             msg = data.error;
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             errDiv.html(infoElement).slideDown("slow");
             (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
           }
@@ -843,7 +891,7 @@ var handleCompleteRegister = function handleCompleteRegister() {
           if ($.isEmptyObject(data.error)) {
             completeRegForm.trigger("reset");
             msg = "Registration successful";
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
             $(".loader").append(infoElement);
             clearInterval(timer2);
             timer2 = setTimeout(function () {
@@ -861,7 +909,7 @@ var handleCompleteRegister = function handleCompleteRegister() {
             $(".form-top-text").show("slow");
             completeRegForm.slideDown("slow");
             msg = data.error;
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             errDiv.html(infoElement).show("slow");
             (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
           }
@@ -934,7 +982,7 @@ var handleResetPwdForm = function handleResetPwdForm() {
         success: function success(data) {
           if (data.error == "" && data.action == "") {
             msg = "Password reset successful";
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
             resetPwdForm.trigger("reset");
             $(".loader").append(infoElement);
             clearInterval(timer2);
@@ -955,12 +1003,12 @@ var handleResetPwdForm = function handleResetPwdForm() {
             $(".form-top-text").show("slow");
             resetPwdForm.slideDown("slow");
             msg = data.error;
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", true);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             errDiv.html(infoElement).slideDown("slow");
             (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
           } else {
             msg = data.error;
-            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", false);
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
             resetPwdForm.trigger("reset");
             $(".loader").append(infoElement);
             clearInterval(timer2);
@@ -1078,12 +1126,12 @@ var verifyToken = function verifyToken() {
         if ($.isEmptyObject(data.error)) {
           //If no error
           msg = "Redirecting";
-          infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info", false);
-          redirectAfterVerify(action, infoElement, false); //Find this function above
+          infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "info");
+          redirectAfterVerify(action, infoElement); //Find this function above
         } else {
           //Show error
           msg = data.error;
-          infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error", false);
+          infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
           redirectAfterVerify(action, infoElement, true); // Find this function above
         }
       }

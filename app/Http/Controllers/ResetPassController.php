@@ -26,20 +26,21 @@ class ResetPassController extends Controller{
         $pageIntro = "Reset password";
         return view('/reset-pass.index', ["pageIntro"=>$pageIntro]);
     }// end index
-    public function showCompleteRegisterForm(){
-        $pageIntro = "Complete Registeration";
-        return view('/register.complete-register', ["pageIntro"=>$pageIntro]);
-        
-    }// end showCompleteRegisterForm
+  
     public function update(Request $request){
+      //Check if the hidden recaptcha input is filled in,
+        //if so it a human that filled it in, throw an error.
+        if($request->recaptcha != ""){
+          return response()->json([
+            'error' => $this->returnGenericSystemErrMsg()
+            ]);
+          die();
+         }
 
         if($request->action == "reset_password"){
       
                 //Custom attribute names
-           $attributeNames = array(
-             'pwd' => 'password',
-      
-         );
+           $attributeNames = array('pwd' => 'password',);
       
            $validator = Validator::make($request->all(), [
               'pwd'=>'required|string|min:8',

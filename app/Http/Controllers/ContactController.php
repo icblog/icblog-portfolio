@@ -10,6 +10,14 @@ use App\Traits\HelperTrait;
 class ContactController extends Controller{
      use HelperTrait;
     public function index(Request $request){
+           //Check if the hidden recaptcha input is filled in,
+        //is a bot that filled the form in, throw an error.
+        if($request->recaptcha != ""){
+            return response()->json([
+              'error' => $this->returnGenericSystemErrMsg()
+              ]);
+            die();
+           }
 
        $validator = Validator::make($request->all(), [
           'name'=>'required|string',

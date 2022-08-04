@@ -62,7 +62,7 @@ const handleForgottenPwdForm = () => {
 
                         msg =
                             "Please check your email and follow the instruction to continue thank you.";
-                        infoElement = handleOutputInFo(msg, "info", false);
+                        infoElement = handleOutputInFo(msg, "info");
                         forgottenPwdForm.trigger("reset");
                         formWrapper.html(infoElement);
                     } else {
@@ -70,7 +70,7 @@ const handleForgottenPwdForm = () => {
                         $(".form-top-text").show("slow");
                         forgottenPwdForm.slideDown("slow");
                         msg = data.error;
-                        infoElement = handleOutputInFo(msg, "error", true);
+                        infoElement = handleOutputInFo(msg, "error");
                         errDiv.html(infoElement).slideDown("slow");
 
                         handleErrorOnFocus();

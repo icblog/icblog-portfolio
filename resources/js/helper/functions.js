@@ -1,6 +1,9 @@
 const returnBaseUrl = () => {
 	return window.location.protocol + "//" + window.location.host + "/";
 };
+const isObject = (obj) => {
+	return Object.prototype.toString.call(obj) === '[object Object]';
+};
 export const redirect = (url, external) => {
 	let ext = external || false;
 	if (ext) {
@@ -50,7 +53,7 @@ export const returnPartOfUrl = (partNumber) => {
 	return urlpart;
 };
 
-export const handleOutputInFo = (msg, type, isMsgArr = false) => {
+export const handleOutputInFo = (msg, type) => {
 	switch (type) {
 		case "success":
 			return (
@@ -60,7 +63,7 @@ export const handleOutputInFo = (msg, type, isMsgArr = false) => {
 			);
 
 		case "error":
-			if (isMsgArr) {
+			if (isObject(msg)) {
 				let errElement = "<ul>";
 				$.each(msg, function (key, value) {
 					errElement += "<li>*" + value + "</li>";
@@ -91,21 +94,21 @@ export const handleOutputInFo = (msg, type, isMsgArr = false) => {
 	}
 };
 
-export const handleErrorOnFocus = () => {
+export const handleErrorOnFocus = (errDiv = "err-div") => {
 	$("input").focus(() => {
-		$(".err-div").slideUp("slow");
+		$(`.${errDiv}`).slideUp("slow");
 	});
 
 	$("textarea").focus(() => {
-		$(".err-div").slideUp("slow");
+		$(`.${errDiv}`).slideUp("slow");
 	});
 
 	$("select").change(() => {
-		$(".err-div").slideUp("slow");
+		$(`.${errDiv}`).slideUp("slow");
 	});
 
 	$("input[type=file]").change(() => {
-		$(".err-div").slideUp("slow");
+		$(`.${errDiv}`).slideUp("slow");
 	});
 };
 
@@ -144,7 +147,10 @@ export const hideElement = (timeTohide, elementToHide, speedToHideIt) => {
 };
 
 
-export const scrollToDiv = (divToScrollTo) =>{
-	              
-                    divToScrollTo.scrollTop(0);
+export const scrollToDiv = (divToScrollTo) => {
+	$('html, body').animate({
+		scrollTop: divToScrollTo.offset().top
+	}, 2000);
+
+
 }

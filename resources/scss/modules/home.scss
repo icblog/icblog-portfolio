@@ -1,39 +1,29 @@
-.home-wrapper{
-	padding-top: 8rem;
-}
-.more-about-me-link-home-page{
+.more-about-me-link-home-page {
 	color: $blackColor;
 	text-decoration: underline;
-	
+
 	font-weight: bold;
-	&:hover{
+
+	&:hover {
 		color: $darkGreyColor;
 		text-decoration: underline;
-		
+
 	}
 }
-.more-about-me-arrow{
+
+.more-about-me-arrow {
 	color: $primaryColorDark;
 	font-weight: bold;
 }
 
-.more-about-me-link-home-page:hover ~ .more-about-me-arrow{
-   color: $darkGreyColor;
+.more-about-me-link-home-page:hover~.more-about-me-arrow {
+	color: $darkGreyColor;
 }
 
 
 
-@media (max-width: 991.98px) {
+@media (max-width: 991.98px) {}
 
-	.home-wrapper{
-	padding-top: 5rem;
-}
+@media (max-width: 767.98px) {}
 
-}
-
-@media (max-width: 767.98px) {
-
-}
-
-@media (max-width: 575.98px) {
-}
+@media (max-width: 575.98px) {}

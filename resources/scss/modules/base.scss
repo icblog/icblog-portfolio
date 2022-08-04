@@ -5,6 +5,7 @@
 	outline: none;
 	box-sizing: border-box;
 }
+
 a,
 a:visited,
 a:focus {
@@ -22,7 +23,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family:  $basefontFamily;
+	font-family: $basefontFamily;
 	color: $blackColor;
 	text-transform: uppercase;
 	font-weight: 600;
@@ -38,7 +39,7 @@ textarea,
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
 	border-radius: 0 !important;
-	color: $blackColor !important;
+	color: $blackColor  !important;
 }
 
 input:focus,
@@ -50,10 +51,11 @@ textarea:focus,
 	box-shadow: none;
 	-moz-box-shadow: none;
 	-webkit-box-shadow: none;
-	border-color: $blackColor !important;
+	border-color: $blackColor  !important;
 	border-radius: 0 !important;
-	color: $blackColor !important;
+	color: $blackColor  !important;
 }
+
 .loader {
 	text-align: center !important;
 }
@@ -94,13 +96,20 @@ body {
 	padding: 0;
 }
 
+.content-wrapper {
+	padding-top: 8rem;
+
+}
+
 
 
 @media (max-width: 991.98px) {
+	.content-wrapper {
+		padding-top: 5rem;
+
+	}
 }
 
-@media (max-width: 767.98px) {
-}
+@media (max-width: 767.98px) {}
 
-@media (max-width: 575.98px) {
-}
+@media (max-width: 575.98px) {}

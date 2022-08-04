@@ -6,11 +6,11 @@ use App\Mail\AppMail;
 trait HelperTrait{
   
 public function returnGenericSystemErrMsg(){
-	return "Sorry system error, were unable to process your request please try again later thank you";
+	return "Sorry system error, your request can not be processed please try again later thank you";
 }//End returnGenericSystemErrMsg
 
 public function returnLinkErrMsg(){
-	return "Sorry the link has expired or Invalid, we redirecting you to page to create and one thank you.";
+	return "Sorry the link has expired or Invalid,  you will be redirected to create a new one thank you.";
 }//End returnGenericSystemErrMsg
 
 public function sendAlinkToUser($token,$email,$action,$subject,$emailTemplate){

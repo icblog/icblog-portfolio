@@ -50,6 +50,7 @@
                             All fields marked with a * are mandatory
                         </p>
                         <input type="hidden" class="form-control" id="complete-reg-email" name="email">
+                        <input type="hidden" value="" name="recaptcha">
                         <div class="pt-3 text-center">
                             <button id="complete-register-form-btn" type="submit" class="primary-btn">Submit</button>
                         </div>

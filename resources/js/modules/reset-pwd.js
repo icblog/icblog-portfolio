@@ -50,7 +50,7 @@ const handleResetPwdForm = () => {
                 success: function (data) {
                     if (data.error == "" && data.action == "") {
                         msg = "Password reset successful";
-                        infoElement = handleOutputInFo(msg, "success", false);
+                        infoElement = handleOutputInFo(msg, "success");
                         resetPwdForm.trigger("reset");
                         $(".loader").append(infoElement);
                         clearInterval(timer2);
@@ -70,13 +70,13 @@ const handleResetPwdForm = () => {
                         $(".form-top-text").show("slow");
                         resetPwdForm.slideDown("slow");
                         msg = data.error;
-                        infoElement = handleOutputInFo(msg, "error", true);
+                        infoElement = handleOutputInFo(msg, "error");
                         errDiv.html(infoElement).slideDown("slow");
                         handleErrorOnFocus();
                     } else {
 
                         msg = data.error;
-                        infoElement = handleOutputInFo(msg, "error", false);
+                        infoElement = handleOutputInFo(msg, "error");
                         resetPwdForm.trigger("reset");
                         $(".loader").append(infoElement);
                         clearInterval(timer2);

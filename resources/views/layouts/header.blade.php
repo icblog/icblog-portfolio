@@ -101,6 +101,6 @@
     <!-- include Contact modal -->
     @include('contact.contact-modal')
     <!-- include Logout modal -->
-    @include('auth.logout-modal')
+    @include('logout.logout-modal')
     <!-- include Verify modal -->
     @include('verify.verify-modal')
