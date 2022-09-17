@@ -7,18 +7,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Traits\TokenTrait;
-use App\Traits\HelperTrait;
 
 class RegisterController extends BaseController{
-    use TokenTrait;
-    use HelperTrait;
-      //METHODS USED FROM TokenTrait
-      //genarateToken
 
-     //METHODS USED FROM HelperTrait
-     //returnGenericSystemErrMsg
-     
+//METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//returnGenericSystemErrMsg
+
+//METHODS USED FROM TOKEN TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//genarateToken
     
     public function index(){
         $pageIntro = "Register";

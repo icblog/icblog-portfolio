@@ -29,15 +29,15 @@
           <div class="err-div-contact-form"></div>
           <div class="form-group">
            <label class="form-label" for="name">Name *</label>
-           <input type="text" name="name" id="c-name" class="form-control" maxlength="120"/> 
+           <input type="text" name="name" id="c-name" class="form-control"  maxlength="255"/> 
          </div>
          <div class="form-group">
            <label class="form-label" for="email">Email *</label>
-           <input type="text" name="email" id="c-email" class="form-control" maxlength="120"/> 
+           <input type="text" name="email" id="c-email" class="form-control"  maxlength="255"/> 
          </div>
          <div class="form-group">
            <label class="form-label" for="phone">Phone *</label>
-           <input type="text" name="phone" id="c-phone" class="form-control" maxlength="120"/> 
+           <input type="text" name="phone" id="c-phone" class="form-control"  maxlength="255"/> 
          </div>
          <div class="form-group">
            <label class="form-label" for="message">Message *</label>

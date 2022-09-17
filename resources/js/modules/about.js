@@ -1,24 +1,7 @@
 import {
    scrollToDiv
 } from "../helper/functions";
-const handleUpAndDownArrow = (e) => {
-   $(".about-h5-intro").click(function () {
 
-
-      if ($(this).hasClass("opened")) {
-         $(this).parent().find(".about-arrow-down").show();
-         $(this).parent().find(".about-arrow-up").hide();
-         $(this).removeClass("opened");
-
-      } else {
-         $(this).parent().find(".about-arrow-up").show();
-         $(this).parent().find(".about-arrow-down").hide();
-         $(this).addClass("opened");
-
-      }
-
-   });
-}
 
 const handleAboutTabContent = () => {
 
@@ -83,7 +66,7 @@ const handleAboutTabContent = () => {
 
 
 $(function () {
-   //handleUpAndDownArrow();
+
    handleAboutTabContent();
 
 });

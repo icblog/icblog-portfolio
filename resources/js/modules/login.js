@@ -22,7 +22,7 @@ const handleLogin = () => {
             msg = "",
             timer = "",
             timer2 = "",
-            time2 = 1700,
+            time2 = 1500,
             time = 1200;
 
         //hide validation error
@@ -30,7 +30,7 @@ const handleLogin = () => {
 
 
         formWrapper.append(loader);
-        $(".auth-back-btn").hide("slow");
+
         $(".form-top-text").hide("slow");
         loginForm.hide("slow");
 
@@ -53,23 +53,15 @@ const handleLogin = () => {
                         $(".loader").append(errorElement);
                         clearInterval(timer2);
                         timer2 = setTimeout(function () {
-                            //Show the login form
+                            redirect(data.redirectUrl);
                             $(".success").remove();
                             $(".loader").remove();
-                            $(".login-wrapper-div").slideUp("slow");
-                            //If user is admin redirect to admin dashboad
-                            //Else show the review form
-                            if (data.isAdmin) {
-                                redirect("admin/dashboard");
-                            } else {
-                                redirect("blog");
-                            } //end if is admin
+                            $(".login-wrapper-div").hide("fast");
                         }, time2);
                     } else {
                         //Remove validation error
                         $(".alert").remove();
                         $(".loader").remove();
-                        $(".auth-back-btn").show("slow");
                         $(".form-top-text").show("slow");
                         loginForm.slideDown("slow");
                         msg = data.error;

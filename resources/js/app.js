@@ -7,5 +7,13 @@ require("./modules/reset-pwd");
 require("./modules/login");
 require("./modules/verify");
 require("./modules/logout");
+require("./modules/util");
+//=========== BLOG ==========
+require("./modules/blog/blog-sidebar");
+//=========== ADMIN ==========
+require("./modules/admin/category");
+require("./modules/admin/post/add-post");
+require("./modules/admin/post/all-post");
+require("./modules/admin/post/edit-post");
 
 

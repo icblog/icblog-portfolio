@@ -16,7 +16,7 @@
                         <div class="form-group">
                             <label class="form-label" for="pwd">Password *</label>
                             <div class="input-group mb-3">
-                                <input type="password" name="pwd" id="reset-pwd" class="form-control">
+                                <input type="password" name="pwd" id="reset-pwd" class="form-control"  maxlength="255">
                                 <div class="input-group-append">
                                     <button id="pwd-btn" class="pwd-btn no-border-radius btn btn-light"
                                         type="button"><span><i class="fa fa-eye"></i></span></button>
@@ -27,7 +27,7 @@
                             All fields marked with a * are mandatory
                         </p>
                         <input type="hidden" value="reset_password" name="action">
-                        <input type="hidden" value="" name="recaptcha">
+                        <input type="hidden" value="" name="recaptcha"  maxlength="1">
                         <div class="pt-3 text-center">
                             <button id="reset-password-form-btn" type="submit" class="primary-btn">Submit</button>
                         </div>

@@ -4,19 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\TokenTrait;
-use App\Traits\HelperTrait;
 use App\Models\User;
 
-class VerifyController extends Controller{
-    use TokenTrait;
-    use HelperTrait;
+class VerifyController extends BaseController{
+    //METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+ // returnGenericSystemErrMsg
+ //returnLinkErrMsg
+ //checkIsEmail
 
-     //METHODS USED FROM TokenTrait
-      //genarateToken,  decodeToken
+//METHODS USED FROM TOKEN TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//genarateToken
+//deCorded
 
-     //METHODS USED FROM HelperTrait
-     //returnGenericSystemErrMsg, returnLinkErrMsg, checkIsEmail
     public function index(){
 
         return view('verify/index');

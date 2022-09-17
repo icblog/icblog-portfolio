@@ -1,8 +1,7 @@
 <footer>
     <p>@copyright 2022</p>
 </footer>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -28,15 +27,34 @@
         'homeIndex': '{{ route('home.index') }}',
         'verifyToken': '{{ route('verify.verifyToken') }}',
         'contactIndex': '{{ route('contact.index') }}',
-        'blogIndex': '{{ route('blog.index') }}',
-        'logoutIndex': '{{ route('logout.index') }}'
-   };
+        'blogIndex': '{{ URL::route('blog.index', ['post','latest']) }}',
+        'logoutIndex': '{{ route('logout.index') }}',
+        //ADMIN ROUTES
+        'adminStoreCategory': '{{ route('admin.storecategory') }}',
+        'adminUpdateCategory': '{{ route('admin.updatecategory') }}',
+        'adminDeleteCategory': '{{ route('admin.deletecategory') }}',
+        'adminLoadmoreCategory': '{{ route('admin.loadmorecategory') }}',
+        'adminStorepost': '{{ route('admin.storepost') }}',
+        'adminUpdatepost': '{{ route('admin.updatepost') }}',
+        'adminDeletepost': '{{ route('admin.deletepost') }}',
+        'adminLoadMorePost': '{{ route('admin.loadmorepost') }}',
+        
+        
+        
+        
+ };
 
 </script>
-<script src="{{ asset('js/image-uploader.min.js?v='.rand(1,99)) }}"></script>
-<script src="{{ asset('js/jsRapStar.js?v='.rand(1,99)) }}"></script>
-<script src="{{ asset('js/app.js?v='.rand(1,99)) }}"></script>
+    <!-- ADD SCRIPT FOR POST PLUG INS CSS -->
+    @if(Route::currentRouteName() == "admin.addpost" || Route::currentRouteName() == "admin.editPostIndex")
+    <script src="{{ asset('js/easySelect.js') }}"></script>
+    <script src="{{ asset('js/image-uploader.min.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+    <script src="https://inacho.github.io/bootstrap-markdown-editor/dist/js/bootstrap-markdown-editor.js"></script>
+    @endif
 
+    <script src="{{ asset('js/app.js?v='.rand(1,99)) }}"></script>   
+<!-- <script src="{{ asset('js/app.js') }}"></script> -->
 </body>
-
 </html>

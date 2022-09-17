@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Traits\HelperTrait;
 
-class LoginController extends Controller{
-    use HelperTrait;
-     public function index(){
+
+class LoginController extends BaseController{
+//METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//returnGenericSystemErrMsg
+  
+public function index(){
         $pageIntro = "Log in securely";
         return view('/login.index', ["pageIntro"=>$pageIntro]);
         
@@ -35,7 +37,7 @@ class LoginController extends Controller{
               'error' => $validator->errors()->all()
           ]);
           die();
-           }//end if validation
+        }//end if validation
        
        
                //Log in user if validation pass
@@ -44,14 +46,20 @@ class LoginController extends Controller{
              if (Auth::attempt($credentials)) {
                  User::updateLastLoginDate();
                $request->session()->regenerate();
-                 $isAdmin =  false;
+                
+               $defaultUrl = route("blog.index",["post","latest"],false);//route name
                  if(Auth::user()->role == "a_admin"){
-                  $isAdmin =  true;
+                  $defaultUrl = route("admin.dashboard",[],false);
                  }
+                 //Intended url is stored in session by admin middleware located in the middleware folder 
+                 $defaultUrl = $this->replaceFirstOccuranceOfChar("/","",$defaultUrl);
+                 $intendedUrl =  $request->session()->pull('intendedUrl', $defaultUrl);
+
               return response()->json([
-                 'error' => "",
+                 "error" => "",
                  "outcome" => true,
-                 "isAdmin"=> $isAdmin
+                 "redirectUrl" => $intendedUrl
+
              ]);
             }else{
                 return response()->json([

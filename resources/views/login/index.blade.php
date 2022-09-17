@@ -14,13 +14,13 @@
                     <form id="login-form" class="login-form" method="POST">
                         <div class="form-group">
                             <label class="form-label" for="email">Email *</label>
-                            <input type="text" class="form-control" id="login-email" name="email">
+                            <input type="text" class="form-control" id="login-email" name="email"  maxlength="255">
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="password">Password *</label>
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="login-pwd" class="login-pwd form-control">
-                                <input type="hidden" value="" name="recaptcha">
+                                <input type="password" name="password" id="login-pwd" class="login-pwd form-control"  maxlength="255">
+                                <input type="hidden" value="" name="recaptcha"  maxlength="1">
                                 <div class="input-group-append">
                                     <button id="pwd-btn" class="pwd-btn no-border-radius btn btn-light"
                                         type="button"><span><i class="fa fa-eye"></i></span></button>
@@ -40,7 +40,7 @@
                         </div>
                     </form>
                 </div><!-- end form-wrapper div -->
-            </div> <!-- end col-md-6 div -->
+            </div> <!-- end col-md-7 div -->
         </div> <!-- end row div -->
         </container> <!-- end container div -->
 </section>

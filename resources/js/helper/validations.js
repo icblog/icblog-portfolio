@@ -44,8 +44,8 @@ function checkLenghtAnything(elemId, lenghtNumber, message) {
 } //function checkLenghtAnything
 
 function checkEqualityAnything(elemId, elemId2, message) {
-	var elemValue = elemId.val();
-	var elemValue2 = elemId2.val();
+	var elemValue = elemId.val().trim();
+	var elemValue2 = elemId2.val().trim();
 
 	if (elemValue !== elemValue2) {
 		return {
@@ -82,15 +82,15 @@ export const validateEmail = (elemId) => {
 }; // function validateEmail ends
 
 
-export const validateElementEmpty = (elemId,message) => {
-	let  result = "";
+export const validateElementEmpty = (elemId, message) => {
+	let result = "";
 
 	result = checkElementEmpty(elemId, message);
 	if (!result.outCome) {
 		return result.errorDiv;
 	}
 
-	
+
 	return true;
 }; // function validateElementEmpty ends
 

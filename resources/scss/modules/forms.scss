@@ -21,6 +21,14 @@
     display: none;
 }
 
+.saveorpublish {
+    border: 0.1rem solid $lightGreyColor;
+}
+
+.input-error {
+    border-color: $dangerColor  !important;
+}
+
 
 
 

@@ -7,21 +7,16 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use App\Traits\TokenTrait;
-use App\Traits\HelperTrait;
 
-class ResetPassController extends Controller{
-    use TokenTrait;
-    use HelperTrait;
-      //METHODS USED FROM TokenTrait
-      //genarateToken
-      //deCorded
 
-     //METHODS USED FROM HelperTrait
-     // returnGenericSystemErrMsg
-     //returnLinkErrMsg
+class ResetPassController extends BaseController{
+  //METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+ // returnGenericSystemErrMsg
+ //returnLinkErrMsg
 
-    
+//METHODS USED FROM TOKEN TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//genarateToken
+//deCorded
     public function index(){
         $pageIntro = "Reset password";
         return view('/reset-pass.index', ["pageIntro"=>$pageIntro]);

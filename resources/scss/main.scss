@@ -3,13 +3,24 @@
 @import "modules/font";
 @import "modules/base";
 @import "modules/util";
+@import "modules/ajax-pagination";
 @import "modules/header";
 @import "modules/page-intro";
 @import "modules/home";
 @import "modules/logo";
-@import "modules/custom-masonry";
 @import "modules/global-modal";
 @import "modules/forms";
 @import "modules/verify";
 @import "modules/about";
 @import "modules/footer";
+//Blog styles
+@import "modules/blog/blog-home";
+@import "modules/blog/blog-single";
+@import "modules/blog/blog-side-bar";
+
+
+
+// Admin Styles
+@import "modules/admin/util";
+@import "modules/admin/dashboard";
+@import "modules/admin/category";

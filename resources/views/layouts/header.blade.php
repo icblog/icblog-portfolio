@@ -14,15 +14,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
 
-    <!-- BOOTSTRAP 4 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+   
 
+    <!-- ADD STYLE FOR POST PLUG INS CSS -->
+    @if(Route::currentRouteName() == "admin.addpost" || Route::currentRouteName() == "admin.editPostIndex")
+    <link rel="stylesheet" href="{{ asset('css/easySelectStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/image-uploader.min.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="https://inacho.github.io/bootstrap-markdown-editor/dist/css/bootstrap-markdown-editor.css" rel="stylesheet">
+    @endif
+
+     <!-- BOOTSTRAP 4 -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{ asset('css/main.css?v='.rand(1,99)) }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    -->
 </head>
 
-<body>
+<body style="visibility: hidden;">
 
     <header id="main-header">
         <div class="container">
@@ -37,13 +51,14 @@
                                 <li>
                                     <button type="button" title="Close menu" class="show-on-mobile hide-on-desktop"
                                         id="small-screen-close-menu-btn">
-                                        <spa><i class="fas fa-times"></i></span>
+                                        <span><i class="fas fa-times"></i></span>
                                     </button>
                                 </li>
-
-                                @include('nav.user-nav')
-
-
+                                @if(Auth::check() && Auth::user()->role == "a_admin")
+                                  @include('nav.admin-nav')
+                                @else
+                                  @include('nav.user-nav')
+                                @endif
 
                             </ul>
                         </div><!-- End middle-content-wrapper -->

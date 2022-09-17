@@ -6,7 +6,7 @@
 		<div class="pt-5 col-md-12">
 			<h2 class="pb-3 text-center">! Error has occured</h2>
 			<p class="text-center lead">
-				Sorry! we can't find the page you're looking for,
+				Sorry! we're experiencing some technical difficulties,
 				try our home page or contact us for help.
 			</p>
 		</div>

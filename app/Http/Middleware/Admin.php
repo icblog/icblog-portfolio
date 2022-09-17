@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class Admin
 {
     /**
@@ -20,7 +21,17 @@ class Admin
          if (Auth::check() && Auth::user()->role == 'a_admin') {
             return $next($request);
         }
-         return redirect()->route("review.index")->with('access_error', 'Sorry your session has expired or you do not have permission to access that page'); 
+        //Store intended url in a session before redirecting to login page
+        $request->session()->forget('intendedUrl');
+        $request->session()->put('intendedUrl', $request->path());
+        if($request->ajax()){
+            return response()->json([
+                'error' => "Sorry your session has expired or you do not have permission to access that page"
+            ]);
+        }else{
+            return redirect()->route("login.index")->with('access_error', 'Sorry your session has expired or you do not have permission to access that page'); 
+        }
+         
 
  
     }

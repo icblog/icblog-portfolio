@@ -1,0 +1,44 @@
+.side-bar-details-wrapper {
+    background-color: $whiteColor;
+    padding: 1rem;
+    padding-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-category-wrapper {
+    height: 7rem;
+    overflow-y: scroll;
+}
+
+.sidebar-search-category-input-wrapper {
+    position: relative;
+}
+
+.sidebar-search-category-input {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+}
+
+.sidebar-search-category-icon-search {
+    border: 0;
+    position: absolute;
+    z-index: 4;
+    left: 0.8rem;
+    top: 0.4rem;
+}
+
+.sidebar-search-category-icon-times {
+    border: 0;
+    position: absolute;
+    z-index: 4;
+    right: 0.8rem;
+    top: 0.4rem;
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 991.98px) {}
+
+@media (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {}

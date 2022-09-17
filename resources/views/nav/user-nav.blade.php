@@ -12,7 +12,7 @@
 
 @if(Route::currentRouteName() != 'blog.index')
     <li>
-        <a href="{{ route('blog.index') }}" class="header-nav-link">
+        <a href="{{ URL::route('blog.index', ['post','latest']) }}" class="header-nav-link">
             Blog
         </a>
     </li>

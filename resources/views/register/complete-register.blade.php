@@ -26,20 +26,20 @@
 
                         <div class="form-group">
                             <label class="form-label">First name *</label>
-                            <input type="text" class="form-control" value="" name="fname" id="fname" maxLength="120" />
+                            <input type="text" class="form-control" value="" name="fname" id="fname"  maxlength="255" />
 
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Last name *</label>
-                            <input type="text" class="form-control" name="lname" id="lname" maxLength="120" />
+                            <input type="text" class="form-control" name="lname" id="lname"  maxlength="255" />
 
                         </div>
 
                         <div class="form-group">
                             <label class="form-label" for="pwd">Password *</label>
                             <div class="input-group mb-3">
-                                <input type="password" name="password" id="pwd" class="form-control">
+                                <input type="password" name="password" id="pwd" class="form-control"  maxlength="255">
                                 <div class="input-group-append">
                                     <button id="pwd-btn" class="pwd-btn no-border-radius btn btn-light"
                                         type="button"><span><i class="fa fa-eye"></i></span></button>
@@ -49,8 +49,8 @@
                         <p class="small">
                             All fields marked with a * are mandatory
                         </p>
-                        <input type="hidden" class="form-control" id="complete-reg-email" name="email">
-                        <input type="hidden" value="" name="recaptcha">
+                        <input type="hidden" class="form-control" id="complete-reg-email" name="email"  maxlength="255">
+                        <input type="hidden" value="" name="recaptcha"  maxlength="1">
                         <div class="pt-3 text-center">
                             <button id="complete-register-form-btn" type="submit" class="primary-btn">Submit</button>
                         </div>

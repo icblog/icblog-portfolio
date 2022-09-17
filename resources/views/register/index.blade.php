@@ -15,9 +15,9 @@
 
                         <div class="form-group">
                             <label class="form-label" for="email">Email *</label>
-                            <input type="text" class="form-control" id="initial-register-email-input" name="email">
+                            <input type="text" class="form-control" id="initial-register-email-input" name="email"  maxlength="255">
                         </div>
-                        <input type="hidden" value="" name="recaptcha">
+                        <input type="hidden" value="" name="recaptcha"  maxlength="1">
                         <p class="small">
                             All fields marked with a * are mandatory
                         </p>

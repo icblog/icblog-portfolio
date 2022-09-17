@@ -25,6 +25,20 @@ __webpack_require__(/*! ./modules/verify */ "./resources/js/modules/verify.js");
 
 __webpack_require__(/*! ./modules/logout */ "./resources/js/modules/logout.js");
 
+__webpack_require__(/*! ./modules/util */ "./resources/js/modules/util.js"); //=========== BLOG ==========
+
+
+__webpack_require__(/*! ./modules/blog/blog-sidebar */ "./resources/js/modules/blog/blog-sidebar.js"); //=========== ADMIN ==========
+
+
+__webpack_require__(/*! ./modules/admin/category */ "./resources/js/modules/admin/category.js");
+
+__webpack_require__(/*! ./modules/admin/post/add-post */ "./resources/js/modules/admin/post/add-post.js");
+
+__webpack_require__(/*! ./modules/admin/post/all-post */ "./resources/js/modules/admin/post/all-post.js");
+
+__webpack_require__(/*! ./modules/admin/post/edit-post */ "./resources/js/modules/admin/post/edit-post.js");
+
 /***/ }),
 
 /***/ "./resources/js/helper/functions.js":
@@ -36,6 +50,10 @@ __webpack_require__(/*! ./modules/logout */ "./resources/js/modules/logout.js");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "handleAjaxPaginationInitialPageLoad": () => (/* binding */ handleAjaxPaginationInitialPageLoad),
+/* harmony export */   "handleAjaxPaginationNextBtn": () => (/* binding */ handleAjaxPaginationNextBtn),
+/* harmony export */   "handleAjaxPaginationPreviousBtn": () => (/* binding */ handleAjaxPaginationPreviousBtn),
+/* harmony export */   "handleCategorySearchFilter": () => (/* binding */ handleCategorySearchFilter),
 /* harmony export */   "handleCloseModal": () => (/* binding */ handleCloseModal),
 /* harmony export */   "handleErrorOnFocus": () => (/* binding */ handleErrorOnFocus),
 /* harmony export */   "handleOutputInFo": () => (/* binding */ handleOutputInFo),
@@ -53,6 +71,10 @@ var returnBaseUrl = function returnBaseUrl() {
 
 var isObject = function isObject(obj) {
   return Object.prototype.toString.call(obj) === '[object Object]';
+};
+
+var isArray = function isArray(what) {
+  return Object.prototype.toString.call(what) === '[object Array]';
 };
 
 var redirect = function redirect(url, external) {
@@ -100,7 +122,7 @@ var handleOutputInFo = function handleOutputInFo(msg, type) {
       return '<div class="no-border-radius alert alert-success"><strong>Success! </strong>' + msg + "</div>";
 
     case "error":
-      if (isObject(msg)) {
+      if (isObject(msg) || isArray(msg)) {
         var errElement = "<ul>";
         $.each(msg, function (key, value) {
           errElement += "<li>*" + value + "</li>";
@@ -108,7 +130,7 @@ var handleOutputInFo = function handleOutputInFo(msg, type) {
         errElement += "</ul>";
         return '<div class="no-border-radius alert alert-danger"><strong>Error! </strong>' + errElement + "</div>";
       } else {
-        return '<div class="no-border-radius alert alert-danger"><strong>Error! </strong>' + msg + "</div>";
+        return '<div class="no-border-radius alert alert-danger"><strong>Error! </strong><ul><li>*' + msg + "</ul></li></div>";
       }
 
     case "info":
@@ -125,6 +147,8 @@ var handleErrorOnFocus = function handleErrorOnFocus() {
   });
   $("textarea").focus(function () {
     $(".".concat(errDiv)).slideUp("slow");
+    $(".md-toolbar").removeClass("input-error");
+    $(".md-editor").removeClass("input-error");
   });
   $("select").change(function () {
     $(".".concat(errDiv)).slideUp("slow");
@@ -166,7 +190,157 @@ var hideElement = function hideElement(timeTohide, elementToHide, speedToHideIt)
 var scrollToDiv = function scrollToDiv(divToScrollTo) {
   $('html, body').animate({
     scrollTop: divToScrollTo.offset().top
-  }, 2000);
+  }, 500);
+};
+var handleAjaxPaginationInitialPageLoad = function handleAjaxPaginationInitialPageLoad() {
+  var intialPageNumber = $(".next-pre-btn-wrapper").data('dir1'),
+      intialLastPageNumber = $(".next-pre-btn-wrapper").data('dir2'),
+      preBtn = $(".pre-btn"),
+      nextBtn = $(".next-btn");
+
+  if (intialLastPageNumber <= intialPageNumber) {
+    nextBtn.hide();
+  } else {
+    nextBtn.show();
+  }
+
+  preBtn.hide();
+  return {
+    "intialLastPageNumber": intialLastPageNumber,
+    "intialPageNumber": intialPageNumber
+  };
+};
+var handleAjaxPaginationNextBtn = function handleAjaxPaginationNextBtn(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber) {
+  var pageNumber = $(".next-pre-btn-wrapper").data('dir1'),
+      totalResultCount = $(".next-pre-btn-wrapper").data('dir3'),
+      nextBtn = $(".next-btn"),
+      preBtn = $(".pre-btn"),
+      time = 600,
+      timer = "",
+      newPageNumber = pageNumber + 1; //hide both buttons
+
+  nextBtn.hide();
+  preBtn.hide(); //update page number in view
+
+  $(".next-pre-btn-wrapper").data('dir1', newPageNumber); //make ajax call
+
+  clearInterval(timer);
+  timer = setTimeout(function () {
+    var postData = {
+      'pageNumber': newPageNumber,
+      'totalResultCount': totalResultCount
+    };
+    $.ajax({
+      url: ajaxEndPoint,
+      type: 'POST',
+      data: postData,
+      success: function success(data) {
+        if ($.isEmptyObject(data.error)) {
+          if (intialLastPageNumber > intialPageNumber) {
+            preBtn.show();
+          }
+
+          if (intialLastPageNumber != newPageNumber) {
+            nextBtn.show();
+          }
+
+          var result = {
+            "err": false,
+            "res": data.res,
+            "resultPerPage": data.resultPerPage
+          };
+          returnHtmlOutPut(result);
+        } else {
+          var _result = {
+            "err": true,
+            "res": data.error
+          };
+          returnHtmlOutPut(_result);
+        } //end if error
+
+      }
+    }); //end ajax
+  }, time); //end timer
+}; //handleAjaxPaginationNextBtn
+
+var handleAjaxPaginationPreviousBtn = function handleAjaxPaginationPreviousBtn(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber) {
+  var pageNumber = $(".next-pre-btn-wrapper").data('dir1'),
+      totalResultCount = $(".next-pre-btn-wrapper").data('dir3'),
+      nextBtn = $(".next-btn"),
+      preBtn = $(".pre-btn"),
+      time = 600,
+      timer = "",
+      newPageNumber = pageNumber - 1; //hide both buttons
+
+  nextBtn.hide();
+  preBtn.hide(); //update page number in view
+
+  $(".next-pre-btn-wrapper").data('dir1', newPageNumber); //make ajax call
+
+  clearInterval(timer);
+  timer = setTimeout(function () {
+    var postData = {
+      'pageNumber': newPageNumber,
+      'totalResultCount': totalResultCount
+    };
+    $.ajax({
+      url: ajaxEndPoint,
+      type: 'POST',
+      data: postData,
+      success: function success(data) {
+        if ($.isEmptyObject(data.error)) {
+          preBtn.show();
+
+          if (newPageNumber == intialPageNumber) {
+            preBtn.hide();
+          }
+
+          if (intialLastPageNumber != newPageNumber) {
+            nextBtn.show();
+          }
+
+          var result = {
+            "err": false,
+            "res": data.res,
+            "resultPerPage": data.resultPerPage
+          };
+          returnHtmlOutPut(result);
+        } else {
+          var _result2 = {
+            "err": true,
+            "res": data.error
+          };
+          returnHtmlOutPut(_result2);
+        } //end if error
+
+      }
+    }); //end ajax
+  }, time); //end timer
+}; //handleAjaxPaginationPreviousBtn
+
+var handleCategorySearchFilter = function handleCategorySearchFilter(inputElement, categoryWrapper, clearBtn) {
+  inputElement.keyup(function () {
+    categoryWrapper.hide();
+    var searchedWord = $(this).val().trim().toUpperCase().trim(); //Show clear button
+
+    if (searchedWord == "") {
+      clearBtn.hide();
+    } else {
+      clearBtn.show();
+    } // Loop through all list items, and hide those who don't match the search query
+
+
+    categoryWrapper.each(function () {
+      if ($(this).text().toUpperCase().indexOf(searchedWord) != -1) {
+        $(this).show();
+      }
+    });
+  });
+  clearBtn.click(function () {
+    inputElement.val("");
+    categoryWrapper.show();
+    $(this).hide();
+  });
 };
 
 /***/ }),
@@ -240,8 +414,8 @@ function checkLenghtAnything(elemId, lenghtNumber, message) {
 
 
 function checkEqualityAnything(elemId, elemId2, message) {
-  var elemValue = elemId.val();
-  var elemValue2 = elemId2.val();
+  var elemValue = elemId.val().trim();
+  var elemValue2 = elemId2.val().trim();
 
   if (elemValue !== elemValue2) {
     return {
@@ -303,20 +477,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/functions */ "./resources/js/helper/functions.js");
 
 
-var handleUpAndDownArrow = function handleUpAndDownArrow(e) {
-  $(".about-h5-intro").click(function () {
-    if ($(this).hasClass("opened")) {
-      $(this).parent().find(".about-arrow-down").show();
-      $(this).parent().find(".about-arrow-up").hide();
-      $(this).removeClass("opened");
-    } else {
-      $(this).parent().find(".about-arrow-up").show();
-      $(this).parent().find(".about-arrow-down").hide();
-      $(this).addClass("opened");
-    }
-  });
-};
-
 var handleAboutTabContent = function handleAboutTabContent() {
   $(".tab_content").hide(); //$(".tab_content:first").show();
 
@@ -361,8 +521,935 @@ var handleAboutTabContent = function handleAboutTabContent() {
 };
 
 $(function () {
-  //handleUpAndDownArrow();
   handleAboutTabContent();
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/admin/category.js":
+/*!************************************************!*\
+  !*** ./resources/js/modules/admin/category.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var handleAddCategoryForm = function handleAddCategoryForm() {
+  $(document).on("click", "#add-category-form-btn", function (e) {
+    e.preventDefault();
+    var addCategoryForm = $("#add-category-form"),
+        errDiv = $(".err-div"),
+        formWrapper = $(".form-wrapper"),
+        formData = $("#add-category-form").serializeArray(),
+        loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+        categoryNameValue = $("#category-name").val(),
+        infoElement = "",
+        msg = "",
+        timer = "",
+        time = 1200; //hide validation error
+
+    errDiv.slideUp("slow");
+
+    if (categoryNameValue == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Category name required", "error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    }
+
+    formWrapper.prepend(loader);
+    addCategoryForm.hide("slow");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json" // Authorization:
+          //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTE1NzU2NjksImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsIm5iZiI6MTY1MTU3NTY3OSwiZXhwIjoxNjUxNTc2MTY5LCJkYXRhIjp7ImVtYWlsIjoiZGRkZGRAZ21haWwuY29tIn19.zsPadnoglvaxGUwlkusKD6TlNCUEMhJKvxqKnOWds3K7-wPF9jilkzTuyCWjRe8P1bHyFLT5HJ0tNDWl72T0GQ",
+
+        },
+        url: routes.adminStoreCategory,
+        //Blade Global veriable defined in the footer
+        data: formData,
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            time = 1500;
+            msg = "Category added successful, please wait...";
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
+            addCategoryForm.trigger("reset");
+            $(".loader").append(infoElement);
+            clearInterval(timer);
+            timer = setTimeout(function () {
+              $(".success").remove();
+              $(".loader").remove();
+              addCategoryForm.hide("fast");
+              location.reload();
+            }, time);
+          } else {
+            //Remove validation error
+            $(".alert").remove();
+            $(".loader").remove();
+            addCategoryForm.slideDown("slow");
+            msg = data.error;
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
+            errDiv.html(infoElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+          }
+        }
+      });
+    }, time); // timer before action;
+  });
+};
+
+var handleAdminCategoryEditAndCancelBtn = function handleAdminCategoryEditAndCancelBtn() {
+  //Hide Save and Cancel btn on page load
+  $(".save-category-btn").hide();
+  $(".cancel-category-btn").hide();
+  $(document).on("click", ".edit-category-btn", function () {
+    var inputElement = $(this).parent().parent().find(".admin-all-category-input"),
+        deleteCategoryBtn = $(this).parent().find(".delete-category-btn"),
+        saveCategoryBtn = $(this).parent().find(".save-category-btn"),
+        cancelCategoryBtn = $(this).parent().find(".cancel-category-btn"),
+        defaultValue = inputElement.val();
+    inputElement.prop("type", "text").focus().val("").val(defaultValue).addClass("admin-all-category-input-active");
+    $(this).parent().parent().parent().addClass("admin-category-detail-wrapper-active");
+    $(this).hide();
+    deleteCategoryBtn.hide();
+    saveCategoryBtn.show();
+    cancelCategoryBtn.show();
+  });
+  $(document).on("click", ".cancel-category-btn", function () {
+    var inputElement = $(this).parent().parent().find(".admin-all-category-input"),
+        editCategoryBtn = $(this).parent().find(".edit-category-btn"),
+        deleteCategoryBtn = $(this).parent().find(".delete-category-btn"),
+        saveCategoryBtn = $(this).parent().find(".save-category-btn"),
+        categoryErrDiv = $(this).parent().parent().parent().find(".category-err-div"),
+        defaultValue = inputElement.data("dir");
+    inputElement.prop("type", "button").val(defaultValue).removeClass("admin-all-category-input-active");
+    $(this).parent().parent().parent().removeClass("admin-category-detail-wrapper-active");
+    categoryErrDiv.slideUp("slow");
+    $(this).hide();
+    saveCategoryBtn.hide();
+    deleteCategoryBtn.show();
+    editCategoryBtn.show();
+  });
+};
+
+var handleAdminCategorySaveBtn = function handleAdminCategorySaveBtn() {
+  $(document).on("focus", ".admin-all-category-input", function () {
+    $(this).parent().parent().find(".category-err-div").slideUp("slow");
+  });
+  $(document).on("click", ".save-category-btn", function () {
+    var saveCategoryBtn = $(this),
+        infoElement = "",
+        inputElement = saveCategoryBtn.parent().parent().find(".admin-all-category-input"),
+        categoryErrDiv = saveCategoryBtn.parent().parent().parent().find(".category-err-div"),
+        categoryDetailUpdatedDatespan = saveCategoryBtn.parent().parent().parent().find(".admin-category-detail-updated-date-span"),
+        categoryDetailUpdatedByspan = saveCategoryBtn.parent().parent().parent().find(".admin-category-detail-updated-by-span"),
+        deleteCategoryBtn = saveCategoryBtn.parent().find(".delete-category-btn"),
+        editCategoryBtn = saveCategoryBtn.parent().find(".edit-category-btn"),
+        cancelCategoryBtn = saveCategoryBtn.parent().find(".cancel-category-btn"),
+        defaultValue = inputElement.data("dir"),
+        newValue = inputElement.val(),
+        categoryId = inputElement.data("categoryid"),
+        timer = "",
+        time = 1200; //Check if new value is empty
+
+    if (newValue == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Please fill in a value before saving", "error");
+      categoryErrDiv.html(infoElement).slideDown("slow");
+      return;
+    } //Check if new value is same as old value
+
+
+    if (newValue == defaultValue) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Please make changes before saving", "error");
+      categoryErrDiv.html(infoElement).slideDown("slow");
+      return;
+    }
+
+    cancelCategoryBtn.hide();
+    saveCategoryBtn.text("Saving...."); //Make ajax call to update category
+
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json" //Authorization: tokenData,
+
+        },
+        url: routes.adminUpdateCategory,
+        //Blade Global veriable defined in the footer
+        data: {
+          categoryId: categoryId,
+          newCategoryname: newValue,
+          defaultValue: defaultValue
+        },
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            time = 1500;
+            saveCategoryBtn.text("Success");
+            clearInterval(timer);
+            timer = setTimeout(function () {
+              inputElement.prop("type", "button").val(newValue).removeClass("admin-all-category-input-active");
+              saveCategoryBtn.parent().parent().parent().removeClass("admin-category-detail-wrapper-active");
+              inputElement.data('dir', newValue);
+              categoryDetailUpdatedDatespan.text(data.updated_at);
+              categoryDetailUpdatedByspan.text(data.updated_by);
+              deleteCategoryBtn.show();
+              editCategoryBtn.show();
+              saveCategoryBtn.html('<span><i class="fas fa-check"></i></span>').hide();
+            }, time); //timer
+          } else {
+            cancelCategoryBtn.show();
+            saveCategoryBtn.html('<span><i class="fas fa-check"></i></span>'); //Show error
+
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(data.error, "error");
+            categoryErrDiv.html(infoElement).slideDown("slow");
+          }
+        }
+      });
+    }, time); // timer before ajax action;
+  });
+};
+
+var handleAdminDeleteCategoryBtn = function handleAdminDeleteCategoryBtn() {
+  $(document).on("click", ".delete-category-btn", function () {
+    var deleteCategoryBtn = $(this),
+        infoElement = "",
+        inputElement = deleteCategoryBtn.parent().parent().find(".admin-all-category-input"),
+        categoryErrDiv = deleteCategoryBtn.parent().parent().parent().find(".category-err-div"),
+        editCategoryBtn = deleteCategoryBtn.parent().find(".edit-category-btn"),
+        defaultValue = inputElement.data("dir"),
+        categoryId = inputElement.data("categoryid"),
+        resultPerPage = $(".next-pre-btn-wrapper").data("resultperpage"),
+        timer = "",
+        time = 1200;
+    categoryErrDiv.slideUp("slow");
+
+    if (window.confirm("Delete category (".concat(defaultValue, ") ? please note this can not be undone"))) {
+      editCategoryBtn.hide();
+      deleteCategoryBtn.text("Deleting...."); //Make ajax call to update category
+
+      clearInterval(timer);
+      timer = setTimeout(function () {
+        $.ajax({
+          method: "POST",
+          headers: {
+            Accept: "application/json" //Authorization: tokenData,
+
+          },
+          url: routes.adminDeleteCategory,
+          //Blade Global veriable defined in the footer
+          data: {
+            categoryId: categoryId
+          },
+          success: function success(data) {
+            if ($.isEmptyObject(data.error)) {
+              time = 1500;
+              deleteCategoryBtn.removeClass("btn-danger").addClass("btn-success").text("Success");
+              clearInterval(timer);
+              timer = setTimeout(function () {
+                deleteCategoryBtn.parent().parent().parent().remove(); //Check how many result left on the page and if is zero reload the page for ne records
+
+                var newResultPerPageValue = resultPerPage - 1; // console.log(newResultPerPageValue);
+
+                if (newResultPerPageValue == 0) {
+                  location.reload();
+                } else {
+                  //update resultPerPage value
+                  $(".next-pre-btn-wrapper").data("resultperpage", newResultPerPageValue);
+                }
+              }, time); //timer
+            } else {
+              editCategoryBtn.show();
+              deleteCategoryBtn.removeClass("btn-success").addClass("btn-danger").html('<span><i class="fas fa-trash"></i></span>'); //Show error
+
+              infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(data.error, "error");
+              categoryErrDiv.html(infoElement).slideDown("slow");
+            }
+          }
+        });
+      }, time); // timer before ajax action;
+    } //End window confirmation
+
+  });
+};
+
+var returnHtmlOutPut = function returnHtmlOutPut(result) {
+  var htmloutput = "",
+      categoriesWrapperDiv = $("#admin-all-category-wrapper");
+
+  if (result.err) {
+    categoriesWrapperDiv.html("<p>" + result.res + "</p>");
+    return;
+  }
+
+  if (result.res.length > 0) {
+    $.each(result.res, function (key, value) {
+      htmloutput += '<div class="admin-category-detail-wrapper p-2 box-shadow mb-4">';
+      htmloutput += '<div class="input-group">';
+      htmloutput += "<input type=\"button\" class=\"form-control admin-all-category-input\" value=\"".concat(value.name, "\" data-dir=\"").concat(value.name, "\" data-categoryid=\"").concat(value.id, "\">");
+      htmloutput += '<div class="input-group-append">';
+      htmloutput += '<button class="btn btn-primary edit-category-btn" type="button"><span><i class="fas fa-edit"></i></span></button>';
+      htmloutput += '<button class="btn btn-danger delete-category-btn" type="button"><span><i class="fas fa-trash"></i></span></button>';
+      htmloutput += '<button class="btn btn-success save-category-btn" type="button"><span><i class="fas fa-check"></i></span></button>';
+      htmloutput += '<button class="btn btn-warning cancel-category-btn" type="button"><span><i class="fas fa-times"></i></span></button>';
+      htmloutput += '</div>';
+      htmloutput += '</div>';
+      htmloutput += '<div class="category-err-div"></div>';
+      htmloutput += "<p>\n            Created date: <span class=\"admin-detail-value-span\">".concat(value.created_at, "</span><br/> \n            Created by: <span class=\"admin-detail-value-span\">").concat(value.createdby_name, "</span><br/>\n            Updated date: <span class=\"admin-detail-value-span\">").concat(value.updated_at == value.created_at ? "--" : value.updated_at, "</span><br/>\n            Updated by: <span class=\"admin-detail-value-span\">").concat(value.updatedby_name == null ? "--" : value.updatedby_name, "</span><br/>\n            </p>");
+      htmloutput += '</div>';
+    });
+  } else {
+    htmloutput += '<p class="text-center">There is currently no category, please add one using the form above thank you.</p>';
+  }
+
+  categoriesWrapperDiv.html(htmloutput);
+  $(".next-pre-btn-wrapper").data("resultperpage", result.resultPerPage);
+  $(".save-category-btn").hide();
+  $(".cancel-category-btn").hide();
+};
+
+var handleCategoryPagination = function handleCategoryPagination() {
+  var initialPageLoadObject = "",
+      output = "",
+      intialPageNumber = "",
+      intialLastPageNumber = "",
+      categoriesWrapperDiv = $("#admin-all-category-wrapper"),
+      loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+      ajaxEndPoint = routes.adminLoadmoreCategory;
+  initialPageLoadObject = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationInitialPageLoad)();
+  intialPageNumber = initialPageLoadObject.intialPageNumber;
+  intialLastPageNumber = initialPageLoadObject.intialLastPageNumber;
+  $(".next-btn").click(function () {
+    categoriesWrapperDiv.html(loader);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($(".form-wrapper"));
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationNextBtn)(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber);
+  });
+  $(".pre-btn").click(function () {
+    categoriesWrapperDiv.html(loader);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)($(".form-wrapper"));
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationPreviousBtn)(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber);
+  });
+};
+
+$(function () {
+  //Run this code only on category page
+  var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(1);
+
+  if (page == "category") {
+    //Run above function to handle the form
+    handleAddCategoryForm();
+    handleAdminCategoryEditAndCancelBtn();
+    handleAdminCategorySaveBtn();
+    handleAdminDeleteCategoryBtn();
+    handleCategoryPagination();
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/admin/post/add-post.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/modules/admin/post/add-post.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var handleAddPostForm = function handleAddPostForm() {
+  var addPostForm = $("#add-post-form"); //Reset form on page load
+
+  addPostForm.trigger("reset");
+  addPostForm.submit(function (e) {
+    e.preventDefault();
+    var errDiv = $(".err-div"),
+        formWrapper = $(".form-wrapper"),
+        formData = new FormData(this),
+        loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+        title = $("#title"),
+        files = $("#add-post-form input[type=file]")[0],
+        totalFiles = files.files.length,
+        selectedCategories = $("#admin-post-category-select"),
+        postBody = $("#postbody"),
+        infoElement = "",
+        msg = "",
+        timer = "",
+        time = 1200; //hide validation error
+
+    errDiv.slideUp("slow"); //Image file is optional, only validate if user attempt to upload
+
+    if (totalFiles > 0) {
+      //Maximum number of files allowed is 10
+      if (totalFiles > 10) {
+        infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Maximum 10 images please thank you", "error");
+        errDiv.html(infoElement).slideDown("slow");
+        (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+        (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+        return;
+      } else {
+        //Add images files to form data
+        for (var i = 0; i < totalFiles; i++) {
+          formData.append("files" + i, files.files[i]);
+        }
+
+        formData.append("totalFiles", totalFiles);
+      }
+    } //End if image is greater than 0
+
+
+    if (title.val().trim() == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Post title required", "error");
+      title.addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      title.removeClass("input-error");
+    }
+
+    if (selectedCategories.get(0).selectedIndex == -1) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Please select at least on category", "error");
+      $(".easySelect").addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      $(".easySelect").removeClass("input-error");
+    }
+
+    if (postBody.val().trim() == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Post body required", "error");
+      $(".md-toolbar").addClass("input-error");
+      $(".md-editor").addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      $(".md-toolbar").removeClass("input-error");
+      $(".md-editor").removeClass("input-error");
+    }
+
+    if ($('input[name="saveorpublish"]:checked').length == 0) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Select either to save or published post", "error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      $(".saveorpublish").addClass("input-error");
+      return;
+    } else {
+      $(".saveorpublish").removeClass("input-error");
+    }
+
+    formWrapper.prepend(loader);
+    addPostForm.hide("slow");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json" // Authorization:
+          //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTE1NzU2NjksImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsIm5iZiI6MTY1MTU3NTY3OSwiZXhwIjoxNjUxNTc2MTY5LCJkYXRhIjp7ImVtYWlsIjoiZGRkZGRAZ21haWwuY29tIn19.zsPadnoglvaxGUwlkusKD6TlNCUEMhJKvxqKnOWds3K7-wPF9jilkzTuyCWjRe8P1bHyFLT5HJ0tNDWl72T0GQ",
+
+        },
+        url: routes.adminStorepost,
+        //Blade Global veriable defined in the footer
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            time = 1500;
+            msg = "Post created successful, please wait...";
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
+            addPostForm.trigger("reset");
+            $(".loader").append(infoElement);
+            clearInterval(timer);
+            timer = setTimeout(function () {
+              $(".success").remove();
+              $(".loader").remove();
+              addPostForm.hide("fast"); //location.reload();
+
+              (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)("admin/allpost", false);
+            }, time);
+          } else {
+            //Remove validation error
+            $(".alert").remove();
+            $(".loader").remove();
+            addPostForm.slideDown("slow");
+            msg = data.error;
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
+            errDiv.html(infoElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+          }
+        }
+      });
+    }, time); // timer before action;
+  }); //Category multiselect on click
+  //Hide errors
+
+  $(".styledSelect").click(function () {
+    $(".easySelect").removeClass("input-error");
+    $(".err-div").slideUp("slow");
+  }); //Radio button checked
+  //Hide error
+
+  $('input[name="saveorpublish"]').focus(function () {
+    $(".saveorpublish").removeClass("input-error");
+  });
+};
+
+$(function () {
+  var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(1); //If page is addpost
+
+  if (page == "addpost") {
+    $(".add-post-input-images").imageUploader({
+      imagesInputName: "files",
+      maxSize: 2 * 1024 * 1024,
+      maxFiles: 10
+    });
+    $("#admin-post-category-select").easySelect({
+      buttons: true,
+      // 
+      search: true,
+      placeholder: 'Choose category',
+      placeholderColor: '#524781',
+      selectColor: '#524781',
+      itemTitle: 'categories selected',
+      showEachItem: true,
+      width: '100%',
+      dropdownMaxHeight: '450px'
+    });
+    $('#postbody').markdownEditor({
+      // imageUpload: true, // Activate the option
+      //uploadPath: 'upload.php',
+      preview: true,
+      onPreview: function onPreview(content, callback) {
+        callback(marked(content));
+      }
+    }); //Handle the form submit
+
+    handleAddPostForm();
+  } //End If page is addpost
+
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/admin/post/all-post.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/modules/admin/post/all-post.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var returnHtmlOutPut = function returnHtmlOutPut(result) {
+  var htmloutput = "",
+      postWrapperDiv = $("#all-post-wrapper");
+
+  if (result.err) {
+    postWrapperDiv.html("<p>" + result.res + "</p>");
+    return;
+  }
+
+  if (result.res.length > 0) {
+    $.each(result.res, function (key, value) {
+      htmloutput += '<div class="admin-post-detail-wrapper p-2 box-shadow mb-4">';
+      htmloutput += '<div class="text-right">';
+      htmloutput += "<button class=\"btn btn-primary edit-post-btn no-border-radius\" type=\"button\" data-dir=\"".concat(value.id, "\"><span><i class=\"fas fa-edit\"></i></span></button>");
+      htmloutput += "<button class=\"btn btn-danger delete-post-btn no-border-radius\" type=\"button\"><span><i class=\"fas fa-trash\"></i></span></button>";
+      htmloutput += '</div>';
+      htmloutput += "<h4>".concat(value.title, "</h4>");
+      htmloutput += "<p>\n            Status: <span class=\"admin-detail-value-span ".concat(value.status == 'saved' ? 'text-danger' : 'text-success', "\"><strong>").concat(value.status, "</strong></span><br/>\n            Created date: <span class=\"admin-detail-value-span\">").concat(value.created_at, "</span><br/> \n            Created by: <span class=\"admin-detail-value-span\">").concat(value.createdby_name, "</span><br/>\n            Updated date: <span class=\"admin-detail-value-span\">").concat(value.updated_at == value.created_at ? "--" : value.updated_at, "</span><br/>\n            Updated by: <span class=\"admin-detail-value-span\">").concat(value.updatedby_name == null ? "--" : value.updatedby_name, "</span><br/>\n            </p>");
+      htmloutput += '</div>';
+    });
+  } else {
+    htmloutput += '<p class="text-center">There is currently no post.</p>';
+  }
+
+  postWrapperDiv.html(htmloutput);
+  $(".next-pre-btn-wrapper").data("resultperpage", result.resultPerPage);
+};
+
+var handlePostPagination = function handlePostPagination() {
+  var initialPageLoadObject = "",
+      output = "",
+      intialPageNumber = "",
+      intialLastPageNumber = "",
+      postWrapperDiv = $("#all-post-wrapper"),
+      loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+      ajaxEndPoint = routes.adminLoadMorePost;
+  initialPageLoadObject = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationInitialPageLoad)();
+  intialPageNumber = initialPageLoadObject.intialPageNumber;
+  intialLastPageNumber = initialPageLoadObject.intialLastPageNumber;
+  $(".next-btn").click(function () {
+    postWrapperDiv.html(loader);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(postWrapperDiv);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationNextBtn)(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber);
+  });
+  $(".pre-btn").click(function () {
+    postWrapperDiv.html(loader);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(postWrapperDiv);
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleAjaxPaginationPreviousBtn)(returnHtmlOutPut, ajaxEndPoint, intialPageNumber, intialLastPageNumber);
+  });
+};
+
+var handleEditPostButtonClicked = function handleEditPostButtonClicked() {
+  $(document).on("click", ".edit-post-btn", function () {
+    var postId = $(this).data("dir");
+    (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)("admin/editpost/".concat(postId), false);
+  });
+};
+
+var handleAdminDeletePostBtn = function handleAdminDeletePostBtn() {
+  $(document).on("click", ".delete-post-btn", function () {
+    var deletePostBtn = $(this),
+        postHasImages = deletePostBtn.data("posthasimages"),
+        cloudinaryFolderName = deletePostBtn.data("cloudinaryfoldername"),
+        postid = deletePostBtn.data("postid"),
+        postTitle = deletePostBtn.parent().parent().find(".post-title").text(),
+        infoElement = "",
+        postErrDiv = deletePostBtn.parent().parent().find(".post-error-div"),
+        resultPerPage = $(".next-pre-btn-wrapper").data("resultperpage"),
+        timer = "",
+        time = 1200;
+    postErrDiv.slideUp("slow");
+
+    if (window.confirm("Delete post with title (".concat(postTitle, ") ? please note this can not be undone"))) {
+      deletePostBtn.text("Deleting...."); //Make ajax call to update category
+
+      clearInterval(timer);
+      timer = setTimeout(function () {
+        $.ajax({
+          method: "POST",
+          headers: {
+            Accept: "application/json" //Authorization: tokenData,
+
+          },
+          url: routes.adminDeletepost,
+          //Blade Global veriable defined in the footer
+          data: {
+            postId: postid,
+            postHasImages: postHasImages,
+            cloudinaryFolderName: cloudinaryFolderName
+          },
+          success: function success(data) {
+            if ($.isEmptyObject(data.error)) {
+              time = 1500;
+              deletePostBtn.removeClass("btn-danger").addClass("btn-success").text("Success");
+              clearInterval(timer);
+              timer = setTimeout(function () {
+                deletePostBtn.parent().parent().remove(); //Check how many result left on the page and if is zero reload the page for ne records
+
+                var newResultPerPageValue = resultPerPage - 1;
+
+                if (newResultPerPageValue == 0) {
+                  location.reload();
+                } else {
+                  //update resultPerPage value
+                  $(".next-pre-btn-wrapper").data("resultperpage", newResultPerPageValue);
+                }
+              }, time); //timer
+            } else {
+              deletePostBtn.removeClass("btn-success").addClass("btn-danger").html('<span><i class="fas fa-trash"></i></span>'); //Show error
+
+              infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(data.error, "error");
+              postErrDiv.html(infoElement).slideDown("slow");
+            }
+          }
+        });
+      }, time); // timer before ajax action;
+    } //End window confirmation
+
+  });
+};
+
+$(function () {
+  var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(1); //If page is all post
+
+  if (page == "allpost") {
+    //Handle post pagination
+    handlePostPagination();
+    handleEditPostButtonClicked();
+    handleAdminDeletePostBtn();
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/admin/post/edit-post.js":
+/*!******************************************************!*\
+  !*** ./resources/js/modules/admin/post/edit-post.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var handleRemoveImageBtn = function handleRemoveImageBtn() {
+  $(".uploaded-image .delete-image").click(function () {
+    var imgPublicId = $(this).parent().find("input[type='hidden']").val(),
+        imgPublicIdArray = $("#post-images-tobe-deleted").data("imgpublicid");
+    imgPublicIdArray.push(imgPublicId); // alert(imgPublicId);
+  });
+};
+
+var handleEditPostForm = function handleEditPostForm() {
+  var editPostForm = $("#edit-post-form"); //Reset form on page load
+
+  editPostForm.submit(function (e) {
+    e.preventDefault();
+    var errDiv = $(".err-div"),
+        formWrapper = $(".form-wrapper"),
+        title = $("#title"),
+        formData = new FormData(this),
+        files = $("#edit-post-form input[type=file]")[0],
+        preloadedFiles = editPostForm.find('input[name^="old"]'),
+        totalOldFiles = preloadedFiles.length,
+        totalNewFiles = files.files.length,
+        preloadedFilesToBeDeleted = $("#post-images-tobe-deleted").data("imgpublicid"),
+        totalPreloadedFilesToBeDeleted = preloadedFilesToBeDeleted.length,
+        loader = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnLoaderSpinner)(),
+        selectedCategories = $("#admin-post-category-select"),
+        postBody = $("#postbody"),
+        infoElement = "",
+        msg = "",
+        timer = "",
+        time = 1200; //hide validation error
+
+    errDiv.slideUp("slow"); //Image file is optional, only validate if user attempt to upload
+
+    if (totalNewFiles + totalOldFiles > 10) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Maximum 10 images please thank you", "error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } //Add new images files to form data if totalNewFiles > 0
+
+
+    if (totalNewFiles > 0) {
+      for (var i = 0; i < totalNewFiles; i++) {
+        formData.append("files" + i, files.files[i]);
+      }
+    } //Apend totalNewfiles to from data
+
+
+    formData.append("totalNewFiles", totalNewFiles);
+    formData.append("preloadedFilesToBeDeleted[]", preloadedFilesToBeDeleted);
+    formData.append("totalPreloadedFilesToBeDeleted", totalPreloadedFilesToBeDeleted);
+
+    if (title.val().trim() == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Post title required", "error");
+      title.addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      title.removeClass("input-error");
+    }
+
+    if (selectedCategories.get(0).selectedIndex == -1) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Please select at least on category", "error");
+      $(".easySelect").addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      $(".easySelect").removeClass("input-error");
+    }
+
+    if (postBody.val().trim() == "") {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Post body required", "error");
+      $(".md-toolbar").addClass("input-error");
+      $(".md-editor").addClass("input-error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+      return;
+    } else {
+      $(".md-toolbar").removeClass("input-error");
+      $(".md-editor").removeClass("input-error");
+    }
+
+    if ($('input[name="saveorpublish"]:checked').length == 0) {
+      infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)("Select either to save or published post", "error");
+      errDiv.html(infoElement).slideDown("slow");
+      (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+      $(".saveorpublish").addClass("input-error");
+      return;
+    } else {
+      $(".saveorpublish").removeClass("input-error");
+    } // console.log(formData);
+    // return
+
+
+    formWrapper.prepend(loader);
+    editPostForm.hide("slow");
+    clearInterval(timer);
+    timer = setTimeout(function () {
+      $.ajax({
+        method: "POST",
+        headers: {
+          Accept: "application/json" // Authorization:
+          //     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NTE1NzU2NjksImlzcyI6Imh0dHA6XC9cL2xvY2FsaG9zdCIsIm5iZiI6MTY1MTU3NTY3OSwiZXhwIjoxNjUxNTc2MTY5LCJkYXRhIjp7ImVtYWlsIjoiZGRkZGRAZ21haWwuY29tIn19.zsPadnoglvaxGUwlkusKD6TlNCUEMhJKvxqKnOWds3K7-wPF9jilkzTuyCWjRe8P1bHyFLT5HJ0tNDWl72T0GQ",
+
+        },
+        url: routes.adminUpdatepost,
+        //Blade Global veriable defined in the footer
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function success(data) {
+          if ($.isEmptyObject(data.error)) {
+            time = 1500;
+            msg = "Post updated successfully, please wait...";
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "success");
+            editPostForm.trigger("reset");
+            $(".loader").append(infoElement);
+            clearInterval(timer);
+            timer = setTimeout(function () {
+              $(".success").remove();
+              $(".loader").remove();
+              editPostForm.hide("fast");
+              location.reload();
+            }, time);
+          } else {
+            //Remove validation error
+            $(".alert").remove();
+            $(".loader").remove();
+            editPostForm.slideDown("slow");
+            msg = data.error;
+            infoElement = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleOutputInFo)(msg, "error");
+            errDiv.html(infoElement).slideDown("slow");
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.scrollToDiv)(formWrapper);
+            (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleErrorOnFocus)();
+          }
+        }
+      });
+    }, time); // timer before action;
+  }); //Category multiselect on click
+  //Hide errors
+
+  $(".styledSelect").click(function () {
+    $(".easySelect").removeClass("input-error");
+    $(".err-div").slideUp("slow");
+  }); //Radio button checked
+  //Hide error
+
+  $('input[name="saveorpublish"]').focus(function () {
+    $(".saveorpublish").removeClass("input-error");
+  });
+};
+
+$(function () {
+  var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(2); //If page is Edit post
+
+  if (page == "editpost") {
+    //set proloaded image url and id
+    var imgUrls = $(".edit-post-input-images").data("imgurls"),
+        imgPublicIds = $(".edit-post-input-images").data("imgpublicids"),
+        preloaded = [];
+
+    if (imgUrls != "undefined" && imgUrls.length > 0) {
+      for (var i = 0; i < imgUrls.length; i++) {
+        preloaded.push({
+          id: imgPublicIds[i],
+          src: imgUrls[i]
+        });
+      }
+    }
+
+    $(".edit-post-input-images").imageUploader({
+      imagesInputName: "files",
+      maxSize: 2 * 1024 * 1024,
+      maxFiles: 10,
+      preloaded: preloaded,
+      preloadedInputName: 'old'
+    });
+    $("#admin-post-category-select").easySelect({
+      buttons: true,
+      // 
+      search: true,
+      placeholder: 'Choose category',
+      placeholderColor: '#524781',
+      selectColor: '#524781',
+      itemTitle: 'categories selected',
+      showEachItem: true,
+      width: '100%',
+      dropdownMaxHeight: '450px'
+    });
+    $('#postbody').markdownEditor({
+      // imageUpload: true, // Activate the option
+      //uploadPath: 'upload.php',
+      preview: true,
+      onPreview: function onPreview(content, callback) {
+        callback(marked(content));
+      }
+    }); //set preSelected category option
+
+    var preSelectCategories = $("#admin-post-category-select").data("catids");
+    $('.mulpitply_checkbox_style').each(function () {
+      // check if the current item value is in the array
+      if ($.inArray($(this).val(), preSelectCategories) != -1) {
+        // trigger a click event in order to preselect the item
+        $(this).trigger('click');
+      }
+    });
+    handleRemoveImageBtn();
+    handleEditPostForm();
+  } //END IF PAGE IS ADMIN EDIT
+
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/blog/blog-sidebar.js":
+/*!***************************************************!*\
+  !*** ./resources/js/modules/blog/blog-sidebar.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var handleBlogSidebarCategorySearch = function handleBlogSidebarCategorySearch() {
+  var inputElement = $("#sidebar-search-category-input"),
+      categoryWrapper = $('.sidebar-category-link-wrapper'),
+      clearBtn = $(".sidebar-search-category-icon-times");
+  (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.handleCategorySearchFilter)(inputElement, categoryWrapper, clearBtn);
+};
+
+$(function () {
+  //Run this code only on blog page
+  var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(2);
+
+  if (page == "post" || page == "category" || page == "blog") {
+    handleBlogSidebarCategorySearch();
+  }
 });
 
 /***/ }),
@@ -628,12 +1715,11 @@ var handleLogin = function handleLogin() {
         msg = "",
         timer = "",
         timer2 = "",
-        time2 = 1700,
+        time2 = 1500,
         time = 1200; //hide validation error
 
     errDiv.slideUp("slow");
     formWrapper.append(loader);
-    $(".auth-back-btn").hide("slow");
     $(".form-top-text").hide("slow");
     loginForm.hide("slow");
     clearInterval(timer);
@@ -656,24 +1742,15 @@ var handleLogin = function handleLogin() {
             $(".loader").append(errorElement);
             clearInterval(timer2);
             timer2 = setTimeout(function () {
-              //Show the login form
+              (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)(data.redirectUrl);
               $(".success").remove();
               $(".loader").remove();
-              $(".login-wrapper-div").slideUp("slow"); //If user is admin redirect to admin dashboad
-              //Else show the review form
-
-              if (data.isAdmin) {
-                (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)("admin/dashboard");
-              } else {
-                (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)("blog");
-              } //end if is admin
-
+              $(".login-wrapper-div").hide("fast");
             }, time2);
           } else {
             //Remove validation error
             $(".alert").remove();
             $(".loader").remove();
-            $(".auth-back-btn").show("slow");
             $(".form-top-text").show("slow");
             loginForm.slideDown("slow");
             msg = data.error;
@@ -920,7 +1997,7 @@ var handleCompleteRegister = function handleCompleteRegister() {
 };
 
 $(function () {
-  //Run this code only on reset pass page
+  //Run this code only on register & complete-register page
   var page = (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.returnPartOfUrl)(1);
 
   if (page == "register") {
@@ -1033,6 +2110,24 @@ $(function () {
     //Run above function to handle the form
     handleResetPwdForm();
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/modules/util.js":
+/*!**************************************!*\
+  !*** ./resources/js/modules/util.js ***!
+  \**************************************/
+/***/ (() => {
+
+// Helper function
+var domReady = function domReady(cb) {
+  document.readyState === 'interactive' || document.readyState === 'complete' ? cb() : document.addEventListener('DOMContentLoaded', cb);
+};
+
+domReady(function () {
+  // Display body when DOM is loaded
+  document.body.style.visibility = 'visible';
 });
 
 /***/ }),

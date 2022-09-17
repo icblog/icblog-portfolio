@@ -163,7 +163,7 @@ const handleCompleteRegister = () => {
 };
 
 $(function () {
-    //Run this code only on reset pass page
+    //Run this code only on register & complete-register page
     let page = returnPartOfUrl(1);
 
     if (page == "register") {

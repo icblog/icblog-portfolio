@@ -2,7 +2,7 @@
 @section("content")
 @section('title', 'home')
 
-<div class="container">
+<div class="container homepage-container">
 	<div class="content-wrapper row">
 	 <div class="col-md-9 mx-auto">
 	  <div class="row">
@@ -18,7 +18,7 @@
 			More about me</a><span class="more-about-me-arrow"> >></span></p>
         </div>
 	</div><!-- End row div --> 	
- </div><!-- End col-md-8 div --> 
+ </div><!-- End col-md-9 div --> 
 </div><!-- End content-wrapper row div--> 
 </div><!-- End container div -->
 

@@ -1,0 +1,71 @@
+.post-wrapper {
+    background-color: $whiteColor;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.post-entry-wrapper {
+    height: 100%;
+    border: 0.1rem solid rgb(231, 228, 228);
+}
+
+.post-entry-detail-wrapper {
+    padding: 0.6rem;
+    background-color: $whiteColor;
+
+}
+
+.post-entry-category-link-span a {
+    color: $baseColor;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+.post-entry-title a {
+    color: $blackColor;
+    font-weight: 600;
+    font-size: 1.2rem;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+}
+
+.post-entry-title {
+    //margin-top: -0.8rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.4rem;
+}
+
+.post-entry-detail-p {
+    color: $baseColor;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.equal {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.blog-pagi-link-wrapper nav ul {
+    justify-content: center;
+}
+
+.blog-pagi-link-wrapper nav ul .page-link {
+    margin-right: 0.8rem;
+}
+
+.blog-pagi-link-wrapper nav ul .page-item:last-child .page-link,
+.blog-pagi-link-wrapper nav ul .page-item:first-child .page-link {
+    border-radius: 0;
+}
+
+@media (max-width: 991.98px) {}
+
+@media (max-width: 767.98px) {}
+
+@media (max-width: 575.98px) {}

@@ -16,9 +16,9 @@
                         <div class="form-group">
                             <label class="form-label" for="email">Email *</label>
                             <input type="email" class="form-control" id="forgotten-pwd-email-input"
-                                placeholder="Enter email" name="email">
+                                placeholder="Enter email" name="email"  maxlength="255">
                         </div>
-                        <input type="hidden" value="" name="recaptcha">
+                        <input type="hidden" value="" name="recaptcha"  maxlength="1">
                         <p class="small">
                             All fields marked with a * are mandatory
                         </p>

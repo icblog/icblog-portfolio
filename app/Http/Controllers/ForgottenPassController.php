@@ -4,21 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Traits\TokenTrait;
-use App\Traits\HelperTrait;
 use App\Models\User;
 
 class ForgottenPassController extends BaseController{
-    use TokenTrait;
-    use HelperTrait;
-      //METHODS USED FROM TokenTrait
-      //genarateToken
+//METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//returnGenericSystemErrMsg
 
-     //METHODS USED FROM HelperTrait
-     //returnGenericSystemErrMsg
-     
+//METHODS USED FROM TOKEN TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//genarateToken
 
-     public function index(){
+  public function index(){
         $pageIntro = "Forgotten pass";
         return view('/forgotten-pass.index', ["pageIntro"=>$pageIntro]);
         

@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppMail;
-use App\Traits\HelperTrait;
-class ContactController extends Controller{
-     use HelperTrait;
+
+class ContactController extends BaseController{
+//METHODS USED FROM HELPER TRAIT FROM BASE CONTROLLER CLASS WHICH THIS CLASS EXTENDS
+//returnGenericSystemErrMsg
+   
     public function index(Request $request){
            //Check if the hidden recaptcha input is filled in,
         //is a bot that filled the form in, throw an error.
