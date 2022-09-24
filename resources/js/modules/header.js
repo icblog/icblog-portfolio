@@ -13,6 +13,23 @@ const toggleMenu = () => {
 	});
 };
 
+const toggleStickyHeader = () => {
+	let stickyOffset = $("#main-header").offset().top,
+		header = $("#main-header");
+	$(window).scroll(function () {
+		let scroll = $(window).scrollTop();
+
+		if (scroll > stickyOffset) {
+			header.addClass("header-sticky");
+			$("#main-header");
+		} else {
+			header.removeClass("header-sticky");
+		}
+	});
+
+}
+
 $(document).ready(function () {
 	toggleMenu();
+	toggleStickyHeader();
 });

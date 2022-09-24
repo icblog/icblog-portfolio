@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-4">
         <div class="single-post-details-wrapper box-shadow">
-          @if($singlePostResult != "")
+          @if($singlePostResult != null)
            <div class="single-post-body-wrapper p-3">
            <p class="single-post-title">{{$singlePostResult->title}}</p>
            <p class="single-post-author-p">By: {{$singlePostResult->createdby_name}} in 
@@ -24,7 +24,7 @@
                @endfor
            on {{ Date::parse($singlePostResult->created_at)->format('j F, Y') }}</p>
            <div class="single-post-content">
-            {{ Markdown::parse($singlePostResult->body) }}
+            {!! Str::markdown($singlePostResult->body) !!}
           </div>
           
          </div>
@@ -39,7 +39,7 @@
              <div class="col-md-12"><hr/></div>
              
             <div class="col-md-6 text-left next-prev-link-wrapper">
-            @if($previousPostResult != "") 
+            @if($previousPostResult != null) 
               <a href="{{ URL::route('blog.show', $previousPostResult->slug) }}">
 							  <span>Previous Post </span>
 							  <p>{{$previousPostResult->title}}</p>
@@ -49,7 +49,7 @@
            
 
            <div class="col-md-6 next-prev-link-wrapper text-right">
-           @if($nextPostResult != "") 
+           @if($nextPostResult != null) 
             <a href="{{ URL::route('blog.show', $nextPostResult->slug) }}">
 							  <span class="btn-content-title"> Next Post</span>
 							  <p>{{$nextPostResult->title}}</p>

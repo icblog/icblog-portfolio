@@ -1,6 +1,6 @@
 @extends("layouts.layout")
 @section("content")
-@section('title', 'admin dashboard')
+@section('title', 'admin add post')
 <section>
   <div class="container-fluid">
     <div class="row pt-5">
@@ -43,6 +43,7 @@
                         </div>
                         <div class="form-group">
                           <label class="form-label" for="postbody">Body *</label>
+                          <p>You can use markdown inside the body area click <a href="https://www.markdownguide.org/cheat-sheet" rel="nofollow" target="_blank">here</a> for more info thank you.</p>
                           <textarea class="form-control" id="postbody" name="postbody" rows="3" maxlength="10000"></textarea>
                         </div>
                         <div class="text-center saveorpublish">

@@ -12,7 +12,7 @@
 }
 
 .single-post-title {
-    font-size: 3rem;
+    font-size: 2.1rem;
     color: $blackColor;
     padding-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -22,6 +22,7 @@
     background-color: $lighterGreyColor;
     display: inline-block;
     padding: 0.1rem 0.5rem;
+    font-size: 0.8rem;
 }
 
 .next-prev-link-wrapper a {
@@ -35,10 +36,12 @@
 }
 
 .next-prev-link-wrapper a p {
-
     font-weight: normal;
+}
 
-
+.single-post-content pre {
+    background-color: $lightGreyColor;
+    padding: 0.8rem;
 }
 
 

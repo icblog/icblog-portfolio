@@ -31,14 +31,15 @@
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     
     <!-- MAIN CSS -->
+    @if(App::environment(['local', 'staging']))
     <link rel="stylesheet" href="{{ asset('css/main.css?v='.rand(1,99)) }}">
-    <!-- <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    -->
+    @else
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    @endif
 </head>
 
 <body style="visibility: hidden;">
-
-    <header id="main-header">
+   <header id="main-header">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -48,8 +49,8 @@
                         </div><!-- End left-content-wrapper -->
                         <div class="middle-content-wrapper">
                             <ul>
-                                <li>
-                                    <button type="button" title="Close menu" class="show-on-mobile hide-on-desktop"
+                                <li class="show-on-mobile hide-on-desktop">
+                                    <button type="button" title="Close menu" class="close-menu-btn"
                                         id="small-screen-close-menu-btn">
                                         <span><i class="fas fa-times"></i></span>
                                     </button>
@@ -64,6 +65,16 @@
                         </div><!-- End middle-content-wrapper -->
                         <div class="right-content-wrapper">
                             <ul>
+                            @if(Route::currentRouteName() == 'blog.index' || Route::currentRouteName() == 'blog.show')
+                                <li>
+                                    <button type="button" title="Search"
+                                        class="search-btn" id="search-btn">
+                                        <span><i class="fa fa-search"></i></span>
+                                    </button>
+                                </li>
+                               
+                                @endif
+                                
                                 <li>
                                     <button type="button" title="Open menu"
                                         class="menu-btn show-on-mobile hide-on-desktop" id="small-screen-open-menu-btn">
@@ -73,8 +84,7 @@
                                 @if(Auth::check())
                                     <li>
                                         <span class="account-link">
-
-                                            <div class="dropdown">
+                                               <div class="dropdown">
                                                 <a href="/user/profile" title="Account" class="hello-user">
                                                     <i class="fa fa-user"></i>
                                                 </a>
@@ -118,4 +128,12 @@
     <!-- include Logout modal -->
     @include('logout.logout-modal')
     <!-- include Verify modal -->
+    @if(Route::currentRouteName() == 'verify.index')
     @include('verify.verify-modal')
+    @endif
+     <!-- include search modal if on blog page-->
+    @if(Route::currentRouteName() == 'blog.index' || Route::currentRouteName() == 'blog.show')
+    @include('blog.search-modal')
+    @endif
+
+     

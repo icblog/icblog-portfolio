@@ -1,3 +1,6 @@
+//vendor styles
+//@import "modules/vendor/easySelectStyle";
+
 // Site Styles
 @import "modules/color";
 @import "modules/font";
@@ -13,10 +16,13 @@
 @import "modules/verify";
 @import "modules/about";
 @import "modules/footer";
+
 //Blog styles
+@import "modules/blog/main-search";
 @import "modules/blog/blog-home";
 @import "modules/blog/blog-single";
 @import "modules/blog/blog-side-bar";
+
 
 
 

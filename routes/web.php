@@ -76,6 +76,7 @@ Route::get('/blog/{action}/{slug}',[BlogController::class, 'index'])->name("blog
 Route::get('/blog',[BlogController::class, 'redirectToBlogHome']);
 Route::get('/blog/post',[BlogController::class, 'redirectToBlogHome']);
 Route::get('/blog/{postSlug}',[BlogController::class, 'show'])->name("blog.show");
+Route::post('/blog/search',[BlogController::class, 'search'])->name("blog.search");
 
 
 

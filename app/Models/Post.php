@@ -16,7 +16,7 @@ class Post extends Model{
       
          $post = DB::table('posts')->where($whereColumn,$whereValue)->first();
       
-         if($post) {
+         if(!is_null($post)) {
             $outComeArray["success"] = true;
          }
       
@@ -99,7 +99,7 @@ class Post extends Model{
   }//End fetchPost
 
   public static function fetchSinglePost($isAdmin=false,$whereColumn="", $equalToValue=""){
-    $outComeArray = array("error"=>false, "postResult"=> "");
+    $outComeArray = array("error"=>false, "postResult"=> null);
   
   try {
 
@@ -133,7 +133,7 @@ class Post extends Model{
       return $outComeArray;
   
     } catch (\Exception $e) { 
-      $outComeArray["error"] = $e;
+      $outComeArray["error"] = true;
       return $outComeArray;
     }
    
@@ -167,7 +167,7 @@ try {
     return $outComeArray;
 
   } catch (\Exception $e) { 
-    $outComeArray["error"] = $e;
+    $outComeArray["error"] = true;
     return $outComeArray;
   }
  
@@ -202,7 +202,7 @@ try {
     return $outComeArray;
 
   } catch (\Exception $e) { 
-    $outComeArray["error"] = $e;
+    $outComeArray["error"] = true;
     return $outComeArray;
   }
  
@@ -233,7 +233,7 @@ try {
     return $outComeArray;
 
   } catch (\Exception $e) { 
-    $outComeArray["error"] = $e;
+    $outComeArray["error"] = true;
     return $outComeArray;
   }
  
@@ -241,7 +241,7 @@ try {
 
 
 public static function fetchNextOrPreviousPost($currentPostId,$action){
-  $outComeArray = array("error"=>false, "postResult"=> []);
+  $outComeArray = array("error"=>false, "postResult"=> null);
 
 try {
           $operator = "";
@@ -251,19 +251,45 @@ try {
             $operator = ">";
          }
   $outComeArray["postResult"] = DB::table('posts')
-                ->select('posts.slug','posts.title')
-                ->where('posts.status', 'published')
-                ->where('posts.id', $operator, $currentPostId)
+                ->select('slug','title')
+                ->where('status', 'published')
+                ->where('id', $operator, $currentPostId)
                 ->first();
 
     return $outComeArray;
 
   } catch (\Exception $e) { 
-    $outComeArray["error"] = $e;
+    $outComeArray["error"] = true;
     return $outComeArray;
   }
  
 }//End fetchNextOrPreviousPost
 
+public static function searchPost($searchedWord){
+  $outComeArray = array("error"=>false, "searchResult"=> []);
+
+try {
+       
+  $outComeArray["searchResult"] = DB::table('posts')
+                ->select('slug','title')
+                ->where([
+                  ['title', 'LIKE', "%{$searchedWord}%"],
+                  ['status', '=', 'published'],
+                ])
+                ->orWhere([
+                  ['body', 'LIKE', "%{$searchedWord}%"],
+                  ['status', '=', 'published'],
+                ])
+               ->limit(10)
+               ->get();
+
+    return $outComeArray;
+
+  } catch (\Exception $e) { 
+    $outComeArray["error"] = true;
+    return $outComeArray;
+  }
+ 
+}//End searchPost
 
 }//End class

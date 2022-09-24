@@ -1,5 +1,12 @@
 <footer>
-    <p>@copyright 2022</p>
+     <div class="container">
+       <div class="row">
+       <div class="col-md-12">
+        <hr/>
+          <p>icblog. @ 2022</p>
+      </div>
+     </div>
+    </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -29,6 +36,8 @@
         'contactIndex': '{{ route('contact.index') }}',
         'blogIndex': '{{ URL::route('blog.index', ['post','latest']) }}',
         'logoutIndex': '{{ route('logout.index') }}',
+        'blogSearch':'{{ route('blog.search') }}',
+        
         //ADMIN ROUTES
         'adminStoreCategory': '{{ route('admin.storecategory') }}',
         'adminUpdateCategory': '{{ route('admin.updatecategory') }}',
@@ -54,7 +63,10 @@
     <script src="https://inacho.github.io/bootstrap-markdown-editor/dist/js/bootstrap-markdown-editor.js"></script>
     @endif
 
-    <script src="{{ asset('js/app.js?v='.rand(1,99)) }}"></script>   
-<!-- <script src="{{ asset('js/app.js') }}"></script> -->
+    @if(App::environment(['local', 'staging']))
+       <script src="{{ asset('js/app.js?v='.rand(1,99)) }}"></script>
+    @else
+    <script src="{{ asset('js/app.js') }}"></script>
+    @endif
 </body>
 </html>

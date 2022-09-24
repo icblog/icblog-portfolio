@@ -1,0 +1,35 @@
+.main-search-input-wrapper {
+    position: relative;
+}
+
+.main-search-input-wrapper .main-search-input {
+    padding-left: 2.3rem;
+}
+
+.main-search-input-wrapper .main-search-icon {
+    position: absolute;
+    top: 0.3rem;
+    left: 0.6rem;
+
+}
+
+.main-search-result-wrapper {
+    min-height: 3rem;
+}
+
+.main-search-result-wrapper a {
+    display: block;
+    width: 100%;
+    color: $baseColor;
+    text-decoration: none;
+    background-color: $lighterGreyColor;
+    margin-bottom: 0.5rem;
+    padding: 0.6rem !important;
+    font-weight: bold;
+
+    &:hover {
+        text-decoration: none;
+        background-color: $lightGreyColor;
+    }
+
+}

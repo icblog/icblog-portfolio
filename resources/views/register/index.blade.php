@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-7">
                 <div class="form-wrapper">
-                    <p class="form-top-text">To register, enter your email below.</p>
+                    <p class="form-top-text">To register, enter your email below to begin.</p>
                     <div class="err-div"></div>
                     <form id="initial-register-form" method="POST">
 

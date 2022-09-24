@@ -15,11 +15,8 @@ const handleContactLink = (e) => {
 
     $(document).on("click", ".close-contact-modal", function () {
         $(".contact-link").show("slow");
-        //location.reload();
+
     });
-
-
-
 }
 
 const handleContactForm = () => {

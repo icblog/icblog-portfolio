@@ -108,7 +108,7 @@
         var $li = $('<li/> ').appendTo($maindiv);
 
         var $label = $('<label/> ', {
-          'class': 'container',
+          'class': 'option-container',
           text: $this.children('option').eq(i).text(),
         }).appendTo($li)
 
@@ -258,7 +258,7 @@
       $input.keyup(function () {
         var val = $(this).val().toLowerCase();
         var isMatch = false;
-        $listItems.find('.container').each(function (i) {
+        $listItems.find('.option-container').each(function (i) {
           var content = $(this).html();
           if (content.toLowerCase().indexOf(val) == -1) {
             $(this).hide();

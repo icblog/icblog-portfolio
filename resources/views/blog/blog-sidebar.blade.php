@@ -1,14 +1,12 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 mt-4">
 <div class="side-bar-details-wrapper box-shadow">
     <h5>Categories</h5>
-    @if(!empty($categoriesResult))
+    @if(!$categoriesResult->isEmpty())
        <div class="input-group sidebar-search-category-input-wrapper mb-3">
          <span class="sidebar-search-category-icon-search"><i class="fas fa-search"></i></span>
          <input type="text" class="form-control sidebar-search-category-input" placeholder="Search category" id="sidebar-search-category-input">
          <span class="sidebar-search-category-icon-times"><i class="fas fa-times"></i></span>
          </div>
-      
-       
         <div class="sidebar-category-wrapper">
          @php
            $categoriesResultLen = count($categoriesResult);
@@ -20,14 +18,14 @@
             @endphp
          <div class="sidebar-category-link-wrapper">
              @if($categorySlug == $requestSlug)
-             <span>{{$categoriesResult[$i]->name}}</span>
+             <span class="sidebar-category-span">{{$categoriesResult[$i]->name}} ({{$categoriesResult[$i]->categoryPostTotal}})</span>
              @else
-             <a href="{{ URL::route('blog.index', ['category', $categorySlug]) }}">
-              {{$categoriesResult[$i]->name}}
+             <a class="sidebar-category-link" href="{{ URL::route('blog.index', ['category', $categorySlug]) }}">
+              {{$categoriesResult[$i]->name}} <span> ({{$categoriesResult[$i]->categoryPostTotal}})</span>
              </a>
              @endif
            
-           <span> ({{$categoriesResult[$i]->categoryPostTotal}})</span>
+           
          </div> <!-- end col-md-3 div -->
 
          @endfor
@@ -44,8 +42,8 @@
  @if($urlSlug != "latest")
  <div class="side-bar-details-wrapper box-shadow">
     <h5>Latest post</h5>
-    @empty($latestPostResult)
-    <p class="no-border-radius alert alert-info text-center">There is currently no recent post.</p>
+    @if($latestPostResult->isEmpty())
+    <p class="no-border-radius alert alert-info text-center">There are no <strong>latest</strong> post.</p>
     @else
           @php
            $i = 1;
@@ -72,7 +70,7 @@
     <div class="text-center">
        <a href="{{ URL::route('blog.index', ['post','latest']) }}">All latest post</a>
     </div>
-    @endempty
+    @endif
     
  </div><!-- End side-bar-details-wrapper div --> 
   
@@ -81,8 +79,8 @@
  @if($urlSlug != "popular")
  <div class="side-bar-details-wrapper box-shadow">
     <h5>Popular</h5>
-    @empty($popularPost)
-    <p class="no-border-radius alert alert-info text-center">There is currently no latest post.</p>
+    @if($popularPost->isEmpty())
+    <p class="no-border-radius alert alert-info text-center">There are no <strong>popular</strong> post.</p>
     @else
          @php
            $i = 1;
@@ -109,7 +107,7 @@
         <a href="{{ URL::route('blog.index', ['post','popular']) }}">All popular post</a>
     </div>
 
-    @endempty
+    @endif
     
  </div><!-- End side-bar-details-wrapper div -->
   @endif

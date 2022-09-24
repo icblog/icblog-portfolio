@@ -10,6 +10,7 @@ require("./modules/logout");
 require("./modules/util");
 //=========== BLOG ==========
 require("./modules/blog/blog-sidebar");
+require("./modules/blog/search");
 //=========== ADMIN ==========
 require("./modules/admin/category");
 require("./modules/admin/post/add-post");

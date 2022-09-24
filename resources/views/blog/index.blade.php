@@ -2,13 +2,13 @@
 @section("content")
 @section('title', 'blog home')
 <section>
-  <div class="container">
+  <div class="container pt-5">
   @include('layouts.page-intro')
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-4">
          <div class="post-wrapper box-shadow">
          <div class="row pt-1 display-flex">
-         @empty($mainResult)
+         @if($mainResult->isEmpty())
            <div class="col-sm-12 pt-3">
                {{Markdown::parse('<p class="text-center no-border-radius alert alert-info text-center">'.$noResultMsg.'</p>')}}
           </div>
@@ -49,21 +49,15 @@
        </div>
     </div><!--End col div -->
      @endforeach
-    @endempty
+    @endif
      </div> <!-- End row display-flex -->
      <!-- Show pagination link if we have results -->
-     @if(!empty($mainResult->items()))
+     @if(!$mainResult->isEmpty())
      <div class="row pb-2 pt-4 text-center">
        <div class="blog-pagi-link-wrapper mx-auto md-12">
          {!! $mainResult->links() !!}
        </div> 
      </div>
-     @else
-     <div class="row pb-2 pt-4">
-     <div class="col-sm-12">
-               {{Markdown::parse('<p class="text-center no-border-radius alert alert-info text-center">'.$noResultMsg.'</p>')}}
-      </div>
-      </div>
      @endif
     
     </div> <!-- End div box-shadow -->

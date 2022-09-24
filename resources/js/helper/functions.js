@@ -158,8 +158,12 @@ export const scrollToDiv = (divToScrollTo) => {
 	$('html, body').animate({
 		scrollTop: divToScrollTo.offset().top
 	}, 500);
+}
 
-
+export const scrollToBottomOfDiv = (divToScrollTo) => {
+	$('html, body').animate({
+		scrollTop: divToScrollTo.prop("scrollHeight")
+	}, 500);
 }
 
 

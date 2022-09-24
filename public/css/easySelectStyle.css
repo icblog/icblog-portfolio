@@ -118,7 +118,7 @@
     background-color: #cbcbcb;
 }
 
-.container {
+.option-container {
     display: inherit;
     position: relative;
     margin: 0px;
@@ -130,7 +130,7 @@
     -ms-user-select: none;
 }
 
-.container input {
+.option-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -149,7 +149,7 @@
     border: 1px solid #cbcbcb;
 }
 
-.container input:checked~.checkmark {
+.option-container input:checked~.checkmark {
     background-color: white;
 }
 
@@ -159,11 +159,11 @@
     display: none;
 }
 
-.container input:checked~.checkmark:after {
+.option-container input:checked~.checkmark:after {
     display: block;
 }
 
-.container .checkmark:after {
+.option-container .checkmark:after {
     left: 5px;
     top: 1px;
     width: 4.5px;

@@ -1,5 +1,5 @@
 import {
-   scrollToDiv
+   scrollToBottomOfDiv
 } from "../helper/functions";
 
 
@@ -35,7 +35,7 @@ const handleAboutTabContent = () => {
          $(".about-h5-intro").removeClass("active");
          $(this).addClass("active");
          $("#" + activeTab).slideDown("slow");
-         scrollToDiv($("#" + activeTab));
+         // scrollToBottomOfDiv($("#" + activeTab));
 
 
       }
@@ -45,19 +45,7 @@ const handleAboutTabContent = () => {
       $(".tab_drawer_heading[rel^='" + activeTab + "']").addClass("d_active");
 
    });
-   /* if in drawer mode */
-   // $(".tab_drawer_heading").click(function () {
 
-   //    $(".tab_content").hide();
-   //    var d_activeTab = $(this).attr("rel");
-   //    $("#" + d_activeTab).fadeIn();
-
-   //    $(".tab_drawer_heading").removeClass("d_active");
-   //    $(this).addClass("d_active");
-
-   //    $("ul.tabs li").removeClass("active");
-   //    $("ul.tabs li[rel^='" + d_activeTab + "']").addClass("active");
-   // });
 
 
 

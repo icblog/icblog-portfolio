@@ -9,7 +9,7 @@
             </div>
             <div class="col-md-7">
                 <div class="form-wrapper">
-                    <p class="form-top-text">Enter your registered email below, we will send you a link to reset your
+                    <p class="form-top-text">Enter your registered email below, a link will be sent to reset your
                         password.</p>
                     <div class="err-div"></div>
                     <form id="forgotten-pwd-form" action="POST">

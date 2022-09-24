@@ -1,49 +1,37 @@
 .logo-wrapper a {
 	text-decoration: none;
 	font-weight: bolder;
-	font-family: $basefontFamily;
+	font-family: $hfontFamily;
 	padding: 0;
-	position: relative;
 	margin: 0;
-	font-size: 1.5rem;
+	font-size: 2.1rem;
 	text-transform: lowercase;
-	color: $blackColor !important;
+	color: $blackColor  !important;
+
 	&:hover {
 		text-decoration: none;
 	}
 }
-.logo-ic{
-	//color: $primaryColor;
+
+.logo-dot {
+	font-weight: bolder;
+	color: $primaryColor  !important;
+	font-size: 3rem;
 }
 
-.logo-dot{
-	position: absolute;
-	top: -1.1rem;
-	left: -0.2rem;
-	font-weight: bold;
-	font-size: 3.5rem;
-	color: $primaryColor !important;
-
+.header-sticky .logo-dot {
+	font-size: 2rem;
 }
 
-
-@media (max-width: 1280px) {
+.header-sticky .logo-wrapper a {
+	font-size: 1.8rem;
 
 }
 
+@media (max-width: 1280px) {}
 
+@media (max-width: 991.98px) {}
 
+@media (max-width: 767.98px) {}
 
-@media (max-width: 991.98px) {
-}
-
-@media (max-width: 767.98px) {
-	
-
-	
-}
-
-@media (max-width: 575.98px) {
-
-
-}
+@media (max-width: 575.98px) {}
