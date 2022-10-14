@@ -8,6 +8,7 @@ import {
 const handleSearchBtn = (e) => {
     $(document).on("click", ".search-btn", function () {
         $("#search-modal").modal("show");
+        $("#main-search-input").focus();
         $(".search-btn").hide("slow");
     });
 

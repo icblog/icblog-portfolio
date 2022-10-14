@@ -17,25 +17,26 @@ class User extends Authenticatable{
 
 
 public static function checkIfUserExist($fieldTocheck,$fieldValue){
-    $outComeArray = array("error"=>"", "user"=>"");
+    $outComeArray = array("error" => "", "user" => "");
   
   try {
   
      $user = DB::table('users')->where($fieldTocheck, $fieldValue)->first();
   
-  if($user) {
+     if(!is_null($user)) {
         $outComeArray["user"] = $user;
-         }else{
-        $outComeArray["user"] = "";
      }
   
      return $outComeArray;
   
-    } catch (\Exception $e) { // Also tried JwtException
+    } catch (\Exception $e) { 
       $outComeArray["error"] = true;
       return $outComeArray;
     }
    
-   }//End check if user exist
+}//End check if user exist
+
+
+
 
 }

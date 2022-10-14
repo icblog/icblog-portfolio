@@ -25,7 +25,9 @@ __webpack_require__(/*! ./modules/verify */ "./resources/js/modules/verify.js");
 
 __webpack_require__(/*! ./modules/logout */ "./resources/js/modules/logout.js");
 
-__webpack_require__(/*! ./modules/util */ "./resources/js/modules/util.js"); //=========== BLOG ==========
+__webpack_require__(/*! ./modules/util */ "./resources/js/modules/util.js");
+
+__webpack_require__(/*! ./modules/footer */ "./resources/js/modules/footer.js"); //=========== BLOG ==========
 
 
 __webpack_require__(/*! ./modules/blog/blog-sidebar */ "./resources/js/modules/blog/blog-sidebar.js");
@@ -1465,6 +1467,7 @@ __webpack_require__.r(__webpack_exports__);
 var handleSearchBtn = function handleSearchBtn(e) {
   $(document).on("click", ".search-btn", function () {
     $("#search-modal").modal("show");
+    $("#main-search-input").focus();
     $(".search-btn").hide("slow");
   });
   $(document).on("click", ".close-search-modal", function () {
@@ -1673,6 +1676,31 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/modules/footer.js":
+/*!****************************************!*\
+  !*** ./resources/js/modules/footer.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _helper_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../helper/functions */ "./resources/js/helper/functions.js");
+
+
+var handleBackToTopBtn = function handleBackToTopBtn() {
+  $(".back-to-top-btn").click(function () {
+    $('html, body').animate({
+      scrollTop: 0
+    }, 500);
+  });
+};
+
+$(function () {
+  handleBackToTopBtn();
+});
+
+/***/ }),
+
 /***/ "./resources/js/modules/forgotten-pwd.js":
 /*!***********************************************!*\
   !*** ./resources/js/modules/forgotten-pwd.js ***!
@@ -1691,6 +1719,8 @@ var handleForgottenPwdForm = function handleForgottenPwdForm() {
 
   if (regemail) {
     $("#forgotten-pwd-email-input").val(regemail);
+  } else {
+    $("#forgotten-pwd-email-input").focus();
   }
 
   $(document).on("click", "#forgotten-pwd-form-btn", function (e) {
@@ -1818,6 +1848,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var handleLogin = function handleLogin() {
+  $("#login-email_username").focus();
   (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.inputTypeToggler)(".pwd-btn", ".login-pwd", "click", "text", true);
   $(document).on("click", ".login-form-btn", function (e) {
     e.preventDefault();
@@ -1970,6 +2001,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var handleInitialRegister = function handleInitialRegister() {
+  $("#initial-register-email-input").focus();
   $(document).on("click", "#initial-register-form-btn", function (e) {
     e.preventDefault();
     var regForm = $("#initial-register-form"),
@@ -2092,7 +2124,7 @@ var handleCompleteRegister = function handleCompleteRegister() {
               $(".loader").remove(); //Remove regemail form local storage
 
               localStorage.removeItem("regemail");
-              (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)(routes.blogIndex, true);
+              (0,_helper_functions__WEBPACK_IMPORTED_MODULE_0__.redirect)(data.redirectUrl);
             }, time2);
           } else {
             //Remove validation error
@@ -2243,7 +2275,7 @@ var domReady = function domReady(cb) {
 domReady(function () {
   // Display body when DOM is loaded
   document.body.style.visibility = 'visible';
-});
+}); //Handle back to top button
 
 /***/ }),
 

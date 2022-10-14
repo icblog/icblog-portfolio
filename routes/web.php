@@ -12,6 +12,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ResumeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PingController;
 
 
 use App\Http\Controllers\AdminDashboardController;
@@ -32,6 +33,10 @@ use App\Http\Controllers\AdminCategoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// ==========PING ROUTE===========//
+Route::get('/check-site',[PingController::class, 'index']);
+Route::post('/check-site',[PingController::class, 'index']);
+
 // ==========HOME ROUTE===========//
 Route::get('/',[HomeController::class, 'index'])->name("home.index");
 

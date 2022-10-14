@@ -1,3 +1,6 @@
+
+
+
 // Helper function
 let domReady = (cb) => {
     document.readyState === 'interactive' || document.readyState === 'complete'
@@ -9,3 +12,6 @@ domReady(() => {
     // Display body when DOM is loaded
     document.body.style.visibility = 'visible';
 });
+
+//Handle back to top button
+

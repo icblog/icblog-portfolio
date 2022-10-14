@@ -1,7 +1,7 @@
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 mt-4">
 <div class="side-bar-details-wrapper box-shadow">
     <h5>Categories</h5>
-    @if(!$categoriesResult->isEmpty())
+    @if(count($categoriesResult) > 0)
        <div class="input-group sidebar-search-category-input-wrapper mb-3">
          <span class="sidebar-search-category-icon-search"><i class="fas fa-search"></i></span>
          <input type="text" class="form-control sidebar-search-category-input" placeholder="Search category" id="sidebar-search-category-input">
@@ -42,10 +42,8 @@
  @if($urlSlug != "latest")
  <div class="side-bar-details-wrapper box-shadow">
     <h5>Latest post</h5>
-    @if($latestPostResult->isEmpty())
-    <p class="no-border-radius alert alert-info text-center">There are no <strong>latest</strong> post.</p>
-    @else
-          @php
+ @if(count($latestPostResult) > 0)
+    @php
            $i = 1;
          @endphp
     @foreach ($latestPostResult as $post_entry)
@@ -70,6 +68,9 @@
     <div class="text-center">
        <a href="{{ URL::route('blog.index', ['post','latest']) }}">All latest post</a>
     </div>
+   
+    @else
+    <p class="no-border-radius alert alert-info text-center">There are no <strong>latest</strong> post.</p>
     @endif
     
  </div><!-- End side-bar-details-wrapper div --> 
@@ -79,10 +80,8 @@
  @if($urlSlug != "popular")
  <div class="side-bar-details-wrapper box-shadow">
     <h5>Popular</h5>
-    @if($popularPost->isEmpty())
-    <p class="no-border-radius alert alert-info text-center">There are no <strong>popular</strong> post.</p>
-    @else
-         @php
+  @if(count($popularPost) > 0)
+    @php
            $i = 1;
          @endphp
     @foreach ($popularPost as $post_entry)
@@ -106,6 +105,9 @@
     <div class="text-center">
         <a href="{{ URL::route('blog.index', ['post','popular']) }}">All popular post</a>
     </div>
+   
+    @else
+    <p class="no-border-radius alert alert-info text-center">There are no <strong>popular</strong> post.</p>
 
     @endif
     

@@ -17,13 +17,13 @@ header .header-content-wrapper .left-content-wrapper {
 
 header .header-content-wrapper .middle-content-wrapper {
 	order: 2;
-	width: 80%;
+	width: 75%;
 	line-height: 2.375rem;
 }
 
 header .header-content-wrapper .right-content-wrapper {
 	order: 3;
-	width: 5%;
+	width: 10%;
 }
 
 /* Middle Nav Style */
@@ -37,7 +37,7 @@ header .header-content-wrapper .middle-content-wrapper ul li a {
 	text-decoration: none;
 	color: $baseColor;
 	font-family: $hfontFamily;
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 
 
 	&:hover {
@@ -52,7 +52,7 @@ header .header-content-wrapper .middle-content-wrapper ul li a {
 }
 
 .header-sticky .middle-content-wrapper ul li a {
-	font-size: 1.2rem !important;
+	font-size: 1rem !important;
 
 }
 
@@ -75,7 +75,7 @@ header .header-content-wrapper .right-content-wrapper ul li {
 
 header .header-content-wrapper .right-content-wrapper .search-btn {
 	background-color: transparent;
-	font-size: 1.5rem;
+	font-size: 1.4rem;
 	color: $baseColor;
 
 	&:hover {
@@ -118,10 +118,10 @@ header .header-content-wrapper .right-content-wrapper .dropdown-content {
 }
 
 header .header-content-wrapper .right-content-wrapper .dropdown-content .span-user-name {
-	text-align: center !important;
 	display: block;
 	border-bottom: 0.1rem solid $midGreyColor;
-	margin: 0 0.8rem 0.3rem 0.8rem;
+	margin: 0.3rem 0rem;
+	font-size: 0.9rem;
 }
 
 /* Links inside the dropdown */

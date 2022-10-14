@@ -15,7 +15,7 @@
           <div class="err-div-search-form"></div>
           <div class="form-group main-search-input-wrapper">
           <span class="main-search-icon"><i class="fas fa-search"></i></span>
-           <input type="text" name="searchedword" id="main-search-input" class="main-search-input form-control"  placeholder="search post..." maxlength="255"/> 
+           <input type="text" name="searchedword" id="main-search-input" class="main-search-input form-control" maxlength="255"/> 
          </div>
       </form>
      </div>

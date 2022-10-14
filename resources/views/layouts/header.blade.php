@@ -9,15 +9,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Sans+Pro&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-
-   
-
     <!-- ADD STYLE FOR POST PLUG INS CSS -->
     @if(Route::currentRouteName() == "admin.addpost" || Route::currentRouteName() == "admin.editPostIndex")
     <link rel="stylesheet" href="{{ asset('css/easySelectStyle.css') }}">
@@ -91,7 +86,7 @@
                                                 <div class="dropdown-content">
 
                                                     <span class="span-user-name hello-user">Hi,
-                                                        {{ Auth::user()->first_name }}</span>
+                                                        {{ Auth::user()->username }}</span>
 
 
                                                    @if (Auth::user()->role == "a_admin")
@@ -99,11 +94,11 @@
                                                             Admin
                                                         </a>
 
-                                                    @else
-                                                        <a href="/user/profile">
-                                                            Account
-                                                        </a>
-                                                    @endif
+                                                   @endif
+                                                     <a href="/user/profile">
+                                                            Profile
+                                                     </a>
+                                                    
                                                     <a id="logout-link" href="/logout">
                                                         Log Out
                                                     </a>

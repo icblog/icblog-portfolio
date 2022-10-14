@@ -8,6 +8,7 @@ require("./modules/login");
 require("./modules/verify");
 require("./modules/logout");
 require("./modules/util");
+require("./modules/footer");
 //=========== BLOG ==========
 require("./modules/blog/blog-sidebar");
 require("./modules/blog/search");

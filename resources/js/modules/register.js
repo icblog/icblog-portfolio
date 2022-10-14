@@ -9,6 +9,9 @@ import {
 import { validateEmail } from "../helper/validations";
 
 const handleInitialRegister = () => {
+
+    $("#initial-register-email-input").focus();
+
     $(document).on("click", "#initial-register-form-btn", function (e) {
         e.preventDefault();
         let regForm = $("#initial-register-form"),
@@ -142,7 +145,7 @@ const handleCompleteRegister = () => {
                             $(".loader").remove();
                             //Remove regemail form local storage
                             localStorage.removeItem("regemail");
-                            redirect(routes.blogIndex, true);
+                            redirect(data.redirectUrl);
                         }, time2);
                     } else {
                         //Remove validation error

@@ -13,8 +13,8 @@
                     <div class="err-div"></div>
                     <form id="login-form" class="login-form" method="POST">
                         <div class="form-group">
-                            <label class="form-label" for="email">Email *</label>
-                            <input type="text" class="form-control" id="login-email" name="email"  maxlength="255">
+                            <label class="form-label" for="login-email_username">Email/Username *</label>
+                            <input type="text" class="form-control" id="login-email_username" name="email_username"  maxlength="255">
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="password">Password *</label>

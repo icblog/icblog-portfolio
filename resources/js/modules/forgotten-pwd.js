@@ -10,6 +10,8 @@ const handleForgottenPwdForm = () => {
     let regemail = localStorage.getItem("regemail");
     if (regemail) {
         $("#forgotten-pwd-email-input").val(regemail);
+    } else {
+        $("#forgotten-pwd-email-input").focus();
     }
     $(document).on("click", "#forgotten-pwd-form-btn", function (e) {
         e.preventDefault();

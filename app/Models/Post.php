@@ -60,7 +60,7 @@ class Post extends Model{
                 $outComeArray["postResult"] =  DB::table('posts')
                 ->leftjoin('users AS A', 'A.id', '=', 'posts.created_by')
                 ->leftjoin('users AS B', 'B.id', '=', 'posts.updated_by')
-                ->select('posts.id','posts.title','posts.status','posts.has_images','posts.cloudinary_folder_name','posts.created_at','posts.updated_at','A.first_name as createdby_name','B.first_name as updatedby_name')
+                ->select('posts.id','posts.title','posts.status','posts.has_images','posts.cloudinary_folder_name','posts.created_at','posts.updated_at','A.username as createdby_name','B.username as updatedby_name')
                 ->orderBy('posts.id', 'desc')
                 ->offset($offset)
                 ->limit($resultPerPage)
@@ -71,7 +71,7 @@ class Post extends Model{
                    $outComeArray["postResult"] =  DB::table('posts')
                   ->leftjoin('users AS A', 'A.id', '=', 'posts.created_by')
                   ->leftjoin('users AS B', 'B.id', '=', 'posts.updated_by')
-                  ->select('posts.id','posts.title','posts.status','posts.has_images','posts.created_at','posts.updated_at','A.first_name as createdby_name','B.first_name as updatedby_name')
+                  ->select('posts.id','posts.title','posts.status','posts.has_images','posts.created_at','posts.updated_at','A.username as createdby_name','B.username as updatedby_name')
                   ->where($whereColumn, $equalToValue)
                   ->orderBy('posts.id', 'desc')
                   ->offset($offset)
@@ -108,7 +108,7 @@ class Post extends Model{
                //Add where condition
                  $outComeArray["postResult"] =  DB::table('posts')
                  //->select('posts.id','posts.title','posts.status','posts.created_at','posts.updated_at')
-                ->select('posts.id','posts.title','posts.status','posts.has_images','posts.cloudinary_folder_name','posts.created_at','posts.updated_at','posts.body','A.first_name as createdby_name','B.first_name as updatedby_name',DB::raw('group_concat(DISTINCT C.id) as catIds, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls, group_concat(DISTINCT I.public_id) as imgPublicIds'))
+                ->select('posts.id','posts.title','posts.status','posts.has_images','posts.cloudinary_folder_name','posts.created_at','posts.updated_at','posts.body','A.username as createdby_name','B.username as updatedby_name',DB::raw('group_concat(DISTINCT C.id) as catIds, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls, group_concat(DISTINCT I.public_id) as imgPublicIds'))
                 ->leftjoin('users AS A', 'A.id', '=', 'posts.created_by')
                 ->leftjoin('users AS B', 'B.id', '=', 'posts.updated_by')
                 ->join('posts_x_categories AS X', 'posts.id', '=', 'X.post_id')
@@ -121,7 +121,7 @@ class Post extends Model{
                }else{
 
                 $outComeArray["postResult"] =  DB::table('posts')
-                ->select('posts.id','posts.title','posts.body','posts.views','posts.created_at','A.first_name as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames'))
+                ->select('posts.id','posts.title','posts.body','posts.views','posts.created_at','A.username as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames'))
                 ->join('users AS A', 'A.id', '=', 'posts.created_by')
                 ->join('posts_x_categories AS X', 'posts.id', '=', 'X.post_id')
                 ->join('categories AS C', 'C.id', '=', 'X.category_id')
@@ -146,7 +146,7 @@ public static function fetchLatestPost($resultPerPage=4, $paginate=false){
 try {
 
   $query =  DB::table('posts')
-                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.first_name as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
+                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.username as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
                 ->join('users AS A', 'A.id', '=', 'posts.created_by')
                 ->join('posts_x_categories AS X', 'posts.id', '=', 'X.post_id')
                 ->join('categories AS C', 'C.id', '=', 'X.category_id')
@@ -179,7 +179,7 @@ public static function fetchPopularPost($resultPerPage=4, $paginate=false){
 
 try {
         $query = DB::table('posts')
-                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.first_name as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
+                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.username as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
                 ->join('users AS A', 'A.id', '=', 'posts.created_by')
                 ->join('posts_x_categories AS X', 'posts.id', '=', 'X.post_id')
                 ->join('categories AS C', 'C.id', '=', 'X.category_id')
@@ -216,7 +216,7 @@ public static function fetchPostWithCategorySlug($resultPerPage=8,$categorySlug)
 
 try {
   $outComeArray["postResult"] = DB::table('posts')
-                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.first_name as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
+                ->select('posts.slug','posts.title','posts.views','posts.created_at','A.username as createdby_name',DB::raw('group_concat(DISTINCT C.slug) as catSlugs, group_concat(DISTINCT C.name) as catNames, group_concat(DISTINCT I.img_url) as imgUrls'))
                 ->join('users AS A', 'A.id', '=', 'posts.created_by')
                 ->join('posts_x_categories AS X', 'posts.id', '=', 'X.post_id')
                 ->join('categories AS C', 'C.id', '=', 'X.category_id')

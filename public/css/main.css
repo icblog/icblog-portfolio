@@ -23,9 +23,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Rajdhani", sans-serif;
+  font-family: "Inter", sans-serif;
   color: #000000;
-  text-transform: uppercase;
   font-weight: 600;
 }
 
@@ -66,9 +65,9 @@ textarea:focus,
 
 html,
 body {
-  font-size: clamp(12px, 0.8rem + 0.25vw, 20px);
+  font-size: clamp(12px, 0.9rem + 0.25vw, 20px);
   line-height: 1.7;
-  font-family: Verdana, sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   color: #4c4c4c;
   width: 100%;
   height: 100%;
@@ -260,13 +259,13 @@ header .header-content-wrapper .left-content-wrapper {
 
 header .header-content-wrapper .middle-content-wrapper {
   order: 2;
-  width: 80%;
+  width: 75%;
   line-height: 2.375rem;
 }
 
 header .header-content-wrapper .right-content-wrapper {
   order: 3;
-  width: 5%;
+  width: 10%;
 }
 
 /* Middle Nav Style */
@@ -279,8 +278,8 @@ header .header-content-wrapper .middle-content-wrapper ul li {
 header .header-content-wrapper .middle-content-wrapper ul li a {
   text-decoration: none;
   color: #4c4c4c;
-  font-family: "Rajdhani", sans-serif;
-  font-size: 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1.1rem;
 }
 header .header-content-wrapper .middle-content-wrapper ul li a:hover {
   color: #252525;
@@ -293,7 +292,7 @@ header .header-content-wrapper .middle-content-wrapper ul li a:hover {
 }
 
 .header-sticky .middle-content-wrapper ul li a {
-  font-size: 1.2rem !important;
+  font-size: 1rem !important;
 }
 
 header .header-content-wrapper .middle-content-wrapper .header-nav-link.active {
@@ -314,7 +313,7 @@ header .header-content-wrapper .right-content-wrapper ul li {
 
 header .header-content-wrapper .right-content-wrapper .search-btn {
   background-color: transparent;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #4c4c4c;
 }
 header .header-content-wrapper .right-content-wrapper .search-btn:hover {
@@ -351,10 +350,10 @@ header .header-content-wrapper .right-content-wrapper .dropdown-content {
 }
 
 header .header-content-wrapper .right-content-wrapper .dropdown-content .span-user-name {
-  text-align: center !important;
   display: block;
   border-bottom: 0.1rem solid #c2c2c2;
-  margin: 0 0.8rem 0.3rem 0.8rem;
+  margin: 0.3rem 0rem;
+  font-size: 0.9rem;
 }
 
 /* Links inside the dropdown */
@@ -497,10 +496,10 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
 .logo-wrapper a {
   text-decoration: none;
   font-weight: bolder;
-  font-family: "Rajdhani", sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 0;
   margin: 0;
-  font-size: 2.1rem;
+  font-size: 1.8rem;
   text-transform: lowercase;
   color: #000000 !important;
 }
@@ -519,7 +518,7 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
 }
 
 .header-sticky .logo-wrapper a {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 .modal-header .close {
@@ -681,7 +680,6 @@ header .header-content-wrapper .right-content-wrapper .hello-user {
 }
 footer {
   padding: 2rem 0rem;
-  text-align: center;
 }
 
 footer p {
@@ -744,11 +742,12 @@ footer p {
 }
 
 .post-entry-title a {
-  color: #000000;
+  color: #4c4c4c;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 .post-entry-title a:hover {
+  color: #000000;
   text-decoration: none;
 }
 

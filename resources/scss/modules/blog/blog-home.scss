@@ -22,11 +22,12 @@
 }
 
 .post-entry-title a {
-    color: $blackColor;
+    color: $baseColor;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1rem;
 
     &:hover {
+        color: $blackColor;
         text-decoration: none;
     }
 

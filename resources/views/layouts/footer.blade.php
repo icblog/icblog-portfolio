@@ -2,8 +2,12 @@
      <div class="container">
        <div class="row">
        <div class="col-md-12">
-        <hr/>
-          <p>icblog. @ 2022</p>
+       <hr/>
+         <div class="back-to-top-btn-wrapper text-right">
+             <button class="back-to-top-btn primary-btn"><i class="fa fa-arrow-up"></i></button>
+         </div>
+        
+          <p class="text-center">icblog. @ 2022</p>
       </div>
      </div>
     </div>

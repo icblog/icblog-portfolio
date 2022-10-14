@@ -9,7 +9,7 @@ import {
 
 
 const handleLogin = () => {
-
+    $("#login-email_username").focus();
     inputTypeToggler(".pwd-btn", ".login-pwd", "click", "text", true);
     $(document).on("click", ".login-form-btn", function (e) {
         e.preventDefault();

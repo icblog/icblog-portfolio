@@ -103,23 +103,21 @@ public function store(Request $request){
          }
 
   //Custom attribute names
-$attributeNames = array(
-   'fname' => 'first name',
-   'lname' => 'last name'
+// $attributeNames = array(
+//    'fname' => 'first name',
+//    'lname' => 'last name'
  
 
-);
+// );
 
 $validator = Validator::make($request->all(), [
    'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
-   'title'=>'required|string',
-   'fname'=>'required|string',
-   'lname'=>'required|string',
+   'username'=>'required|string',
    'password'=>'required|string|min:8',
 
 ]); 
 
-$validator->setAttributeNames($attributeNames);
+//$validator->setAttributeNames($attributeNames);
 if ($validator->fails()) {
   return response()->json([
       'error' => $validator->errors()->all()
@@ -127,45 +125,71 @@ if ($validator->fails()) {
   die();
    }//end if validation
 
+ 
+
    //Check if user exist if so send the a link to reset their password if not save the data and feedback to ajax.
 
    $userOutCome = User::checkIfUserExist('email',$request->email);
+   
+   //Check If the query resulted in error
    if($userOutCome["error"]){
-    return response()->json([
+      return response()->json([
         'error' => $this->returnGenericSystemErrMsg()
+      ]);
+     die();
+   }//End if out come error
+
+   //Check if user was not found by te email, 
+   //if user was found, send password reset link to their email
+ if($userOutCome["user"] == ""){
+
+     //Check if username already taken.
+    $userOutCome = User::checkIfUserExist('username',$request->username);
+     
+    //Check If the query resulted in error
+    if($userOutCome["error"]){
+     return response()->json([
+         'error' => $this->returnGenericSystemErrMsg()
+     ]);
+    die();
+  }//End if out come error
+
+   //If no error check if the query returned a user
+   //if it did send no duplicate username message
+   if($userOutCome["user"] != ""){
+    return response()->json([
+        'error' => "Username has already been taken, try a different one thank you."
     ]);
    die();
  }//End if out come error
-
-    //Check if is empty, if so store details in DB.
-    //Else send them reset link
- if($userOutCome["user"] == ""){
+     
   try {
 
     $user = new User();
-    $user->title = $request->title;
     $user->email = $request->email;
-    $user->first_name = $request->fname;
-    $user->last_name = $request->lname;
+    $user->username = $request->username;
     $user->token_status = "yes";
     $user->password = Hash::make($request->password);
     $user->uip = $request->ip();
     $user->save();
 
-    //login user
+    //Login the user after registration
 
     $credentials = $request->only('email', 'password');
     Auth::attempt($credentials);
     User::updateLastLoginDate();
     $request->session()->regenerate();
     $isAdmin =  false;
-          if(Auth::user()->role == "a_admin"){
-           $isAdmin =  true;
-          }
+      if(Auth::user()->role == "a_admin"){
+         $isAdmin =  true;
+      } 
+      $redirectUrl = route("blog.index",["post","latest"],false);//route name
+      $redirectUrl = $this->replaceFirstOccuranceOfChar("/","",$redirectUrl);
        return response()->json([
           'error' => "",
           "outcome" => true,
-          "isAdmin"=> $isAdmin
+          "isAdmin"=> $isAdmin,
+          "redirectUrl" => $redirectUrl
       ]);
 
    

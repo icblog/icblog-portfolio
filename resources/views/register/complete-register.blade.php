@@ -12,31 +12,14 @@
                     <p class="form-top-text">Please complete your registration</p>
                     <div class="err-div"></div>
                     <form id="complete-register-form" method="POST">
+                       
                         <div class="form-group">
-                            <label class="form-label">Title *</label>
-                            <select class="form-control" name="title" id="title">
-                                <option value="">Select your title</option>
-                                <option value="Mr">Mr</option>
-                                <option value="Mrs">Mrs</option>
-                                <option value="Miss">Miss</option>
-                                <option value="Ms">Ms</option>
-                                <option value="Dr">Dr</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">First name *</label>
-                            <input type="text" class="form-control" value="" name="fname" id="fname"  maxlength="255" />
+                            <label class="form-label">Username *</label>
+                            <input type="text" class="form-control" value="" name="username" id="username"  maxlength="255" />
 
                         </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Last name *</label>
-                            <input type="text" class="form-control" name="lname" id="lname"  maxlength="255" />
-
-                        </div>
-
-                        <div class="form-group">
+                     <div class="form-group">
                             <label class="form-label" for="pwd">Password *</label>
                             <div class="input-group mb-3">
                                 <input type="password" name="password" id="pwd" class="form-control"  maxlength="255">

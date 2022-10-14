@@ -27,10 +27,19 @@ public function index(){
               ]);
             die();
            }
+
+        //Custom attribute names
+        $attributeNames = array(
+          'email_username' => 'Username or email'
+        );
+
         $validator = Validator::make($request->all(), [
-           'email' => 'required|string|regex:/(.+)@(.+)\.(.+)/i',
+           'email_username' => 'required|string',
            'password'=>'required|string',
-       ]); 
+       ]);
+       
+        //Use custom attributes names for error reporting
+       $validator->setAttributeNames($attributeNames);
        
         if ($validator->fails()) {
           return response()->json([
@@ -39,12 +48,38 @@ public function index(){
           die();
         }//end if validation
        
-       
-               //Log in user if validation pass
+        //Attempt to Log in user if validation pass
            try {
-             $credentials = $request->only('email', 'password');
-             if (Auth::attempt($credentials)) {
-                 User::updateLastLoginDate();
+             $user = false;
+            //Try loging user in with username and password
+             $credentials_1 = array(
+                 "username" => $request->email_username,
+                 "password" => $request->password
+                );
+
+               $user = Auth::attempt($credentials_1);
+
+              if(!$user){
+                //If first credentials failed try loging user in with email and password
+                $credentials_2 = array(
+                  "email" => $request->email_username,
+                  "password" => $request->password
+                 );
+                $user = Auth::attempt($credentials_2);
+              }
+
+
+                 //If that failed too, send an error
+              if(!$user){
+                return response()->json([
+                  'error' => ["The provided credentials do not match our records, please try again."],
+                "outcome" => false
+                ]);
+              }
+
+              //If all good log the user in and feedback ajax
+
+               User::updateLastLoginDate();
                $request->session()->regenerate();
                 
                $defaultUrl = route("blog.index",["post","latest"],false);//route name
@@ -59,14 +94,8 @@ public function index(){
                  "error" => "",
                  "outcome" => true,
                  "redirectUrl" => $intendedUrl
-
-             ]);
-            }else{
-                return response()->json([
-                   'error' => ["The provided credentials do not match our records, please try again."],
-                 "outcome" => false
-             ]);
-            }
+               ]);
+            
         } catch (\Exception $e) {
           
           return response($e)->json([

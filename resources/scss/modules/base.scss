@@ -25,7 +25,6 @@ h5,
 h6 {
 	font-family: $hfontFamily;
 	color: $blackColor;
-	text-transform: uppercase;
 	font-weight: 600;
 }
 
@@ -66,7 +65,7 @@ textarea:focus,
 
 html,
 body {
-	font-size: clamp(12px, .8rem + .25vw, 20px);
+	font-size: clamp(12px, 0.9rem + .25vw, 20px);
 	line-height: 1.7;
 	font-family: $basefontFamily;
 	color: $baseColor;
@@ -78,14 +77,7 @@ body {
 }
 
 
-// #pagi-link-wrapper nav .pagination {
-// 	justify-content: center;
-// }
 
-// #pagi-link-wrapper nav .pagination li.active span {
-// 	background-color: $primaryColor;
-// 	border-color: $primaryColor;
-// }
 
 .content-wrapper-layout {
 

@@ -79,7 +79,7 @@
            <div class="col-md-6">
            <div class="box-shadow project-detail">
                 <img src="{{ asset('imgs/icblog.png') }}" class="project-img" alt="Ishop"/>
-                <p>This is the site you're browsing, I showcase my skills and what I know so far here with
+                <p>This is the site you're browsing, I showcase my skills and what I know so far here with a
                   blog section to give something back to the online community that has been a huge part of my coding journey.</p>
                   <strong>Key features:</strong><br/>
                   <span class="tech-stack-name">Responsive . </span>

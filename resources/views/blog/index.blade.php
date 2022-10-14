@@ -8,12 +8,8 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 mt-4">
          <div class="post-wrapper box-shadow">
          <div class="row pt-1 display-flex">
-         @if($mainResult->isEmpty())
-           <div class="col-sm-12 pt-3">
-               {{Markdown::parse('<p class="text-center no-border-radius alert alert-info text-center">'.$noResultMsg.'</p>')}}
-          </div>
-          @else
-          @foreach ($mainResult as $post_entry)
+         @if(count($mainResult) > 0)
+           @foreach ($mainResult as $post_entry)
           <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pb-3 pt-3">
             <div class="post-entry-wrapper">
              <a href="{{ URL::route('blog.show', $post_entry->slug) }}"><img class="img-fluid" src="{{$post_entry->imgUrls == '' ? 'https://res.cloudinary.com/icblog254/image/upload/v1662665884/icblog/siteimgs/vqkopmclbqxlbtfk9b59.png' : $post_entry->imgUrls}}" alt="Post image"/></a>
@@ -49,10 +45,17 @@
        </div>
     </div><!--End col div -->
      @endforeach
+     @else
+     <div class="col-sm-12 pt-3">
+               {{Markdown::parse('<p class="text-center no-border-radius alert alert-info text-center">'.$noResultMsg.'</p>')}}
+          </div>
+          
     @endif
+
+
      </div> <!-- End row display-flex -->
      <!-- Show pagination link if we have results -->
-     @if(!$mainResult->isEmpty())
+     @if(count($mainResult) > 0)
      <div class="row pb-2 pt-4 text-center">
        <div class="blog-pagi-link-wrapper mx-auto md-12">
          {!! $mainResult->links() !!}
