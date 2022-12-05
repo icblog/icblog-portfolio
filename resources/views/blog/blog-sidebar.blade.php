@@ -33,7 +33,7 @@
      
      @else
      
-       <p class="alert alert-info">Sorry! no categories yet</p>
+       <p class="mt-3 no-border-radius alert alert-info">Sorry! no categories yet</p>
       
       
     @endif
